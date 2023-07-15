@@ -1,9 +1,8 @@
 package;
 
-import flixel.FlxSprite;
 import flixel.FlxSubState;
 
-class ControlsSubState extends FlxSubState
+class ButtonRemapSubstate extends FlxSubState
 {
 	public function new()
 	{
