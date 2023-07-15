@@ -5,7 +5,7 @@ all of this engine is made by me!
 
 # Feature:
 A custom engine must have a custom feature, pop engine will have:
-### New Options Screen:
+### New Options to Adjust:
 A New Options with new select of this with desc text
 ### Score Text and other thing:
 With Misses, Accuracy and Ranking
