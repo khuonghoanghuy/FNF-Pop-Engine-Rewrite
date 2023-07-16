@@ -85,6 +85,15 @@ class OptionsMenu extends MusicBeatState
 						SaveData.downscroll = true;
 						descText.text = "Change layout from upscroll to downscroll - " + SaveData.downscroll;
 					}
+
+				case "Accuracy":
+					if (SaveData.accuracy) {
+						SaveData.accuracy = false;
+						descText.text = "Display more stuff like Misses, Accuracy - " + SaveData.downscroll;
+					} else {
+						SaveData.accuracy = true;
+						descText.text = "Display more stuff like Misses, Accuracy - " + SaveData.downscroll;
+					}
 			}
 		}
 	}
@@ -111,6 +120,8 @@ class OptionsMenu extends MusicBeatState
 				descText.text = "Help you play less miss - " + SaveData.ghosttap;
 			case "Downscroll":
 				descText.text = "Change layout from upscroll to downscroll - " + SaveData.downscroll;
+			case "Accuracy":
+				descText.text = "Display more stuff like Misses, Accuracy - " + SaveData.downscroll;
 		}
 
 		var bullShit:Int = 0;

@@ -1,27 +1,19 @@
 package;
 
+import data.SaveData;
 #if desktop
 import Discord.DiscordClient;
 #end
 import Section.SwagSection;
 import Song.SwagSong;
-import WiggleEffect.WiggleEffectType;
-import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
-import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.FlxSubState;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.effects.FlxTrail;
-import flixel.addons.effects.FlxTrailArea;
-import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.atlas.FlxAtlas;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -31,16 +23,9 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
-import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
-import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
-import haxe.Json;
-import lime.utils.Assets;
-import openfl.display.BlendMode;
-import openfl.display.StageQuality;
-import openfl.filters.ShaderFilter;
 
 using StringTools;
 
@@ -114,6 +99,10 @@ class PlayState extends MusicBeatState
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
+	var totalPlayed:Int = 0;
+	var totalNoteHits:Float = 0.00;
+	var accuracy:Float = 0.00;
+	var misses:Int = 0;
 	var scoreTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
@@ -733,11 +722,6 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
-		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
-		scoreTxt.scrollFactor.set();
-		add(scoreTxt);
-
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -745,6 +729,11 @@ class PlayState extends MusicBeatState
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
+
+		scoreTxt = new FlxText(0, healthBarBG.y + 48, FlxG.width, "", 18);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -786,7 +775,7 @@ class PlayState extends MusicBeatState
 							camHUD.visible = true;
 							remove(blackScreen);
 							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 2.5, {
-								ease: FlxEase.quadInOut,
+								ease: FlxEase.smoothStepInOut,
 								onComplete: function(twn:FlxTween)
 								{
 									startCountdown();
@@ -1230,16 +1219,15 @@ class PlayState extends MusicBeatState
 			}
 
 			babyArrow.animation.play('static');
-			babyArrow.x += 50;
+			babyArrow.x += 75;
 			babyArrow.x += ((FlxG.width / 2) * player);
 
 			strumLineNotes.add(babyArrow);
 		}
 	}
 
-	function tweenCamIn():Void
-	{
-		FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut});
+	function tweenCamIn():Void {
+		FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.smoothStepInOut});
 	}
 
 	override function openSubState(SubState:FlxSubState)
@@ -1364,7 +1352,10 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		scoreTxt.text = "Score:" + songScore;
+		if (SaveData.accuracy)
+			scoreTxt.text = "Score: " + songScore + " - Misses: " + " - Accuracy:";
+		else
+			scoreTxt.text = "Score: " + songScore;
 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
@@ -1680,6 +1671,7 @@ class PlayState extends MusicBeatState
 					{
 						health -= 0.0475;
 						vocals.volume = 0;
+						noteMiss(daNote.noteData, 1);
 					}
 
 					daNote.active = false;
@@ -2130,7 +2122,7 @@ class PlayState extends MusicBeatState
 		});
 	}
 
-	function noteMiss(direction:Int = 1):Void
+	function noteMiss(direction:Int = 1, intMiss:Int):Void
 	{
 		if (!boyfriend.stunned)
 		{
@@ -2140,6 +2132,8 @@ class PlayState extends MusicBeatState
 				gf.playAnim('sad');
 			}
 			combo = 0;
+
+			misses += intMiss;
 
 			songScore -= 10;
 
@@ -2179,13 +2173,13 @@ class PlayState extends MusicBeatState
 		var leftP = controls.LEFT_P;
 
 		if (leftP)
-			noteMiss(0);
+			noteMiss(0, 1);
 		if (downP)
-			noteMiss(1);
+			noteMiss(1, 1);
 		if (upP)
-			noteMiss(2);
+			noteMiss(2, 1);
 		if (rightP)
-			noteMiss(3);
+			noteMiss(3, 1);
 	}
 
 	function noteCheck(keyP:Bool, note:Note):Void
@@ -2243,6 +2237,16 @@ class PlayState extends MusicBeatState
 				note.destroy();
 			}
 		}
+	}
+
+	function calcHit()
+	{
+		getAccuracy(1)
+	}
+
+	function getAccuracy(int:Int)
+	{
+		totalPlayed += int;
 	}
 
 	var fastCarCanDrive:Bool = true;
