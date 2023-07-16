@@ -23,12 +23,8 @@ class MainMenuState extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
-
-	#if !switch
+	
 	var optionShit:Array<String> = ['story mode', 'freeplay', 'donate', 'options'];
-	#else
-	var optionShit:Array<String> = ['story mode', 'freeplay'];
-	#end
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -95,7 +91,12 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "v" + Application.current.meta.get('version'), 12);
+		var versionShit:FlxText = new FlxText(10, FlxG.height - 44, 0, "Pop Engine Rewrite v" + VERSION_POPENGINE, 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionShit);
+
+		var versionShit:FlxText = new FlxText(10, FlxG.height - 22, 0, "v" + Application.current.meta.get('version') + " (v0.2.7.1 CUSTOM BUILD!)", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
@@ -181,8 +182,6 @@ class MainMenuState extends MusicBeatState
 										trace("Freeplay Menu Selected");
 
 									case 'options':
-										FlxTransitionableState.skipNextTransIn = true;
-										FlxTransitionableState.skipNextTransOut = true;
 										FlxG.switchState(new OptionsMenu());
 								}
 							});

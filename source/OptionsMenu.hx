@@ -1,30 +1,24 @@
 package;
 
-import Controls.Control;
-import flash.text.TextField;
+import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.keyboard.FlxKey;
-import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import lime.utils.Assets;
+import data.SaveData;
 
 class OptionsMenu extends MusicBeatState
 {
 	var selector:FlxText;
 	var curSelected:Int = 0;
 
-	var controlsStrings:Array<String> = [];
+	var controlsStrings:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Botplay", "Watermark"];
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
 	override function create()
 	{
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		controlsStrings = CoolUtil.coolTextFile(Paths.txt('controls'));
 		menuBG.color = 0xFFea71fd;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
@@ -32,68 +26,60 @@ class OptionsMenu extends MusicBeatState
 		menuBG.antialiasing = true;
 		add(menuBG);
 
-		/* 
-			grpControls = new FlxTypedGroup<Alphabet>();
-			add(grpControls);
+		grpControls = new FlxTypedGroup<Alphabet>();
+		add(grpControls);
 
-			for (i in 0...controlsStrings.length)
-			{
-				if (controlsStrings[i].indexOf('set') != -1)
-				{
-					var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, controlsStrings[i].substring(3) + ': ' + controlsStrings[i + 1], true, false);
-					controlLabel.isMenuItem = true;
-					controlLabel.targetY = i;
-					grpControls.add(controlLabel);
-				}
-				// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
-			}
-		 */
+		for (i in 0...controlsStrings.length)
+		{
+			var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, controlsStrings[i], true, false);
+			controlLabel.isMenuItem = true;
+			controlLabel.targetY = i;
+			grpControls.add(controlLabel);
+			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
+		}
 
 		super.create();
-
-		openSubState(new OptionsSubState());
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		/* 
-			if (controls.ACCEPT)
-			{
-				changeBinding();
-			}
+		if (controls.ACCEPT)
+			changeSave();
 
-			if (isSettingControl)
-				waitingInput();
-			else
-			{
-				if (controls.BACK)
-					FlxG.switchState(new MainMenuState());
-				if (controls.UP_P)
-					changeSelection(-1);
-				if (controls.DOWN_P)
-					changeSelection(1);
+		if (controls.BACK)
+			FlxG.switchState(new MainMenuState());
+		if (controls.UP_P)
+			changeSelection(-1);
+		if (controls.DOWN_P)
+			changeSelection(1);
+
+		grpControls.forEach(function(txt:Alphabet) 
+		{
+			txt.color = FlxColor.WHITE;
+
+			if (SaveData.load(txt.text)) {
+				txt.color = FlxColor.GREEN;
+			}else{
+				txt.color = FlxColor.WHITE;
 			}
-		 */
+		});
 	}
 
-	function waitingInput():Void
+	/**
+		Save name must like the controlsString array text
+	**/
+	function changeSave()
 	{
-		if (FlxG.keys.getIsDown().length > 0)
+		switch (controlsStrings[curSelected])
 		{
-			PlayerSettings.player1.controls.replaceBinding(Control.LEFT, Keys, FlxG.keys.getIsDown()[0].ID, null);
-		}
-		// PlayerSettings.player1.controls.replaceBinding(Control)
-	}
-
-	var isSettingControl:Bool = false;
-
-	function changeBinding():Void
-	{
-		if (!isSettingControl)
-		{
-			isSettingControl = true;
+			case "Ghost tap":
+				if (!SaveData.load("Ghost tap")){
+					SaveData.save("Ghost tap");
+				}else{
+					SaveData.remove("Ghost tap");
+				}
 		}
 	}
 

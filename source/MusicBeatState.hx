@@ -11,6 +11,7 @@ class MusicBeatState extends FlxUIState
 {
 	private var lastBeat:Float = 0;
 	private var lastStep:Float = 0;
+	var VERSION_POPENGINE:String = "0.1.0";
 
 	private var curStep:Int = 0;
 	private var curBeat:Int = 0;
