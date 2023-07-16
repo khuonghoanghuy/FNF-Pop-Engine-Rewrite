@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxSave;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -38,6 +39,9 @@ class OptionsMenu extends MusicBeatState
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 		}
 
+		getNewOptions("Options");
+		changeSelection();
+
 		super.create();
 	}
 
@@ -61,7 +65,7 @@ class OptionsMenu extends MusicBeatState
 
 			if (SaveData.load(txt.text)) {
 				txt.color = FlxColor.GREEN;
-			}else{
+			}else if (!SaveData.load(txt.text)) {
 				txt.color = FlxColor.WHITE;
 			}
 		});
@@ -80,6 +84,21 @@ class OptionsMenu extends MusicBeatState
 				}else{
 					SaveData.remove("Ghost tap");
 				}
+		}
+	}
+
+	function getNewOptions(str:String)
+	{
+		var save:FlxSave = new FlxSave();
+
+		SaveData.createNewSave(str);
+		try {
+			if (save.data.options == null) {
+				save.data.options = new Array<String>();
+				save.data.options[0] = "";
+			}
+		} catch(e) {
+			trace("not work");
 		}
 	}
 
