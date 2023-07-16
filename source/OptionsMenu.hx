@@ -17,6 +17,9 @@ class OptionsMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
+	var descText:FlxText;
+	var inBool:Bool;
+
 	override function create()
 	{
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -39,7 +42,12 @@ class OptionsMenu extends MusicBeatState
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 		}
 
-		getNewOptions("Options");
+		descText = new FlxText(50, 600, 1180, "", 32);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.scrollFactor.set();
+		add(descText);
+
+		SaveData.createNewSave("OptionsData");
 		changeSelection();
 
 		super.create();
@@ -49,57 +57,35 @@ class OptionsMenu extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (controls.ACCEPT)
-			changeSave();
-
 		if (controls.BACK)
 			FlxG.switchState(new MainMenuState());
+
 		if (controls.UP_P)
 			changeSelection(-1);
+
 		if (controls.DOWN_P)
 			changeSelection(1);
 
-		grpControls.forEach(function(txt:Alphabet) 
+		if (controls.ACCEPT)
 		{
-			txt.color = FlxColor.WHITE;
-
-			if (SaveData.load(txt.text)) {
-				txt.color = FlxColor.GREEN;
-			}else if (!SaveData.load(txt.text)) {
-				txt.color = FlxColor.WHITE;
+			switch (controlsStrings[curSelected])
+			{
+				// simple, yes
+				case "Ghost tap":
+					if (!SaveData.load("Ghost tap")){
+						SaveData.save("Ghost tap");
+						getChange(true);
+					}else{
+						SaveData.remove("Ghost tap");
+						getChange(false);
+					}
 			}
-		});
-	}
-
-	/**
-		Save name must like the controlsString array text
-	**/
-	function changeSave()
-	{
-		switch (controlsStrings[curSelected])
-		{
-			case "Ghost tap":
-				if (!SaveData.load("Ghost tap")){
-					SaveData.save("Ghost tap");
-				}else{
-					SaveData.remove("Ghost tap");
-				}
 		}
 	}
 
-	function getNewOptions(str:String)
+	function getChange(bool:Bool)
 	{
-		var save:FlxSave = new FlxSave();
-
-		SaveData.createNewSave(str);
-		try {
-			if (save.data.options == null) {
-				save.data.options = new Array<String>();
-				save.data.options[0] = "";
-			}
-		} catch(e) {
-			trace("not work");
-		}
+		inBool = bool;
 	}
 
 	function changeSelection(change:Int = 0)
@@ -114,6 +100,12 @@ class OptionsMenu extends MusicBeatState
 			curSelected = 0;
 
 		// selector.y = (70 * curSelected) + 30;
+
+		switch (controlsStrings[curSelected])
+		{
+			case "Ghost tap":
+				descText.text = "Help you play less miss - " + inBool;
+		}
 
 		var bullShit:Int = 0;
 

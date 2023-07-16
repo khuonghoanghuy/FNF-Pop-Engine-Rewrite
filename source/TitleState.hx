@@ -1,5 +1,6 @@
 package;
 
+import data.SaveData;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -57,7 +58,7 @@ class TitleState extends MusicBeatState
 
 		super.create();
 
-		FlxG.save.bind('funkin', 'ninjamuffin99');
+		SaveData.createNewSave("popEngine", "data/");
 
 		Highscore.load();
 
