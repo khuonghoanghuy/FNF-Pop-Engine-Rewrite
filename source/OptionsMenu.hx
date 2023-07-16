@@ -46,8 +46,6 @@ class OptionsMenu extends MusicBeatState
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		add(descText);
-
-		SaveData.createNewSave("OptionsData");
 		changeSelection();
 
 		super.create();
@@ -70,14 +68,22 @@ class OptionsMenu extends MusicBeatState
 		{
 			switch (controlsStrings[curSelected])
 			{
-				// simple, yes
 				case "Ghost tap":
-					if (!SaveData.load("Ghost tap")){
-						SaveData.save("Ghost tap");
-						getChange(true);
-					}else{
-						SaveData.remove("Ghost tap");
-						getChange(false);
+					if (SaveData.ghosttap) {
+						SaveData.ghosttap = false;
+						descText.text = "Help you play less miss - " + SaveData.ghosttap;
+					} else {
+						SaveData.ghosttap = true;
+						descText.text = "Help you play less miss - " + SaveData.ghosttap;
+					}
+
+				case "Downscroll":
+					if (SaveData.downscroll) {
+						SaveData.downscroll = false;
+						descText.text = "Change layout from upscroll to downscroll - " + SaveData.downscroll;
+					} else {
+						SaveData.downscroll = true;
+						descText.text = "Change layout from upscroll to downscroll - " + SaveData.downscroll;
 					}
 			}
 		}
@@ -99,12 +105,12 @@ class OptionsMenu extends MusicBeatState
 		if (curSelected >= grpControls.length)
 			curSelected = 0;
 
-		// selector.y = (70 * curSelected) + 30;
-
 		switch (controlsStrings[curSelected])
 		{
 			case "Ghost tap":
-				descText.text = "Help you play less miss - " + inBool;
+				descText.text = "Help you play less miss - " + SaveData.ghosttap;
+			case "Downscroll":
+				descText.text = "Change layout from upscroll to downscroll - " + SaveData.downscroll;
 		}
 
 		var bullShit:Int = 0;

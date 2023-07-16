@@ -1,38 +1,42 @@
 package data;
 
 import flixel.util.FlxSave;
+import flixel.FlxG;
 
 class SaveData
 {
-	static var saveF:FlxSave = new FlxSave();
+	public static var ghosttap:Bool = true;
+	public static var downscroll:Bool = false;
+	public static var accuracy:Bool = true;
+	public static var botplay:Bool = false;
+	public static var watermark:Bool = true;
 
-	// will create a new save path
-	public static function createNewSave(saveName:String, ?path:String)
+	public static function getSave()
 	{
-		saveF.bind(saveName, path);
+		FlxG.save.data.ghosttap = ghosttap;
+		FlxG.save.data.downscroll = downscroll;
+		FlxG.save.data.accuracy = accuracy;
+		FlxG.save.data.botplay = botplay;
+		FlxG.save.data.watermark = watermark;
+
+		getPath("Options", "Huy1234TH");
 	}
 
-	// will load a specific save system
-	public static function load(saveName:String)
+	public static function getLoad()
 	{
-		return saveF.data.options.contains(saveName);
+		if (FlxG.save.data.ghosttap != null) ghosttap = FlxG.save.data.ghosttap;
+		if (FlxG.save.data.downscroll != null) downscroll = FlxG.save.data.downscroll;
+		if (FlxG.save.data.accuracy != null) accuracy = FlxG.save.data.accuracy;
+		if (FlxG.save.data.botplay != null) botplay = FlxG.save.data.botplay;
+		if (FlxG.save.data.watermark != null) watermark = FlxG.save.data.watermark;
+
+		getPath("Options", "Huy1234TH");
 	}
 
-	// will save a specific save system
-	public static function save(saveName:String)
+	public static function getPath(name:String, ?path:String)
 	{
-		return saveF.data.options.push(saveName);
-	}
-
-	// will remove a specific save system
-	public static function remove(saveName:String)
-	{
-		return saveF.data.options.remove(saveName);
-	}
-
-	// will flush a save system
-	public static function flush()
-	{
-		return saveF.flush();
+		var save:FlxSave = new FlxSave();
+		save.bind(name, path);
+		FlxG.log.add("Data save complete!");
 	}
 }

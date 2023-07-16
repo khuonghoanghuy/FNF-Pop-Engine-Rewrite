@@ -58,7 +58,7 @@ class TitleState extends MusicBeatState
 
 		super.create();
 
-		SaveData.createNewSave("popEngine", "data/");
+		SaveData.getPath("PopData", "Huy1234TH");
 
 		Highscore.load();
 
