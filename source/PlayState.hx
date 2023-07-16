@@ -1353,7 +1353,7 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 
 		if (SaveData.accuracy)
-			scoreTxt.text = "Score: " + songScore + " - Misses: " + " - Accuracy:";
+			scoreTxt.text = "Score: " + songScore + " - Misses: " + misses + " - Accuracy: " + floatAcc(accuracy, 100);
 		else
 			scoreTxt.text = "Score: " + songScore;
 
@@ -1506,7 +1506,7 @@ class PlayState extends MusicBeatState
 
 				if (SONG.song.toLowerCase() == 'tutorial')
 				{
-					FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut});
+					FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.smoothStepInOut});
 				}
 			}
 		}
@@ -2160,6 +2160,8 @@ class PlayState extends MusicBeatState
 				case 3:
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
+
+			getAccuracy(1, -1);
 		}
 	}
 
@@ -2236,17 +2238,23 @@ class PlayState extends MusicBeatState
 				notes.remove(note, true);
 				note.destroy();
 			}
+
+			getAccuracy(1, 1);
 		}
 	}
 
-	function calcHit()
-	{
-		getAccuracy(1)
-	}
-
-	function getAccuracy(int:Int)
+	function getAccuracy(int:Int, getAcc:Float)
 	{
 		totalPlayed += int;
+		totalNoteHits += getAcc;
+		accuracy = totalNoteHits / totalPlayed * 100;
+	}
+
+	function floatAcc(coder:Float, get:Int):Float
+	{
+		coder = coder * Math.pow(10, get);
+		coder = Math.round(coder) / Math.pow(10, get);
+		return coder;
 	}
 
 	var fastCarCanDrive:Bool = true;
