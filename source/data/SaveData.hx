@@ -65,6 +65,7 @@ class SaveData
 		FlxG.save.data.fps = 60;
 		
 		getSave();
+		getLoad();
 
 		return s;
 	}

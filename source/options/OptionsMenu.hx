@@ -17,7 +17,7 @@ class OptionsMenu extends MusicBeatState
 
 	var selectArray:Array<String> = ["Controls", "Gameplay", "Misc", "Exit"];
 	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Botplay", "Back"];
-	var miscArray:Array<String> = ["Watermark", "FPS Counter", "FPS", "RESET DATA", "Back"];
+	var miscArray:Array<String> = ["Watermark", "Show BG Black", "FPS Counter", "FPS", "RESET DATA", "Back"];
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
@@ -49,7 +49,7 @@ class OptionsMenu extends MusicBeatState
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 		}
 
-		descText = new FlxText(50, 700, 1180, "", 32);
+		descText = new FlxText(50, 650, 1180, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		add(descText);
@@ -70,6 +70,38 @@ class OptionsMenu extends MusicBeatState
 
 		if (controls.DOWN_P)
 			changeSelection(1);
+
+		if (controls.LEFT)
+		{
+			if (SaveData.fps == 60)
+				SaveData.fps -= 0;
+			else
+				SaveData.fps -= 1;
+			SaveData.getFPS(SaveData.fps);
+			if (controlsStrings == miscArray)
+			{
+				switch (controlsStrings[curSelected])
+				{
+					case "FPS": descText.text = "Currents FPS: " + SaveData.fps;
+				}
+			}
+		}
+		
+		if (controls.RIGHT)
+		{
+			if (SaveData.fps == 360)
+				SaveData.fps += 0;
+			else
+				SaveData.fps += 1;
+			SaveData.getFPS(SaveData.fps);
+			if (controlsStrings == miscArray)
+			{
+				switch (controlsStrings[curSelected])
+				{
+					case "FPS": descText.text = "Currents FPS: " + SaveData.fps;
+				}
+			}
+		}
 
 		if (controls.ACCEPT)
 		{
@@ -212,6 +244,7 @@ class OptionsMenu extends MusicBeatState
 			case "Botplay": descText.text = "Lets botplay play help for you!: " + SaveData.botplay;
 			case "Watermark": descText.text = "Enable/Disable Pop Engine Watermark: " + SaveData.watermark;
 			case "FPS Counter": descText.text = "Display FPS Counter: " + SaveData.fpsCounter;
+			case "FPS": descText.text = "Currents FPS: " + SaveData.fps;
 			case "RESET DATA": descText.text = "RESET ALL DATA WHEN YOU PRESS ENTER";
 			case "Back": descText.text = "Back to Options";
 		}

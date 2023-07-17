@@ -104,6 +104,8 @@ class PlayState extends MusicBeatState
 	var accuracy:Float = 0.00;
 	var misses:Int = 0;
 	var scoreTxt:FlxText;
+	var songText:FlxText;
+	var songTxt:String;
 
 	public static var campaignScore:Int = 0;
 
@@ -673,6 +675,9 @@ class PlayState extends MusicBeatState
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 
+		var songName:String = SONG.song;
+		songTxt = StringTools.replace(songName, "-", " ");
+
 		Conductor.songPosition = -5000;
 
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
@@ -734,6 +739,16 @@ class PlayState extends MusicBeatState
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
+
+		if (SaveData.watermark)
+		{
+			songText = new FlxText(10, scoreTxt.y, FlxG.width, "Song: " + songTxt, 18);
+			songText.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			songText.scrollFactor.set();
+			add(songText);
+			
+			songText.cameras = [camHUD];
+		}
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
