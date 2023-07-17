@@ -3,6 +3,8 @@
 
 all of this engine is made by me!
 
+# Repo Size: ![Repo Size](https://img.shields.io/github/repo-size/khuonghoanghuy/FNF-Pop-Engine-Rewrite)
+
 # Feature:
 A custom engine must have a custom feature, pop engine will have:
 ### New Options to Adjust:
