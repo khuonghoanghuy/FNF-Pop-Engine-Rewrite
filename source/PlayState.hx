@@ -1737,8 +1737,7 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-		if (!inCutscene)
-			keyShit();
+		if (!inCutscene) if (!SaveData.botplay) keyShit();
 
 		#if debug
 		if (FlxG.keys.justPressed.ONE)
@@ -1772,12 +1771,9 @@ class PlayState extends MusicBeatState
 				transOut = FlxTransitionableState.defaultTransOut;
 
 				FlxG.switchState(new StoryMenuState());
-
-				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
-				if (SONG.validScore)
-				{
+				if (SONG.validScore) {
 					Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 				}
 
@@ -1830,7 +1826,6 @@ class PlayState extends MusicBeatState
 	private function popUpScore(strumtime:Float):Void
 	{
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
-		// boyfriend.playAnim('hey');
 		vocals.volume = 1;
 
 		var placement:String = Std.string(combo);
@@ -1838,7 +1833,6 @@ class PlayState extends MusicBeatState
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.55;
-		//
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
@@ -1849,27 +1843,23 @@ class PlayState extends MusicBeatState
 		{
 			daRating = 'shit';
 			score = 50;
+			if (SaveData.accuracyType == "COMPLEX") getAccuracy(1, 0.5);
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'bad';
 			score = 100;
+			if (SaveData.accuracyType == "COMPLEX") getAccuracy(1, 0.7);
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.2)
 		{
 			daRating = 'good';
 			score = 200;
+			if (SaveData.accuracyType == "COMPLEX") getAccuracy(1, 0.85);
 		}
+		if (daRating == "sick" && SaveData.accuracyType == "COMPLEX") getAccuracy(1, 1);
 
 		songScore += score;
-
-		/* if (combo > 60)
-				daRating = 'sick';
-			else if (combo > 12)
-				daRating = 'good'
-			else if (combo > 4)
-				daRating = 'bad';
-		 */
 
 		var pixelShitPart1:String = "";
 		var pixelShitPart2:String = '';
@@ -2287,7 +2277,9 @@ class PlayState extends MusicBeatState
 				note.destroy();
 			}
 			
-			getAccuracy(1, 1);
+			if (SaveData.accuracyType == "COMPLEX") getAccuracy(1, 0.5); // since when pop up is sick gain 1
+			else getAccuracy(1, 1);
+			
 			getRank();
 		}
 	}

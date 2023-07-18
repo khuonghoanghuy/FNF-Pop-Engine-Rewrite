@@ -16,7 +16,7 @@ class OptionsMenu extends MusicBeatState
 	var controlsStrings:Array<String> = [];
 
 	var selectArray:Array<String> = ["Controls", "Gameplay", "Misc", "Exit"];
-	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Botplay", "Back"];
+	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Accuracy Type", "Botplay", "Back"];
 	var miscArray:Array<String> = ["Watermark", "Show BG Black", "FPS Counter", "FPS", "RESET DATA", "Back"];
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
@@ -73,32 +73,58 @@ class OptionsMenu extends MusicBeatState
 
 		if (controls.LEFT)
 		{
-			if (SaveData.fps == 60)
-				SaveData.fps -= 0;
-			else
-				SaveData.fps -= 1;
-			SaveData.getFPS(SaveData.fps);
+			if (controlsStrings == gameplayArray)
+			{
+				switch (controlsStrings[curSelected])
+				{
+					case "Accuracy Type":
+						if (SaveData.accuracyType == "SIMPLE") SaveData.accuracyType = "COMPLEX";
+						else if (SaveData.accuracyType == "COMPLEX") SaveData.accuracyType = "SIMPLE";
+						SaveData.accuracyType = SaveData.accuracyType;
+						if (SaveData.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + SaveData.accuracyType; else if (SaveData.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + SaveData.accuracyType;
+				}
+			}
+
 			if (controlsStrings == miscArray)
 			{
 				switch (controlsStrings[curSelected])
 				{
-					case "FPS": descText.text = "Currents FPS: " + SaveData.fps;
+					case "FPS": 
+						if (SaveData.fps == 60)
+							SaveData.fps -= 0;
+						else
+							SaveData.fps -= 1;
+						SaveData.getFPS(SaveData.fps);	
+						descText.text = "Currents FPS: " + SaveData.fps;
 				}
 			}
 		}
 		
 		if (controls.RIGHT)
 		{
-			if (SaveData.fps == 360)
-				SaveData.fps += 0;
-			else
-				SaveData.fps += 1;
-			SaveData.getFPS(SaveData.fps);
+			if (controlsStrings == gameplayArray)
+			{
+				switch (controlsStrings[curSelected])
+				{
+					case "Accuracy Type":
+						if (SaveData.accuracyType == "SIMPLE") SaveData.accuracyType = "COMPLEX";
+						else if (SaveData.accuracyType == "COMPLEX") SaveData.accuracyType = "SIMPLE";
+						SaveData.accuracyType = SaveData.accuracyType;
+						if (SaveData.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + SaveData.accuracyType; else if (SaveData.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + SaveData.accuracyType;
+				}
+			}
+
 			if (controlsStrings == miscArray)
 			{
 				switch (controlsStrings[curSelected])
 				{
-					case "FPS": descText.text = "Currents FPS: " + SaveData.fps;
+					case "FPS": 
+						if (SaveData.fps == 360)
+							SaveData.fps += 0;
+						else
+							SaveData.fps += 1;
+						SaveData.getFPS(SaveData.fps);	
+						descText.text = "Currents FPS: " + SaveData.fps;
 				}
 			}
 		}
@@ -241,6 +267,7 @@ class OptionsMenu extends MusicBeatState
 			case "Ghost tap": descText.text = "Help you play less miss: " + SaveData.ghosttap;
 			case "Downscroll": descText.text = "Change layout from upscroll to downscroll: " + SaveData.downscroll;
 			case "Accuracy": descText.text = "Display more stuff like Misses, Accuracy: " + SaveData.accuracy;
+			case "Accuracy Type": if (SaveData.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + SaveData.accuracyType; else if (SaveData.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + SaveData.accuracyType;
 			case "Botplay": descText.text = "Lets botplay play help for you!: " + SaveData.botplay;
 			case "Watermark": descText.text = "Enable/Disable Pop Engine Watermark: " + SaveData.watermark;
 			case "FPS Counter": descText.text = "Display FPS Counter: " + SaveData.fpsCounter;
