@@ -1,7 +1,7 @@
 package;
 
+import data.SaveData;
 import Conductor.BPMChangeEvent;
-import flixel.FlxG;
 import flixel.FlxSubState;
 
 class MusicBeatSubstate extends FlxSubState
@@ -32,6 +32,7 @@ class MusicBeatSubstate extends FlxSubState
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
+		SaveData.getFPS(SaveData.fps);
 
 		super.update(elapsed);
 	}

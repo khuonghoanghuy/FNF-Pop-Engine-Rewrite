@@ -1,5 +1,6 @@
 package;
 
+import data.SaveData;
 import Conductor.BPMChangeEvent;
 import flixel.FlxG;
 import flixel.addons.transition.FlxTransitionableState;
@@ -35,6 +36,8 @@ class MusicBeatState extends FlxUIState
 
 		updateCurStep();
 		updateBeat();
+
+		SaveData.getFPS(SaveData.fps);
 
 		if (oldStep != curStep && curStep > 0)
 			stepHit();

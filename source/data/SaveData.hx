@@ -12,6 +12,7 @@ class SaveData
 	public static var watermark:Bool = true;
 	public static var fpsCounter:Bool = true;
 	public static var fps:Int = 60;
+	public static var accuracyType:String = "SIMPLE";
 
 	public static function getSave()
 	{
@@ -22,6 +23,7 @@ class SaveData
 		FlxG.save.data.watermark = watermark;
 		FlxG.save.data.fpsCounter = fpsCounter;
 		FlxG.save.data.fps = fps;
+		FlxG.save.data.accuracyType = accuracyType;
 
 		getLoad();
 
@@ -37,6 +39,7 @@ class SaveData
 		if (FlxG.save.data.watermark != null) watermark = FlxG.save.data.watermark;
 		if (FlxG.save.data.fpsCounter != null) fpsCounter = FlxG.save.data.fpsCounter;
 		if (FlxG.save.data.fps != null) getFPS(fps);
+		if (FlxG.save.data.accuracyType != null) accuracyType = FlxG.save.data.accuracyType;
 
 		getPath("Options", "Huy1234TH");
 	}
@@ -54,15 +57,19 @@ class SaveData
 		FlxG.updateFramerate = curfps;
 	}
 
+	/**
+		Make sure that data is like in the var
+	**/
 	public static function resetData(s:Bool)
 	{
-		FlxG.save.data.ghosttap = null;
-		FlxG.save.data.downscroll = null;
-		FlxG.save.data.accuracy = null;
-		FlxG.save.data.botplay = null;
-		FlxG.save.data.watermark = null;
-		FlxG.save.data.fpsCounter = null;
+		FlxG.save.data.ghosttap = true;
+		FlxG.save.data.downscroll = false;
+		FlxG.save.data.accuracy = true;
+		FlxG.save.data.botplay = false;
+		FlxG.save.data.watermark = true;
+		FlxG.save.data.fpsCounter = true;
 		FlxG.save.data.fps = 60;
+		FlxG.save.data.accuracyType = "SIMPLE";
 		
 		getSave();
 		getLoad();

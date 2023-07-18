@@ -107,6 +107,9 @@ class PlayState extends MusicBeatState
 	var songText:FlxText;
 	var songTxt:String;
 
+	var ranking:String;
+	var fcRank:String;
+
 	public static var campaignScore:Int = 0;
 
 	var defaultCamZoom:Float = 1.05;
@@ -746,7 +749,7 @@ class PlayState extends MusicBeatState
 			songText.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			songText.scrollFactor.set();
 			add(songText);
-			
+
 			songText.cameras = [camHUD];
 		}
 
@@ -1362,15 +1365,50 @@ class PlayState extends MusicBeatState
 						trainFrameTiming = 0;
 					}
 				}
-				// phillyCityLights.members[curLight].alpha -= (Conductor.crochet / 1000) * FlxG.elapsed;
 		}
 
 		super.update(elapsed);
 
 		if (SaveData.accuracy)
-			scoreTxt.text = "Score: " + songScore + " - Misses: " + misses + " - Accuracy: " + floatAcc(accuracy, 2);
+			scoreTxt.text = "Score: " + songScore + " - Misses: " + misses + " - Accuracy: " + floatAcc(accuracy, 2) + "% - Rank: " + ranking + " (" + fcRank + ")";
 		else
 			scoreTxt.text = "Score: " + songScore;
+
+		/*// fullcombo stuff
+		switch (misses)
+		{
+			case 0:
+				fcRank = "Full Combo";
+			case 1:
+				fcRank = "SDCB";
+			case 10:
+				fcRank = "Clear";
+		}
+
+		// accuracy stuff
+		switch (accuracy)
+		{
+			case 100:
+				ranking = "S";
+
+			case 99:
+				ranking = "A";
+			
+			case 85:
+				ranking = "B";
+
+			case 70:
+				ranking = "C";
+
+			case 60:
+				ranking = "D";
+
+			case 50:
+				ranking = "E";
+
+			case 30:
+				ranking = "F";
+		}*/
 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
@@ -2154,6 +2192,7 @@ class PlayState extends MusicBeatState
 			}
 
 			getAccuracy(1, -1);
+			getRank();
 		}
 	}
 
@@ -2249,7 +2288,26 @@ class PlayState extends MusicBeatState
 			}
 			
 			getAccuracy(1, 1);
+			getRank();
 		}
+	}
+
+	function getRank()
+	{
+		// a fc rank
+		if (misses == 0) fcRank = "FULL COMBO";
+		else if (misses <= 1) fcRank = "SDCB";
+		else if (misses >= 10) fcRank = "CLEAR";
+		// else fcRank = "CLEAR"; // for make sure
+
+		// a ranking, little stupid
+		if (accuracy == 100 && misses == 0) ranking = "S"; // dont easy
+		else if (accuracy >= 90) ranking = "A"; // after missing :(
+		else if (accuracy >= 80) ranking = "B";
+		else if (accuracy >= 70) ranking = "C";
+		else if (accuracy >= 60) ranking = "D";
+		else if (accuracy >= 40) ranking = "F";
+		else ranking = "F"; // for make sure
 	}
 
 	function getAccuracy(int:Int, getAcc:Float)
