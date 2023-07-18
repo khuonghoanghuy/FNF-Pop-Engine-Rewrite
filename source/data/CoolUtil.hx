@@ -1,4 +1,4 @@
-package;
+package data;
 
 import lime.utils.Assets;
 

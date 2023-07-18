@@ -23,6 +23,7 @@ import haxe.Json;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileReference;
+import data.CoolUtil;
 
 using StringTools;
 

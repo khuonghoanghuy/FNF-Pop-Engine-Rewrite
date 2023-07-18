@@ -26,6 +26,7 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
+import data.CoolUtil;
 
 using StringTools;
 

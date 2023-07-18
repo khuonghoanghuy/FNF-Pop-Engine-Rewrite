@@ -1,7 +1,7 @@
 package;
 
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
+import data.CoolUtil;
 
 class BackgroundGirls extends FlxSprite
 {
