@@ -39,6 +39,9 @@ class MusicBeatState extends FlxUIState
 
 		SaveData.getFPS(SaveData.fps);
 
+		if (!SaveData.fpsCounter) FlxG.stage.removeChild(Main.fpsCounter);
+		else if (SaveData.fpsCounter) FlxG.stage.addChild(Main.fpsCounter);
+
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
