@@ -15,8 +15,9 @@ class OptionsMenu extends MusicBeatState
 
 	var controlsStrings:Array<String> = [];
 
-	var selectArray:Array<String> = ["Controls", "Gameplay", "Misc", "Exit"];
+	var selectArray:Array<String> = ["Controls", "Gameplay", "Shaders", "Misc", "Exit"];
 	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Accuracy Type", "Botplay", "Back"];
+	var shadersArray:Array<String> = ["VHS Shader", "Back"];
 	var miscArray:Array<String> = ["Watermark", "Show BG Black", "FPS Counter", "FPS", "RESET DATA", "Back"];
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
@@ -140,6 +141,10 @@ class OptionsMenu extends MusicBeatState
 					controlsStrings = gameplayArray;
 					regenMenu();
 
+				case "Shaders":
+					controlsStrings = shadersArray;
+					regenMenu();
+
 				case "Misc":
 					controlsStrings = miscArray;
 					regenMenu();
@@ -187,6 +192,25 @@ class OptionsMenu extends MusicBeatState
 						} else {
 							SaveData.botplay = true;
 							descText.text = "Lets botplay play help for you!: " + SaveData.botplay;
+						}
+
+					case "Back":
+						controlsStrings = selectArray;
+						regenMenu();
+				}
+			}
+
+			if (controlsStrings == shadersArray)
+			{
+				switch (controlsStrings[curSelected])
+				{
+					case "VHS Shader":
+						if (SaveData.shadersVHS) {
+							SaveData.shadersVHS = false;
+							descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + SaveData.shadersVHS;
+						} else {
+							SaveData.shadersVHS = true;
+							descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + SaveData.shadersVHS;
 						}
 
 					case "Back":
@@ -272,6 +296,7 @@ class OptionsMenu extends MusicBeatState
 			case "Watermark": descText.text = "Enable/Disable Pop Engine Watermark: " + SaveData.watermark;
 			case "FPS Counter": descText.text = "Display FPS Counter: " + SaveData.fpsCounter;
 			case "FPS": descText.text = "Currents FPS: " + SaveData.fps;
+			case "VHS Shader": descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + SaveData.shadersVHS;
 			case "RESET DATA": descText.text = "RESET ALL DATA WHEN YOU PRESS ENTER";
 			case "Back": descText.text = "Back to Options";
 		}

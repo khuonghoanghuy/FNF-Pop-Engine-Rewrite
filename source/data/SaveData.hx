@@ -13,6 +13,7 @@ class SaveData
 	public static var fpsCounter:Bool = true;
 	public static var fps:Int = 60;
 	public static var accuracyType:String = "SIMPLE";
+	public static var shadersVHS:Bool = false;
 
 	public static function getSave()
 	{
@@ -24,6 +25,7 @@ class SaveData
 		FlxG.save.data.fpsCounter = fpsCounter;
 		FlxG.save.data.fps = fps;
 		FlxG.save.data.accuracyType = accuracyType;
+		FlxG.save.data.shadersVHS = shadersVHS;
 
 		getLoad();
 
@@ -40,6 +42,7 @@ class SaveData
 		if (FlxG.save.data.fpsCounter != null) fpsCounter = FlxG.save.data.fpsCounter;
 		if (FlxG.save.data.fps != null) getFPS(fps);
 		if (FlxG.save.data.accuracyType != null) accuracyType = FlxG.save.data.accuracyType;
+		if (FlxG.save.data.shadersVHS != null) shadersVHS = FlxG.save.data.shadersVHS;
 
 		getPath("Options", "Huy1234TH");
 	}
@@ -70,6 +73,7 @@ class SaveData
 		FlxG.save.data.fpsCounter = true;
 		FlxG.save.data.fps = 60;
 		FlxG.save.data.accuracyType = "SIMPLE";
+		FlxG.save.data.shadersVHS = false;
 		
 		getSave();
 		getLoad();

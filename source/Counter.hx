@@ -52,10 +52,7 @@ class Counter extends TextField
 		currentTime += deltaTime;
 		times.push(currentTime);
 
-		while (times[0] < currentTime - 1000)
-		{
-			times.shift();
-		}
+		while (times[0] < currentTime - 1000) times.shift();
 
 		var mem:Float = Math.round(System.totalMemory / 1024 / 1024 * 100) / 100;
 

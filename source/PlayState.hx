@@ -1,5 +1,6 @@
 package;
 
+import openfl.filters.ShaderFilter;
 import data.SaveData;
 #if desktop
 import Discord.DiscordClient;
@@ -27,6 +28,9 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import data.CoolUtil;
+import shaders.OverlayShader;
+import shaders.WiggleEffect;
+import shaders.VHSShader;
 
 using StringTools;
 
@@ -107,6 +111,9 @@ class PlayState extends MusicBeatState
 	var scoreTxt:FlxText;
 	var songText:FlxText;
 	var songTxt:String;
+
+	// muahahaha
+	var vhs:VHSShader;
 
 	var ranking:String;
 	var fcRank:String;
@@ -313,11 +320,8 @@ class PlayState extends MusicBeatState
 		                  overlayShit.alpha = 0.5;
 		                  // add(overlayShit);
 
-		                  // var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
-
-		                  // FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);
-
-		                  // overlayShit.shader = shaderBullshit;
+		                  var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
+		                  FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);
 
 		                  var limoTex = Paths.getSparrowAtlas('limo/limoDrive');
 
@@ -411,6 +415,15 @@ class PlayState extends MusicBeatState
 		                  curStage = 'school';
 
 		                  // defaultCamZoom = 0.9;
+						  if (SaveData.shadersVHS) {
+
+							var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
+							bg.alpha = 0.4;
+							bg.screenCenter();
+							bg.scrollFactor.set();
+							bg.shader = vhs;
+							add(bg);
+						  }
 
 		                  var bgSky = new FlxSprite().loadGraphic(Paths.image('weeb/weebSky'));
 		                  bgSky.scrollFactor.set(0.1, 0.1);
@@ -1344,6 +1357,10 @@ class PlayState extends MusicBeatState
 		#if !debug
 		perfectMode = false;
 		#end
+
+		if (SaveData.shadersVHS) {
+			vhs.update(elapsed);
+		}
 
 		if (FlxG.keys.justPressed.NINE)
 		{
