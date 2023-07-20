@@ -1,6 +1,5 @@
 package states.playstate;
 
-import openfl.filters.ShaderFilter;
 import data.SaveData;
 #if desktop
 import Discord.DiscordClient;
@@ -13,7 +12,6 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.effects.FlxTrail;
-import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -27,8 +25,6 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
-import data.CoolUtil;
-import shaders.OverlayShader;
 import shaders.WiggleEffect;
 import shaders.VHSShader;
 
@@ -1414,8 +1410,7 @@ class PlayState extends MusicBeatState
 						camFollow.y = boyfriend.getMidpoint().y - 200;
 				}
 
-				if (SONG.song.toLowerCase() == 'tutorial')
-				{
+				if (SONG.song.toLowerCase() == 'tutorial') {
 					FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.smoothStepInOut});
 				}
 			}
@@ -1434,29 +1429,10 @@ class PlayState extends MusicBeatState
 		{
 			switch (curBeat)
 			{
-				case 16:
-					camZooming = true;
+				case 16 | 80:
 					gfSpeed = 2;
-				case 48:
+				case 48 | 112:
 					gfSpeed = 1;
-				case 80:
-					gfSpeed = 2;
-				case 112:
-					gfSpeed = 1;
-				case 163:
-					// FlxG.sound.music.stop();
-					// FlxG.switchState(new TitleState());
-			}
-		}
-
-		if (curSong == 'Bopeebo')
-		{
-			switch (curBeat)
-			{
-				case 128, 129, 130:
-					vocals.volume = 0;
-					// FlxG.sound.music.stop();
-					// FlxG.switchState(new PlayState());
 			}
 		}
 		// better streaming of shit
@@ -1881,8 +1857,7 @@ class PlayState extends MusicBeatState
 			{
 				var daNote = possibleNotes[0];
 
-				if (perfectMode)
-					noteCheck(true, daNote);
+				if (perfectMode) noteCheck(true, daNote);
 
 				// Jump notes
 				if (possibleNotes.length >= 2)
@@ -1903,8 +1878,6 @@ class PlayState extends MusicBeatState
 								}
 								if (!inIgnoreList)
 									badNoteCheck();
-
-								// ghostCheck();
 							}
 						}
 					}
