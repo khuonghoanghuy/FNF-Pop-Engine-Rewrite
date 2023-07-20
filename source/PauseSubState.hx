@@ -9,6 +9,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import data.CoolUtil;
+import states.playstate.PlayState;
 
 class PauseSubState extends MusicBeatSubstate
 {

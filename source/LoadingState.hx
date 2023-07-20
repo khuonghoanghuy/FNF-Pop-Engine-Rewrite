@@ -14,6 +14,7 @@ import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
 
 import haxe.io.Path;
+import states.playstate.PlayState;
 
 class LoadingState extends MusicBeatState
 {

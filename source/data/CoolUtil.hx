@@ -1,6 +1,7 @@
 package data;
 
 import lime.utils.Assets;
+import states.playstate.PlayState;
 
 using StringTools;
 

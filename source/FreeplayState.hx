@@ -10,6 +10,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import data.CoolUtil;
+import states.playstate.PlayState;
 
 using StringTools;
 
