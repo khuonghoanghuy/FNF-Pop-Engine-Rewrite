@@ -34,12 +34,14 @@ class Counter extends TextField
 		cacheCount = 0;
 		currentTime = 0;
 		times = [];
-
+		
+		#if flash
 		addEventListener(Event.ENTER_FRAME, function(e)
 		{
 			var time = Lib.getTimer();
 			__enterFrame(time - currentTime);
 		});
+		#end
 
 		width = FlxG.width;
 		height = FlxG.height;
@@ -47,7 +49,7 @@ class Counter extends TextField
 
 	// Event Handlers
 	@:noCompletion
-	private override function __enterFrame(deltaTime:Float):Void
+	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
 	{
 		currentTime += deltaTime;
 		times.push(currentTime);
