@@ -1,9 +1,14 @@
 package;
 
+import lime.utils.Assets;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 class Paths
 {
@@ -16,7 +21,7 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	static function getPath(file:String, type:AssetType, library:Null<String>)
+	static function getPath(file:String, type:AssetType, ?library:Null<String>)
 	{
 		if (library != null)
 			return getLibraryPath(file, library);
@@ -48,6 +53,29 @@ class Paths
 	inline static function getPreloadPath(file:String)
 	{
 		return 'assets/$file';
+	}
+
+	static public function getTextFromFile(key:String)
+	{
+		#if sys
+		if (FileSystem.exists(getPreloadPath(key)))
+			return File.getContent(getPreloadPath(key));
+
+		if (currentLevel != null)
+		{
+			var levelPath:String = '';
+			if(currentLevel != 'shared') {
+				levelPath = getLibraryPathForce(key, currentLevel);
+				if (FileSystem.exists(levelPath))
+					return File.getContent(levelPath);
+			}
+
+			levelPath = getLibraryPathForce(key, 'shared');
+			if (FileSystem.exists(levelPath))
+				return File.getContent(levelPath);
+		}
+		#end
+		return Assets.getText(getPath(key, TEXT));
 	}
 
 	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)

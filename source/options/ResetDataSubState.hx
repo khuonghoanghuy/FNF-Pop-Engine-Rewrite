@@ -30,7 +30,7 @@ class ResetDataSubState extends MusicBeatSubstate
         if (FlxG.keys.justPressed.ENTER)
         {
             SaveData.resetData(true);
-            FlxG.switchState(new TitleState());
+            FlxG.switchState(new states.TitleState());
         }
 
         if (FlxG.keys.justPressed.ESCAPE)

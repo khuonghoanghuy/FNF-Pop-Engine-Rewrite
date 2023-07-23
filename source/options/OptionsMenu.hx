@@ -7,6 +7,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import data.SaveData;
+import states.MainMenuState;
 
 class OptionsMenu extends MusicBeatState
 {
