@@ -1,4 +1,4 @@
-package;
+package data;
 
 import lime.utils.Assets;
 import flixel.FlxG;
@@ -21,7 +21,7 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	static function getPath(file:String, type:AssetType, ?library:Null<String>)
+	static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
 	{
 		if (library != null)
 			return getLibraryPath(file, library);
@@ -96,6 +96,11 @@ class Paths
 	inline static public function json(key:String, ?library:String)
 	{
 		return getPath('data/$key.json', TEXT, library);
+	}
+
+	inline static public function song(key:String, song:String, ?library:String)
+	{
+		return getPath('data/' + song + '/$key.json', TEXT, library);
 	}
 
 	static public function sound(key:String, ?library:String)

@@ -13,12 +13,13 @@ class ResetDataSubState extends MusicBeatSubstate
         super();
 
         var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0;
+		bg.alpha = 0.6;
 		bg.scrollFactor.set();
 		add(bg);
 
         var textWarm:FlxText = new FlxText(0, 0, 0, "?ARE YOU SURE?\n\nPRESS ENTER TO CONTINUE\nPRESS ESCAPE TO RETURN", 32);
         textWarm.scrollFactor.set();
+        textWarm.alignment = CENTER;
         textWarm.screenCenter();
         add(textWarm);
     }    

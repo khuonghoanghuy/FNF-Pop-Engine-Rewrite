@@ -1,5 +1,6 @@
 package states;
 
+import states.playstate.*;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -10,7 +11,8 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import data.CoolUtil;
-import states.playstate.PlayState;
+import states.playstate.*;
+import states.playstate.*;
 
 using StringTools;
 
@@ -209,10 +211,7 @@ class FreeplayState extends MusicBeatState
 		if (accepted)
 		{
 			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-
-			trace(poop);
-
-			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+			PlayState.getSONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
 

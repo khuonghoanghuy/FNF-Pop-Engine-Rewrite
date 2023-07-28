@@ -2,7 +2,7 @@ package states;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import states.playstate.PlayState;
+import states.playstate.*;
 
 class GitarooPause extends MusicBeatState
 {

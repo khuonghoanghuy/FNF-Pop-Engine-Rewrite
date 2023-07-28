@@ -7,7 +7,7 @@ import flixel.util.FlxColor;
 #if polymod
 import polymod.format.ParseRules.TargetSignatureElement;
 #end
-import states.playstate.PlayState;
+import states.playstate.*;
 
 using StringTools;
 
@@ -160,7 +160,7 @@ class Note extends FlxSprite
 						prevNote.animation.play('redhold');
 				}
 
-				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.SONG.speed;
+				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.getSONG.speed;
 				prevNote.updateHitbox();
 			}
 		}

@@ -1,4 +1,4 @@
-package;
+package states;
 
 import data.SaveData;
 import Conductor.BPMChangeEvent;

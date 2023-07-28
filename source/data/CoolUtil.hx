@@ -1,7 +1,8 @@
 package data;
 
+import flixel.FlxG;
 import lime.utils.Assets;
-import states.playstate.PlayState;
+import states.playstate.*;
 
 using StringTools;
 
@@ -34,5 +35,9 @@ class CoolUtil
 			dumbArray.push(i);
 		}
 		return dumbArray;
+	}
+
+	public static function camLerpShit(lerp:Float):Float {
+		return lerp * (FlxG.elapsed / (1 / 60));
 	}
 }

@@ -1,7 +1,11 @@
 package lua;
 
 class GetLua {
-    public function new() {
+    /*public function new() {
         super();
+    }*/
+
+    public static function getCode() {
+        
     }
 }

@@ -7,7 +7,7 @@ import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.util.FlxSort;
 import tankman.TankmenBG;
-import states.playstate.PlayState;
+import states.playstate.*;
 
 using StringTools;
 

@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import states.playstate.PlayState;
+import states.playstate.*;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
