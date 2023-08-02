@@ -23,7 +23,7 @@ class PlayCore extends MusicBeatState
 		}
 
         if (FlxG.keys.justPressed.EIGHT)
-			FlxG.switchState(new AnimationDebug(PlayState.getSONG.player2));
+			FlxG.switchState(new AnimationDebug(PlayState.SONG.player2));
     }
 
     public static function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float, ?getRank:String, ?fcRank:String) {
