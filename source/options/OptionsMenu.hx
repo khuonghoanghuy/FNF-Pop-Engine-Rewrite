@@ -99,7 +99,8 @@ class OptionsMenu extends MusicBeatState
 							SaveData.fps -= 0;
 						else
 							SaveData.fps -= 10;
-						SaveData.getFPS(SaveData.fps);	
+						FlxG.drawFramerate = SaveData.fps;
+						FlxG.updateFramerate = SaveData.fps;
 						descText.text = "Currents FPS: " + SaveData.fps;
 				}
 			}
@@ -128,7 +129,8 @@ class OptionsMenu extends MusicBeatState
 							SaveData.fps += 0;
 						else
 							SaveData.fps += 10;
-						SaveData.getFPS(SaveData.fps);	
+						FlxG.drawFramerate = SaveData.fps;
+						FlxG.updateFramerate = SaveData.fps;
 						descText.text = "Currents FPS: " + SaveData.fps;
 				}
 			}

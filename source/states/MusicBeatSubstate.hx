@@ -32,7 +32,8 @@ class MusicBeatSubstate extends FlxSubState
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
-		SaveData.getFPS(SaveData.fps);
+		FlxG.drawFramerate = SaveData.fps;
+		FlxG.updateFramerate = SaveData.fps;
 
 		super.update(elapsed);
 	}

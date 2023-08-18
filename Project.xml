@@ -46,6 +46,7 @@
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
+	<define name="discord_allows" if="desktop" unless="html5 | android | neko"/>
 	
 	<section if="PRELOAD_ALL">
 		<library name="songs"    preload="true" />

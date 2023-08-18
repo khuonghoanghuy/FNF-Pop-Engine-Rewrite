@@ -25,85 +25,95 @@ class SaveData
 	public static var rightArrow:String = "D";
 	public static var rightAltArrow:String = "RIGHT";
 
-	public static function getSave()
+	inline public static function init()
 	{
-		FlxG.save.data.ghosttap = ghosttap;
-		FlxG.save.data.downscroll = downscroll;
-		FlxG.save.data.accuracy = accuracy;
-		FlxG.save.data.botplay = botplay;
-		FlxG.save.data.watermark = watermark;
-		FlxG.save.data.fpsCounter = fpsCounter;
-		FlxG.save.data.fps = fps;
-		FlxG.save.data.accuracyType = accuracyType;
-		FlxG.save.data.shadersVHS = shadersVHS;
-		FlxG.save.data.leftArrow = leftArrow;
-		FlxG.save.data.downArrow = downArrow;
-		FlxG.save.data.upArrow = upArrow;
-		FlxG.save.data.rightArrow = rightArrow;
-		FlxG.save.data.leftAltArrow = leftAltArrow;
-		FlxG.save.data.downAltArrow = downAltArrow;
-		FlxG.save.data.upAltArrow = upAltArrow;
-		FlxG.save.data.rightAltArrow = rightAltArrow;
+		if (FlxG.save.data.ghosttap == null) {
+			FlxG.save.data.ghosttap = ghosttap;
+			ghosttap = FlxG.save.data.ghosttap;
+		}
 
-		getLoad();
+		if (FlxG.save.data.downscroll == null) {
+			FlxG.save.data.downscroll = downscroll;
+			downscroll = FlxG.save.data.downscroll;
+		}
+
+		if (FlxG.save.data.accuracy == null) {
+			FlxG.save.data.accuracy = accuracy;
+			accuracy = FlxG.save.data.accuracy;
+		}
+
+		if (FlxG.save.data.botplay == null) {
+			FlxG.save.data.botplay = botplay;
+			botplay = FlxG.save.data.botplay;
+		}
+
+		if (FlxG.save.data.watermark == null) {
+			FlxG.save.data.watermark = watermark;
+			watermark = FlxG.save.data.watermark;
+		}
+
+		if (FlxG.save.data.fpsCounter == null) {
+			FlxG.save.data.fpsCounter = fpsCounter;
+			fpsCounter = FlxG.save.data.fpsCounter;
+		}
+
+		if (FlxG.save.data.fps == null) {
+			FlxG.save.data.fps = fps;
+			fps = FlxG.save.data.fps;
+		}
+
+		if (FlxG.save.data.accuracyType == null) {
+			FlxG.save.data.accuracyType = accuracyType;
+			accuracyType = FlxG.save.data.accuracyType;
+		}
+
+		if (FlxG.save.data.leftArrow == null) {
+			FlxG.save.data.leftArrow = leftArrow;
+			leftArrow = FlxG.save.data.leftArrow;
+		}
+
+		if (FlxG.save.data.downArrow == null) {
+			FlxG.save.data.downArrow = downArrow;
+			downArrow = FlxG.save.data.downArrow;
+		}
+
+		if (FlxG.save.data.upArrow == null) {
+			FlxG.save.data.upArrow = upArrow;
+			upArrow = FlxG.save.data.upArrow;
+		}
+
+		if (FlxG.save.data.rightArrow == null) {
+			FlxG.save.data.rightArrow = rightArrow;
+			rightArrow = FlxG.save.data.rightArrow;
+		}
+
+		if (FlxG.save.data.leftAltArrow == null) {
+			FlxG.save.data.leftAltArrow = leftAltArrow;
+			leftAltArrow = FlxG.save.data.leftAltArrow;
+		}
+
+		if (FlxG.save.data.downAltArrow == null) {
+			FlxG.save.data.downAltArrow = downAltArrow;
+			downAltArrow = FlxG.save.data.downAltArrow;
+		}
+
+		if (FlxG.save.data.upAltArrow == null) {
+			FlxG.save.data.upAltArrow = upAltArrow;
+			upAltArrow = FlxG.save.data.upAltArrow;
+		}
+
+		if (FlxG.save.data.rightAltArrow == null) {
+			FlxG.save.data.rightAltArrow = rightAltArrow;
+			rightAltArrow = FlxG.save.data.rightAltArrow;
+		}
 
 		getPath("Options", "Huy1234TH");
 	}
 
-	public static function getLoad()
-	{
-		if (FlxG.save.data.ghosttap != null) ghosttap = FlxG.save.data.ghosttap;
-		if (FlxG.save.data.downscroll != null) downscroll = FlxG.save.data.downscroll;
-		if (FlxG.save.data.accuracy != null) accuracy = FlxG.save.data.accuracy;
-		if (FlxG.save.data.botplay != null) botplay = FlxG.save.data.botplay;
-		if (FlxG.save.data.watermark != null) watermark = FlxG.save.data.watermark;
-		if (FlxG.save.data.fpsCounter != null) fpsCounter = FlxG.save.data.fpsCounter;
-		if (FlxG.save.data.fps != null) getFPS(fps);
-		if (FlxG.save.data.accuracyType != null) accuracyType = FlxG.save.data.accuracyType;
-		if (FlxG.save.data.shadersVHS != null) shadersVHS = FlxG.save.data.shadersVHS;
-		if (FlxG.save.data.leftArrow != null) leftArrow = FlxG.save.data.leftArrow;
-		if (FlxG.save.data.downArrow != null) downArrow = FlxG.save.data.downArrow;
-		if (FlxG.save.data.upArrow != null) upArrow = FlxG.save.data.upArrow;
-		if (FlxG.save.data.rightArrow != null) rightArrow = FlxG.save.data.rightArrow;
-		if (FlxG.save.data.leftAltArrow != null) leftAltArrow = FlxG.save.data.leftAltArrow;
-		if (FlxG.save.data.downAltArrow != null) downAltArrow = FlxG.save.data.downAltArrow;
-		if (FlxG.save.data.upAltArrow != null) upAltArrow = FlxG.save.data.upAltArrow;
-		if (FlxG.save.data.rightAltArrow != null) rightAltArrow = FlxG.save.data.rightAltArrow;
-
-		getPath("Options", "Huy1234TH");
-	}
-
-	public static function getPath(name:String, ?path:String)
+	inline public static function getPath(name:String, ?path:String)
 	{
 		var save:FlxSave = new FlxSave();
 		save.bind(name, path);
 		FlxG.log.add("Data save complete!");
 	}
-
-	public static function getFPS(curfps:Int)
-	{
-		FlxG.drawFramerate = curfps;
-		FlxG.updateFramerate = curfps;
-	}
-
-	/**
-		Make sure that data is like in the var
-	**/
-	/*public static function resetData(s:Bool)
-	{
-		FlxG.save.data.ghosttap = true;
-		FlxG.save.data.downscroll = false;
-		FlxG.save.data.accuracy = true;
-		FlxG.save.data.botplay = false;
-		FlxG.save.data.watermark = true;
-		FlxG.save.data.fpsCounter = true;
-		FlxG.save.data.fps = 60;
-		FlxG.save.data.accuracyType = "SIMPLE";
-		FlxG.save.data.shadersVHS = false;
-		
-		getSave();
-		getLoad();
-
-		return s;
-	}*/
 }
