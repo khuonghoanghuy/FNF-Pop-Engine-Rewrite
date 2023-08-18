@@ -15,6 +15,16 @@ class SaveData
 	public static var accuracyType:String = "SIMPLE";
 	public static var shadersVHS:Bool = false;
 
+	// key
+	public static var leftArrow:String = "A";
+	public static var leftAltArrow:String = "LEFT";
+	public static var downArrow:String = "S";
+	public static var downAltArrow:String = "DOWN";
+	public static var upArrow:String = "W";
+	public static var upAltArrow:String = "UP";
+	public static var rightArrow:String = "D";
+	public static var rightAltArrow:String = "RIGHT";
+
 	public static function getSave()
 	{
 		FlxG.save.data.ghosttap = ghosttap;
@@ -26,6 +36,14 @@ class SaveData
 		FlxG.save.data.fps = fps;
 		FlxG.save.data.accuracyType = accuracyType;
 		FlxG.save.data.shadersVHS = shadersVHS;
+		FlxG.save.data.leftArrow = leftArrow;
+		FlxG.save.data.downArrow = downArrow;
+		FlxG.save.data.upArrow = upArrow;
+		FlxG.save.data.rightArrow = rightArrow;
+		FlxG.save.data.leftAltArrow = leftAltArrow;
+		FlxG.save.data.downAltArrow = downAltArrow;
+		FlxG.save.data.upAltArrow = upAltArrow;
+		FlxG.save.data.rightAltArrow = rightAltArrow;
 
 		getLoad();
 
@@ -43,6 +61,14 @@ class SaveData
 		if (FlxG.save.data.fps != null) getFPS(fps);
 		if (FlxG.save.data.accuracyType != null) accuracyType = FlxG.save.data.accuracyType;
 		if (FlxG.save.data.shadersVHS != null) shadersVHS = FlxG.save.data.shadersVHS;
+		if (FlxG.save.data.leftArrow != null) leftArrow = FlxG.save.data.leftArrow;
+		if (FlxG.save.data.downArrow != null) downArrow = FlxG.save.data.downArrow;
+		if (FlxG.save.data.upArrow != null) upArrow = FlxG.save.data.upArrow;
+		if (FlxG.save.data.rightArrow != null) rightArrow = FlxG.save.data.rightArrow;
+		if (FlxG.save.data.leftAltArrow != null) leftAltArrow = FlxG.save.data.leftAltArrow;
+		if (FlxG.save.data.downAltArrow != null) downAltArrow = FlxG.save.data.downAltArrow;
+		if (FlxG.save.data.upAltArrow != null) upAltArrow = FlxG.save.data.upAltArrow;
+		if (FlxG.save.data.rightAltArrow != null) rightAltArrow = FlxG.save.data.rightAltArrow;
 
 		getPath("Options", "Huy1234TH");
 	}
@@ -63,7 +89,7 @@ class SaveData
 	/**
 		Make sure that data is like in the var
 	**/
-	public static function resetData(s:Bool)
+	/*public static function resetData(s:Bool)
 	{
 		FlxG.save.data.ghosttap = true;
 		FlxG.save.data.downscroll = false;
@@ -79,5 +105,5 @@ class SaveData
 		getLoad();
 
 		return s;
-	}
+	}*/
 }

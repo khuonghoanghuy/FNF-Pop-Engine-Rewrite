@@ -55,6 +55,7 @@ class OptionsMenu extends MusicBeatState
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		add(descText);
+
 		changeSelection();
 
 		super.create();
@@ -64,8 +65,10 @@ class OptionsMenu extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (controls.BACK)
+		if (controls.BACK){
+			FlxG.save.flush();
 			FlxG.switchState(new MainMenuState());
+		}
 
 		if (controls.UP_P)
 			changeSelection(-1);
@@ -73,7 +76,7 @@ class OptionsMenu extends MusicBeatState
 		if (controls.DOWN_P)
 			changeSelection(1);
 
-		if (controls.LEFT)
+		if (controls.LEFT_R)
 		{
 			if (controlsStrings == gameplayArray)
 			{
@@ -95,14 +98,14 @@ class OptionsMenu extends MusicBeatState
 						if (SaveData.fps == 60)
 							SaveData.fps -= 0;
 						else
-							SaveData.fps -= 1;
+							SaveData.fps -= 10;
 						SaveData.getFPS(SaveData.fps);	
 						descText.text = "Currents FPS: " + SaveData.fps;
 				}
 			}
 		}
 		
-		if (controls.RIGHT)
+		if (controls.RIGHT_P)
 		{
 			if (controlsStrings == gameplayArray)
 			{
@@ -124,7 +127,7 @@ class OptionsMenu extends MusicBeatState
 						if (SaveData.fps == 360)
 							SaveData.fps += 0;
 						else
-							SaveData.fps += 1;
+							SaveData.fps += 10;
 						SaveData.getFPS(SaveData.fps);	
 						descText.text = "Currents FPS: " + SaveData.fps;
 				}
@@ -136,7 +139,8 @@ class OptionsMenu extends MusicBeatState
 			switch (controlsStrings[curSelected])
 			{
 				case "Controls":
-
+					// openSubState(new ControlsSubState());
+					FlxG.switchState(new ControlsState());
 
 				case "Gameplay":
 					controlsStrings = gameplayArray;

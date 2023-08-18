@@ -130,6 +130,9 @@ class PlayState extends MusicBeatState
 	{
 		inClass = this;
 
+		Paths.cacheSound(Paths.inst(SONG.song));
+		Paths.cacheSound(Paths.voices(SONG.song));
+
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
@@ -209,8 +212,40 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 		#end
 
-		if (SONG.stages == null) curStage = "stage"; // will run as default
-		else curStage = SONG.stages;
+		// curStage = SONG.stages;
+
+		if (SONG.stages == null)
+		{
+			switch (SONG.song.toLowerCase())
+			{
+				case "bopeebo" | "fresh" | "dadbattle": // week 1
+					curStage = "stage";
+	
+				case "spookeez" | "south" | "monster": // week 2
+					curStage = "halloween";
+	
+				case "pico" | "philly" | "blammed": // week 3
+					curStage = "philly";
+	
+				case "satin-panties" | "high" | "milf":
+					curStage = "limo";
+	
+				case "cocoa" | "eggnog":
+					curStage = "mall";
+	
+				case "winter-horrorland":
+					curStage = "mallEvil";
+				
+				case "senpai" | "roses":
+					curStage = "school";
+	
+				case "thorns":
+					curStage = "schoolEvil";
+
+				default:
+					curStage = SONG.stages;
+			}
+		}
 
 		switch (SONG.stages)
 		{
@@ -466,11 +501,51 @@ class PlayState extends MusicBeatState
 				bg.scrollFactor.set(0.8, 0.9);
 				bg.scale.set(6, 6);
 				add(bg);
+
+			default:
+				defaultCamZoom = 0.9;
+				var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback'));
+				bg.antialiasing = true;
+				bg.scrollFactor.set(0.9, 0.9);
+				bg.active = false;
+				add(bg);
+
+				var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront'));
+				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+				stageFront.updateHitbox();
+				stageFront.antialiasing = true;
+				stageFront.scrollFactor.set(0.9, 0.9);
+				stageFront.active = false;
+				add(stageFront);
+
+				var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
+				stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
+				stageCurtains.updateHitbox();
+				stageCurtains.antialiasing = true;
+				stageCurtains.scrollFactor.set(1.3, 1.3);
+				stageCurtains.active = false;
+				add(stageCurtains);
 		}
 
 		var gfVersion:String = 'gf';
-		if (SONG.gfVersion == null) SONG.gfVersion = "gf";
-		else gfVersion = SONG.gfVersion;
+		
+		if (SONG.gfVersion == null)
+		{
+			switch (SONG.stages)
+			{
+				case "limo":
+					gfVersion = "gf-car";
+				case "mall" | "mallEvil":
+					gfVersion = "gf-christmas";
+				case "school" | "schoolEvil":
+					gfVersion = "gf-pixel";
+				// default:
+				//	gfVersion = 'gf';
+				default:
+					gfVersion = SONG.gfVersion;
+			}
+		}
+
 		gf = new Character(400, 130, gfVersion);
 		gf.scrollFactor.set(0.95, 0.95);
 
@@ -617,8 +692,8 @@ class PlayState extends MusicBeatState
 		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
 		add(healthBar);
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		scoreTxt = new FlxText(0, healthBarBG.y + 42, FlxG.width, "", 18);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
@@ -1243,8 +1318,6 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		scoreTxt.text = "Score:" + songScore;
-
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
@@ -1559,6 +1632,7 @@ class PlayState extends MusicBeatState
 					{
 						health -= 0.0475;
 						vocals.volume = 0;
+						noteMiss(daNote.noteData);
 					}
 
 					daNote.active = false;
@@ -1899,36 +1973,6 @@ class PlayState extends MusicBeatState
 				{
 					noteCheck(controlArray[daNote.noteData], daNote);
 				}
-				/* 
-					if (controlArray[daNote.noteData])
-						goodNoteHit(daNote);
-				 */
-				// trace(daNote.noteData);
-				/* 
-						switch (daNote.noteData)
-						{
-							case 2: // NOTES YOU JUST PRESSED
-								if (upP || rightP || downP || leftP)
-									noteCheck(upP, daNote);
-							case 3:
-								if (upP || rightP || downP || leftP)
-									noteCheck(rightP, daNote);
-							case 1:
-								if (upP || rightP || downP || leftP)
-									noteCheck(downP, daNote);
-							case 0:
-								if (upP || rightP || downP || leftP)
-									noteCheck(leftP, daNote);
-						}
-
-					//this is already done in noteCheck / goodNoteHit
-					if (daNote.wasGoodHit)
-					{
-						daNote.kill();
-						notes.remove(daNote, true);
-						daNote.destroy();
-					}
-				 */
 			}
 			else
 			{
@@ -2028,6 +2072,7 @@ class PlayState extends MusicBeatState
 
 			boyfriend.stunned = true;
 			wasMiss = true;
+			songMisses++;
 
 			// get stunned for 5 seconds
 			new FlxTimer().start(5 / 60, function(tmr:FlxTimer)
@@ -2092,7 +2137,7 @@ class PlayState extends MusicBeatState
 	{
 		if (keyP)
 			goodNoteHit(note);
-		else
+		else if (SaveData.ghosttap)
 		{
 			badNoteCheck();
 		}
@@ -2107,6 +2152,8 @@ class PlayState extends MusicBeatState
 				popUpScore(note.strumTime);
 				combo += 1;
 			}
+			else
+				songTotalHit += 1;
 
 			if (note.noteData >= 0)
 				health += 0.023;
@@ -2148,7 +2195,9 @@ class PlayState extends MusicBeatState
 	}
 
 	function getDisplay(getBool:Bool) {
-		return scoreTxt.text = PlayCore.displayScore(getBool, songScore, songMisses, PlayCore.truncateFloat(songAccuracy, 2, 10), songRank, songFCRank);
+		return scoreTxt.text = PlayCore.displayScore(getBool, songScore, songMisses, PlayCore.truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		songTotalPlayed++;
+		songAccuracy = songTotalHit / songTotalPlayed * 100;
 	}
 
 	var fastCarCanDrive:Bool = true;

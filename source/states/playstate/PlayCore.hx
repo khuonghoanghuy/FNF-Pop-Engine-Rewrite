@@ -26,14 +26,15 @@ class PlayCore extends MusicBeatState
 			FlxG.switchState(new AnimationDebug(PlayState.SONG.player2));
     }
 
-    public static function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float, ?getRank:String, ?fcRank:String) {
+    inline public static function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float, ?getRank:String, ?fcRank:String) {
         return PlayState.inClass.scoreTxt.text = (ifneed ? 
             "Score: " + curScore + " - Misses: " + missesNeed + " - Accuracy: " + curAcc + "% - Rank: " + getRank + " (" + fcRank + ")"
             : "Score: " + curScore);
     }
 
-    public static function truncateFloat(number:Float, precision:Int, curPow:Int):Float
+    inline public static function truncateFloat(number:Float, precision:Int):Float
     {
+        var curPow = 10;
         var num = number;
         num = num * Math.pow(curPow, precision);
         num = Math.round(num) / Math.pow(curPow, precision);

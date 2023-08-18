@@ -147,4 +147,9 @@ class Paths
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
 	}
+
+	inline static public function cacheSound(sound:String)
+	{
+		return FlxG.sound.cache(sound);
+	}
 }

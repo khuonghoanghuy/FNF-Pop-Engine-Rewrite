@@ -110,7 +110,7 @@
 
 	<!-- JSON STUFF-->
 	<haxelib name="tjson" />
-	<haxelib name="hxjsonast" />
+	<!--<haxelib name="hxjsonast" />-->
 
 	<haxelib name="linc_luajit" />
 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
