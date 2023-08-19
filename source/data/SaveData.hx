@@ -39,6 +39,7 @@ class SaveData
 			FlxG.save.data.accuracyType = "SIMPLE";
 		}
 
+		// key system
 		if (FlxG.save.data.leftArrow == null) {
 			FlxG.save.data.leftArrow = "A";
 		}
@@ -71,7 +72,7 @@ class SaveData
 			FlxG.save.data.rightAltArrow = "RIGHT";
 		}
 
-		FlxG.save.flush();
+		// FlxG.save.flush();
 	}
 
 	inline public static function getPath(name:String, ?path:String)

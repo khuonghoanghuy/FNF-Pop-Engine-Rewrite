@@ -493,33 +493,42 @@ class Controls extends FlxActionSet
 			removeKeyboard();
 
 		keyboardScheme = scheme;
+
+		var left:String = FlxG.save.data.leftArrow;
+		var leftAlt:String = FlxG.save.data.leftAltArrow;
+		var down:String = FlxG.save.data.downArrow;
+		var downAlt:String = FlxG.save.data.downAltArrow;
+		var up:String = FlxG.save.data.upArrow;
+		var upAlt:String = FlxG.save.data.upAltArrow;
+		var right:String = FlxG.save.data.rightArrow;
+		var rightAlt:String = FlxG.save.data.rightAltArrow;
 		
 		#if (haxe >= "4.0.0")
 		switch (scheme)
 		{
 			case Solo:
-				inline bindKeys(Control.UP, [FlxG.save.data.upArrow, FlxG.save.data.upAltArrow]);
-				inline bindKeys(Control.DOWN, [FlxG.save.data.downArrow, FlxG.save.data.downAltArrow]);
-				inline bindKeys(Control.LEFT, [FlxG.save.data.leftArrow, FlxG.save.data.leftAltArrow]);
-				inline bindKeys(Control.RIGHT, [FlxG.save.data.rightArrow, FlxG.save.data.rightAltArrow]);
+				inline bindKeys(Control.UP, [up, upAlt]);
+				inline bindKeys(Control.DOWN, [down, downAlt]);
+				inline bindKeys(Control.LEFT, [left, leftAlt]);
+				inline bindKeys(Control.RIGHT, [right, rightAlt]);
 				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
 				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 				inline bindKeys(Control.RESET, [R]);
 			case Duo(true):
-				inline bindKeys(Control.UP, [FlxG.save.data.upArrow]);
-				inline bindKeys(Control.DOWN, [FlxG.save.data.downArrow]);
-				inline bindKeys(Control.LEFT, [FlxG.save.data.leftArrow]);
-				inline bindKeys(Control.RIGHT, [FlxG.save.data.rightArrow]);
+				inline bindKeys(Control.UP, [up]);
+				inline bindKeys(Control.DOWN, [down]);
+				inline bindKeys(Control.LEFT, [left]);
+				inline bindKeys(Control.RIGHT, [right]);
 				inline bindKeys(Control.ACCEPT, [G, Z]);
 				inline bindKeys(Control.BACK, [H, X]);
 				inline bindKeys(Control.PAUSE, [ONE]);
 				inline bindKeys(Control.RESET, [R]);
 			case Duo(false):
-				inline bindKeys(Control.UP, [FlxG.save.data.upAltArrow]);
-				inline bindKeys(Control.DOWN, [FlxG.save.data.downAltArrow]);
-				inline bindKeys(Control.LEFT, [FlxG.save.data.leftAltArrow]);
-				inline bindKeys(Control.RIGHT, [FlxG.save.data.rightAltArrow]);
+				inline bindKeys(Control.UP, [upAlt]);
+				inline bindKeys(Control.DOWN, [downAlt]);
+				inline bindKeys(Control.LEFT, [leftAlt]);
+				inline bindKeys(Control.RIGHT, [rightAlt]);
 				inline bindKeys(Control.ACCEPT, [O]);
 				inline bindKeys(Control.BACK, [P]);
 				inline bindKeys(Control.PAUSE, [ENTER]);

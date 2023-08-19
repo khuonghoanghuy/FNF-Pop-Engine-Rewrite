@@ -61,11 +61,13 @@ class ControlsState extends MusicBeatSubstate
 
         if (controls.ACCEPT)
         {
+            FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
             inChange = true;
             warmText.text = "PRESS ANY KEY TO CHANGE";
         }
 
         if (FlxG.keys.anyJustPressed([LEFT, A]) && !inChange) {
+            FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
             if (init == 0) {
                 init = 7;
             }else{
@@ -74,6 +76,7 @@ class ControlsState extends MusicBeatSubstate
         }
 
         if (FlxG.keys.anyJustPressed([RIGHT, D]) && !inChange) {
+            FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
             if (init == 7) {
                 init = 0;
             }else{
@@ -122,6 +125,7 @@ class ControlsState extends MusicBeatSubstate
                         FlxG.save.data.rightAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
                 }
                 // back right now :D
+                FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
                 controls.setKeyboardScheme(Solo);
                 warmText.text = "";
                 inChange = false;
