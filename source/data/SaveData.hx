@@ -72,6 +72,14 @@ class SaveData
 			FlxG.save.data.rightAltArrow = "RIGHT";
 		}
 
+		if (FlxG.save.data.randomArrow == null) {
+			FlxG.save.data.randomArrow = false;
+		}
+
+		if (FlxG.save.data.healthdrain == null) {
+			FlxG.save.data.healthdrain = false;
+		}
+
 		// FlxG.save.flush();
 	}
 

@@ -219,6 +219,10 @@ class FreeplayState extends MusicBeatState
 			trace('CUR WEEK' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new PlayState());
 		}
+
+		if (FlxG.keys.justPressed.CONTROL) {
+			openSubState(new options.GameplaySubState());
+		}
 	}
 
 	function changeDiff(change:Int = 0)

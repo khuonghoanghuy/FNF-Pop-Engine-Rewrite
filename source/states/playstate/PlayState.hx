@@ -1023,7 +1023,13 @@ class PlayState extends MusicBeatState
 			for (songNotes in section.sectionNotes)
 			{
 				var daStrumTime:Float = songNotes[0];
-				var daNoteData:Int = Std.int(songNotes[1] % 4);
+				var daNoteData:Int;
+
+				if (FlxG.save.data.randomArrow) {
+					daNoteData = FlxG.random.int(0, 3);
+				} else {
+					daNoteData = Std.int(songNotes[1] % 4);
+				}
 
 				var gottaHitNote:Bool = section.mustHitSection;
 
@@ -2093,6 +2099,7 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
 
+			songTotalHit--;
 			getDisplay(FlxG.save.data.accuracy);
 		}
 	}
@@ -2195,9 +2202,22 @@ class PlayState extends MusicBeatState
 	}
 
 	function getDisplay(getBool:Bool) {
-		return scoreTxt.text = PlayCore.displayScore(getBool, songScore, songMisses, PlayCore.truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		return scoreTxt.text = PlayCore.displayScore(getBool, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		getAccuracy();
+	}
+
+	function getAccuracy()
+	{
 		songTotalPlayed++;
 		songAccuracy = songTotalHit / songTotalPlayed * 100;
+	}
+
+	inline public static function truncateFloat(number:Float, precision:Int):Float
+	{
+		var num = number;
+		num = num * Math.pow(10, precision);
+		num = Math.round(num) / Math.pow(10, precision);
+		return num;
 	}
 
 	var fastCarCanDrive:Bool = true;

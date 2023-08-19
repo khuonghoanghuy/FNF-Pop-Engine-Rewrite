@@ -14,7 +14,6 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import lime.net.curl.CURLCode;
 import states.playstate.*;
 
 using StringTools;
@@ -283,6 +282,10 @@ class StoryMenuState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
 			FlxG.switchState(new MainMenuState());
+		}
+
+		if (FlxG.keys.justPressed.CONTROL) {
+			openSubState(new options.GameplaySubState());
 		}
 
 		super.update(elapsed);

@@ -78,6 +78,7 @@ class OptionsMenu extends MusicBeatState
 
 		if (controls.LEFT_R)
 		{
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 			if (controlsStrings == gameplayArray)
 			{
 				switch (controlsStrings[curSelected])
@@ -108,6 +109,7 @@ class OptionsMenu extends MusicBeatState
 		
 		if (controls.RIGHT_P)
 		{
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 			if (controlsStrings == gameplayArray)
 			{
 				switch (controlsStrings[curSelected])
@@ -138,6 +140,7 @@ class OptionsMenu extends MusicBeatState
 
 		if (controls.ACCEPT)
 		{
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 			switch (controlsStrings[curSelected])
 			{
 				case "Controls":
