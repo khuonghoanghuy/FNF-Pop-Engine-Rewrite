@@ -9,6 +9,7 @@ class GameplaySubState extends MusicBeatSubstate
 {
     var arrayOption:Array<String> = [
         "Random Note",
+        "Stair Note",
         "Health Drain"
     ];
 
@@ -59,7 +60,14 @@ class GameplaySubState extends MusicBeatSubstate
                     } else {
                         FlxG.save.data.randomArrow = true;
                     }
-
+                
+                case "Stair Note":
+                    if (FlxG.save.data.stairArrow) {
+                        FlxG.save.data.stairArrow = false;
+                    } else {
+                        FlxG.save.data.stairArrow = true;
+                    }
+                
                 case "Health Drain":
                     if (FlxG.save.data.healthdrain) {
                         FlxG.save.data.healthdrain = false;

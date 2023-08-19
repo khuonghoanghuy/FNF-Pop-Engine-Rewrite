@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import lime.app.Application;
+// import lime.app.Application;
 
 class OutdatedSubState extends MusicBeatState
 {
@@ -15,7 +15,7 @@ class OutdatedSubState extends MusicBeatState
 		super.create();
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
-		var ver = "v" + Application.current.meta.get('version');
+		// var ver = "v" + Application.current.meta.get('version');
 		var txt:FlxText = new FlxText(0, 0, FlxG.width,
 			"Hey!\nYour version is outdate!\nplease update if you need!",
 			32);
@@ -30,11 +30,13 @@ class OutdatedSubState extends MusicBeatState
 		{
 			FlxG.openURL("https://github.com/khuonghoanghuy/FNF-Pop-Engine-Rewrite/releases");
 		}
+		
 		if (controls.BACK)
 		{
 			leftState = true;
 			FlxG.switchState(new MainMenuState());
 		}
+
 		super.update(elapsed);
 	}
 }

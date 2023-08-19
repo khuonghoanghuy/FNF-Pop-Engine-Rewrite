@@ -12,7 +12,6 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.effects.FlxTrail;
-import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -992,6 +991,7 @@ class PlayState extends MusicBeatState
 	private function generateSong(dataPath:String):Void
 	{
 		// FlxG.log.add(ChartParser.parse());
+		var stair:Int = 0;
 
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm);
@@ -1027,6 +1027,9 @@ class PlayState extends MusicBeatState
 
 				if (FlxG.save.data.randomArrow) {
 					daNoteData = FlxG.random.int(0, 3);
+				} else if (FlxG.save.data.stairArrow) {
+					daNoteData = stair % 4;
+					stair++;
 				} else {
 					daNoteData = Std.int(songNotes[1] % 4);
 				}
@@ -1619,6 +1622,11 @@ class PlayState extends MusicBeatState
 							dad.playAnim('singRIGHT' + altAnim, true);
 					}
 
+					dad.holdTimer = 0;
+
+					if (SONG.needsVoices)
+						vocals.volume = 1;
+
 					if (FlxG.save.data.healthdrain) {
 						if (health == 0.023) {
 							health -= 0;
@@ -1626,11 +1634,6 @@ class PlayState extends MusicBeatState
 							health -= 0.0475;
 						}
 					}
-
-					dad.holdTimer = 0;
-
-					if (SONG.needsVoices)
-						vocals.volume = 1;
 
 					daNote.kill();
 					notes.remove(daNote, true);

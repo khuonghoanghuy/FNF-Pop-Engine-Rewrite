@@ -19,7 +19,9 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
+#if desktop
 import lime.app.Application;
+#end
 
 using StringTools;
 
@@ -36,6 +38,9 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
+
+	var mustUpdate:Bool;
+	var updateVersion:String = '';
 
 	override public function create():Void
 	{
@@ -199,6 +204,8 @@ class TitleState extends MusicBeatState
 		else
 			initialized = true;
 
+		check();
+
 		// credGroup.add(credTextShit);
 	}
 
@@ -267,7 +274,10 @@ class TitleState extends MusicBeatState
 
 			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
-				FlxG.switchState(new MainMenuState());
+				if (mustUpdate)
+					FlxG.switchState(new OutdatedSubState());
+				else
+					FlxG.switchState(new MainMenuState());
 			});
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
@@ -388,5 +398,23 @@ class TitleState extends MusicBeatState
 			remove(credGroup);
 			skippedIntro = true;
 		}
+	}
+
+	function check() {
+		var http = new haxe.Http("https://raw.githubusercontent.com/khuonghoanghuy/FNF-Pop-Engine-Rewrite/main/engineVer.txt");
+		http.onData = function(data:String)
+		{
+			updateVersion = data.split('\n')[0].trim();
+			var curVersion:String = VERSION_POPENGINE.trim();
+			if (updateVersion != curVersion)
+				mustUpdate = true;
+		}
+
+		http.onError = function(error)
+		{
+			trace('error: $error');
+		}
+
+		http.request();
 	}
 }

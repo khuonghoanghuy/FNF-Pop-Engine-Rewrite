@@ -76,6 +76,10 @@ class SaveData
 			FlxG.save.data.randomArrow = false;
 		}
 
+		if (FlxG.save.data.stairArrow == null) {
+			FlxG.save.data.stairArrow = false;
+		}
+
 		if (FlxG.save.data.healthdrain == null) {
 			FlxG.save.data.healthdrain = false;
 		}
