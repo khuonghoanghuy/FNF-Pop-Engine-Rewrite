@@ -84,42 +84,42 @@ class ControlsState extends MusicBeatSubstate
         switch (init) 
         {
             case 0:
-                textCenter.text = "LEFT KEY: " + SaveData.leftArrow;
+                textCenter.text = "LEFT KEY: " + FlxG.save.data.leftArrow;
             case 1:
-                textCenter.text = "DOWN KEY: " + SaveData.downArrow;
+                textCenter.text = "DOWN KEY: " + FlxG.save.data.downArrow;
             case 2:
-                textCenter.text = "UP KEY: " + SaveData.upArrow;
+                textCenter.text = "UP KEY: " + FlxG.save.data.upArrow;
             case 3:
-                textCenter.text = "RIGHT KEY: " + SaveData.rightArrow;
+                textCenter.text = "RIGHT KEY: " + FlxG.save.data.rightArrow;
             case 4:
-                textCenter.text = "LEFT ALT KEY: " + SaveData.leftAltArrow;
+                textCenter.text = "LEFT ALT KEY: " + FlxG.save.data.leftAltArrow;
             case 5:
-                textCenter.text = "DOWN ALT KEY: " + SaveData.downAltArrow;
+                textCenter.text = "DOWN ALT KEY: " + FlxG.save.data.downAltArrow;
             case 6:
-                textCenter.text = "UP ALT KEY: " + SaveData.upAltArrow;
+                textCenter.text = "UP ALT KEY: " + FlxG.save.data.upAltArrow;
             case 7:
-                textCenter.text = "RIGHT ALT KEY: " + SaveData.rightAltArrow;
+                textCenter.text = "RIGHT ALT KEY: " + FlxG.save.data.rightAltArrow;
         }
 
         if (inChange) {
             if (!controls.ACCEPT && !controls.BACK && !controls.PAUSE && !controls.CHEAT && !controls.PAUSE && FlxG.keys.justPressed.ANY) {
                 switch (init) {
                     case 0: // left
-                        SaveData.leftArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.leftArrow = FlxG.keys.getIsDown()[0].ID.toString();
                     case 1: // down
-                        SaveData.downArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.downArrow = FlxG.keys.getIsDown()[0].ID.toString();
                     case 2: // up
-                        SaveData.upArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.upArrow = FlxG.keys.getIsDown()[0].ID.toString();
                     case 3: // right
-                        SaveData.rightArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.rightArrow = FlxG.keys.getIsDown()[0].ID.toString();
                     case 4: // left alt
-                        SaveData.leftAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.leftAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
                     case 5: // down alt
-                        SaveData.downAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.downAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
                     case 6: // up alt
-                        SaveData.upAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.upAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
                     case 7: // right alt
-                        SaveData.rightAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
+                        FlxG.save.data.rightAltArrow = FlxG.keys.getIsDown()[0].ID.toString();
                 }
                 // back right now :D
                 controls.setKeyboardScheme(Solo);

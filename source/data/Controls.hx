@@ -498,28 +498,28 @@ class Controls extends FlxActionSet
 		switch (scheme)
 		{
 			case Solo:
-				inline bindKeys(Control.UP, [SaveData.upArrow, SaveData.upAltArrow]);
-				inline bindKeys(Control.DOWN, [SaveData.downArrow, SaveData.downAltArrow]);
-				inline bindKeys(Control.LEFT, [SaveData.leftArrow, SaveData.leftAltArrow]);
-				inline bindKeys(Control.RIGHT, [SaveData.rightArrow, SaveData.rightAltArrow]);
+				inline bindKeys(Control.UP, [FlxG.save.data.upArrow, FlxG.save.data.upAltArrow]);
+				inline bindKeys(Control.DOWN, [FlxG.save.data.downArrow, FlxG.save.data.downAltArrow]);
+				inline bindKeys(Control.LEFT, [FlxG.save.data.leftArrow, FlxG.save.data.leftAltArrow]);
+				inline bindKeys(Control.RIGHT, [FlxG.save.data.rightArrow, FlxG.save.data.rightAltArrow]);
 				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
 				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 				inline bindKeys(Control.RESET, [R]);
 			case Duo(true):
-				inline bindKeys(Control.UP, [SaveData.upArrow]);
-				inline bindKeys(Control.DOWN, [SaveData.downArrow]);
-				inline bindKeys(Control.LEFT, [SaveData.leftArrow]);
-				inline bindKeys(Control.RIGHT, [SaveData.rightArrow]);
+				inline bindKeys(Control.UP, [FlxG.save.data.upArrow]);
+				inline bindKeys(Control.DOWN, [FlxG.save.data.downArrow]);
+				inline bindKeys(Control.LEFT, [FlxG.save.data.leftArrow]);
+				inline bindKeys(Control.RIGHT, [FlxG.save.data.rightArrow]);
 				inline bindKeys(Control.ACCEPT, [G, Z]);
 				inline bindKeys(Control.BACK, [H, X]);
 				inline bindKeys(Control.PAUSE, [ONE]);
 				inline bindKeys(Control.RESET, [R]);
 			case Duo(false):
-				inline bindKeys(Control.UP, [SaveData.upAltArrow]);
-				inline bindKeys(Control.DOWN, [SaveData.downAltArrow]);
-				inline bindKeys(Control.LEFT, [SaveData.leftAltArrow]);
-				inline bindKeys(Control.RIGHT, [SaveData.rightAltArrow]);
+				inline bindKeys(Control.UP, [FlxG.save.data.upAltArrow]);
+				inline bindKeys(Control.DOWN, [FlxG.save.data.downAltArrow]);
+				inline bindKeys(Control.LEFT, [FlxG.save.data.leftAltArrow]);
+				inline bindKeys(Control.RIGHT, [FlxG.save.data.rightAltArrow]);
 				inline bindKeys(Control.ACCEPT, [O]);
 				inline bindKeys(Control.BACK, [P]);
 				inline bindKeys(Control.PAUSE, [ENTER]);

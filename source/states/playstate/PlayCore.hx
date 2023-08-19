@@ -3,7 +3,9 @@ package states.playstate;
 import flixel.FlxG;
 import flixel.ui.FlxBar;
 import flixel.FlxSprite;
+#if discord_allows
 import Discord.DiscordClient;
+#end
 
 class PlayCore extends MusicBeatState
 {

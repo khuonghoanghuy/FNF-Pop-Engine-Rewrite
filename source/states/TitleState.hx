@@ -50,7 +50,9 @@ class TitleState extends MusicBeatState
 		// DEBUG BULLSHIT
 
 		super.create();
+		
 		SaveData.init();
+		SaveData.getPath("data", "popenginerewrite");
 
 		Highscore.load();
 

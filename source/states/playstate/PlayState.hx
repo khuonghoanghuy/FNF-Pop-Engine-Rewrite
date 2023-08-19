@@ -143,7 +143,7 @@ class PlayState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
 
-		if (SaveData.shadersVHS) {
+		if (FlxG.save.data.shadersVHS) {
 			var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 			bg.scrollFactor.set();
 			// bg.shader = vhs;
@@ -2093,7 +2093,7 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
 
-			getDisplay(SaveData.accuracy);
+			getDisplay(FlxG.save.data.accuracy);
 		}
 	}
 
@@ -2106,7 +2106,7 @@ class PlayState extends MusicBeatState
 		var downP = controls.DOWN_P;
 		var leftP = controls.LEFT_P;
 
-		if (SaveData.ghosttap)
+		if (FlxG.save.data.ghosttap)
 		{
 			if (wasMiss)
 			{
@@ -2137,7 +2137,7 @@ class PlayState extends MusicBeatState
 	{
 		if (keyP)
 			goodNoteHit(note);
-		else if (SaveData.ghosttap)
+		else if (FlxG.save.data.ghosttap)
 		{
 			badNoteCheck();
 		}
@@ -2190,7 +2190,7 @@ class PlayState extends MusicBeatState
 				note.destroy();
 			}
 
-			getDisplay(SaveData.accuracy);
+			getDisplay(FlxG.save.data.accuracy);
 		}
 	}
 

@@ -83,10 +83,10 @@ class OptionsMenu extends MusicBeatState
 				switch (controlsStrings[curSelected])
 				{
 					case "Accuracy Type":
-						if (SaveData.accuracyType == "SIMPLE") SaveData.accuracyType = "COMPLEX";
-						else if (SaveData.accuracyType == "COMPLEX") SaveData.accuracyType = "SIMPLE";
-						SaveData.accuracyType = SaveData.accuracyType;
-						if (SaveData.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + SaveData.accuracyType; else if (SaveData.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + SaveData.accuracyType;
+						if (FlxG.save.data.accuracyType == "SIMPLE") FlxG.save.data.accuracyType = "COMPLEX";
+						else if (FlxG.save.data.accuracyType == "COMPLEX") FlxG.save.data.accuracyType = "SIMPLE";
+						FlxG.save.data.accuracyType = FlxG.save.data.accuracyType;
+						if (FlxG.save.data.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + FlxG.save.data.accuracyType; else if (FlxG.save.data.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + FlxG.save.data.accuracyType;
 				}
 			}
 
@@ -95,13 +95,13 @@ class OptionsMenu extends MusicBeatState
 				switch (controlsStrings[curSelected])
 				{
 					case "FPS": 
-						if (SaveData.fps == 60)
-							SaveData.fps -= 0;
+						if (FlxG.save.data.fps == 60)
+							FlxG.save.data.fps -= 0;
 						else
-							SaveData.fps -= 10;
-						FlxG.drawFramerate = SaveData.fps;
-						FlxG.updateFramerate = SaveData.fps;
-						descText.text = "Currents FPS: " + SaveData.fps;
+							FlxG.save.data.fps -= 10;
+						FlxG.drawFramerate = FlxG.save.data.fps;
+						FlxG.updateFramerate = FlxG.save.data.fps;
+						descText.text = "Currents FPS: " + FlxG.save.data.fps;
 				}
 			}
 		}
@@ -113,10 +113,10 @@ class OptionsMenu extends MusicBeatState
 				switch (controlsStrings[curSelected])
 				{
 					case "Accuracy Type":
-						if (SaveData.accuracyType == "SIMPLE") SaveData.accuracyType = "COMPLEX";
-						else if (SaveData.accuracyType == "COMPLEX") SaveData.accuracyType = "SIMPLE";
-						SaveData.accuracyType = SaveData.accuracyType;
-						if (SaveData.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + SaveData.accuracyType; else if (SaveData.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + SaveData.accuracyType;
+						if (FlxG.save.data.accuracyType == "SIMPLE") FlxG.save.data.accuracyType = "COMPLEX";
+						else if (FlxG.save.data.accuracyType == "COMPLEX") FlxG.save.data.accuracyType = "SIMPLE";
+						FlxG.save.data.accuracyType = FlxG.save.data.accuracyType;
+						if (FlxG.save.data.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + FlxG.save.data.accuracyType; else if (FlxG.save.data.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + FlxG.save.data.accuracyType;
 				}
 			}
 
@@ -125,13 +125,13 @@ class OptionsMenu extends MusicBeatState
 				switch (controlsStrings[curSelected])
 				{
 					case "FPS": 
-						if (SaveData.fps == 360)
-							SaveData.fps += 0;
+						if (FlxG.save.data.fps == 360)
+							FlxG.save.data.fps += 0;
 						else
-							SaveData.fps += 10;
-						FlxG.drawFramerate = SaveData.fps;
-						FlxG.updateFramerate = SaveData.fps;
-						descText.text = "Currents FPS: " + SaveData.fps;
+							FlxG.save.data.fps += 10;
+						FlxG.drawFramerate = FlxG.save.data.fps;
+						FlxG.updateFramerate = FlxG.save.data.fps;
+						descText.text = "Currents FPS: " + FlxG.save.data.fps;
 				}
 			}
 		}
@@ -166,39 +166,39 @@ class OptionsMenu extends MusicBeatState
 				switch (controlsStrings[curSelected])
 				{
 					case "Ghost tap":
-						if (SaveData.ghosttap) {
-							SaveData.ghosttap = false;
-							descText.text = "Help you play less miss: " + SaveData.ghosttap;
+						if (FlxG.save.data.ghosttap) {
+							FlxG.save.data.ghosttap = false;
+							descText.text = "Help you play less miss: " + FlxG.save.data.ghosttap;
 						} else {
-							SaveData.ghosttap = true;
-							descText.text = "Help you play less miss: " + SaveData.ghosttap;
+							FlxG.save.data.ghosttap = true;
+							descText.text = "Help you play less miss: " + FlxG.save.data.ghosttap;
 						}
 	
 					case "Downscroll":
-						if (SaveData.downscroll) {
-							SaveData.downscroll = false;
-							descText.text = "Change layout from upscroll to downscroll: " + SaveData.downscroll;
+						if (FlxG.save.data.downscroll) {
+							FlxG.save.data.downscroll = false;
+							descText.text = "Change layout from upscroll to downscroll: " + FlxG.save.data.downscroll;
 						} else {
-							SaveData.downscroll = true;
-							descText.text = "Change layout from upscroll to downscroll: " + SaveData.downscroll;
+							FlxG.save.data.downscroll = true;
+							descText.text = "Change layout from upscroll to downscroll: " + FlxG.save.data.downscroll;
 						}
 	
 					case "Accuracy":
-						if (SaveData.accuracy) {
-							SaveData.accuracy = false;
-							descText.text = "Display more stuff like Misses, Accuracy: " + SaveData.accuracy;
+						if (FlxG.save.data.accuracy) {
+							FlxG.save.data.accuracy = false;
+							descText.text = "Display more stuff like Misses, Accuracy: " + FlxG.save.data.accuracy;
 						} else {
-							SaveData.accuracy = true;
-							descText.text = "Display more stuff like Misses, Accuracy: " + SaveData.accuracy;
+							FlxG.save.data.accuracy = true;
+							descText.text = "Display more stuff like Misses, Accuracy: " + FlxG.save.data.accuracy;
 						}
 
 					case "Botplay":
-						if (SaveData.botplay) {
-							SaveData.botplay = false;
-							descText.text = "Lets botplay play help for you!: " + SaveData.botplay;
+						if (FlxG.save.data.botplay) {
+							FlxG.save.data.botplay = false;
+							descText.text = "Lets botplay play help for you!: " + FlxG.save.data.botplay;
 						} else {
-							SaveData.botplay = true;
-							descText.text = "Lets botplay play help for you!: " + SaveData.botplay;
+							FlxG.save.data.botplay = true;
+							descText.text = "Lets botplay play help for you!: " + FlxG.save.data.botplay;
 						}
 
 					case "Back":
@@ -212,12 +212,12 @@ class OptionsMenu extends MusicBeatState
 				switch (controlsStrings[curSelected])
 				{
 					case "VHS Shader":
-						if (SaveData.shadersVHS) {
-							SaveData.shadersVHS = false;
-							descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + SaveData.shadersVHS;
+						if (FlxG.save.data.shadersVHS) {
+							FlxG.save.data.shadersVHS = false;
+							descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + FlxG.save.data.shadersVHS;
 						} else {
-							SaveData.shadersVHS = true;
-							descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + SaveData.shadersVHS;
+							FlxG.save.data.shadersVHS = true;
+							descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + FlxG.save.data.shadersVHS;
 						}
 
 					case "Back":
@@ -231,21 +231,21 @@ class OptionsMenu extends MusicBeatState
 				switch (controlsStrings[curSelected])
 				{
 					case "Watermark":
-						if (SaveData.watermark) {
-							SaveData.watermark = false;
-							descText.text = "Enable/Disable Pop Engine Watermark: " + SaveData.watermark;
+						if (FlxG.save.data.watermark) {
+							FlxG.save.data.watermark = false;
+							descText.text = "Enable/Disable Pop Engine Watermark: " + FlxG.save.data.watermark;
 						} else {
-							SaveData.watermark = true;
-							descText.text = "Enable/Disable Pop Engine Watermark: " + SaveData.watermark;
+							FlxG.save.data.watermark = true;
+							descText.text = "Enable/Disable Pop Engine Watermark: " + FlxG.save.data.watermark;
 						}
 
 					case "FPS Counter":						
-						if (SaveData.fpsCounter) {
-							SaveData.fpsCounter = false;
-							descText.text = "Display FPS Counter: " + SaveData.fpsCounter;
+						if (FlxG.save.data.fpsCounter) {
+							FlxG.save.data.fpsCounter = false;
+							descText.text = "Display FPS Counter: " + FlxG.save.data.fpsCounter;
 						} else {
-							SaveData.fpsCounter = true;
-							descText.text = "Display FPS Counter: " + SaveData.fpsCounter;
+							FlxG.save.data.fpsCounter = true;
+							descText.text = "Display FPS Counter: " + FlxG.save.data.fpsCounter;
 						}
 
 					case "RESET DATA":
@@ -295,15 +295,15 @@ class OptionsMenu extends MusicBeatState
 		switch (controlsStrings[curSelected])
 		{
 			case "Controls" | "Gameplay" | "Misc" | "Exit": descText.text = "";
-			case "Ghost tap": descText.text = "Help you play less miss: " + SaveData.ghosttap;
-			case "Downscroll": descText.text = "Change layout from upscroll to downscroll: " + SaveData.downscroll;
-			case "Accuracy": descText.text = "Display more stuff like Misses, Accuracy: " + SaveData.accuracy;
-			case "Accuracy Type": if (SaveData.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + SaveData.accuracyType; else if (SaveData.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + SaveData.accuracyType;
-			case "Botplay": descText.text = "Lets botplay play help for you!: " + SaveData.botplay;
-			case "Watermark": descText.text = "Enable/Disable Pop Engine Watermark: " + SaveData.watermark;
-			case "FPS Counter": descText.text = "Display FPS Counter: " + SaveData.fpsCounter;
-			case "FPS": descText.text = "Currents FPS: " + SaveData.fps;
-			case "VHS Shader": descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + SaveData.shadersVHS;
+			case "Ghost tap": descText.text = "Help you play less miss: " + FlxG.save.data.ghosttap;
+			case "Downscroll": descText.text = "Change layout from upscroll to downscroll: " + FlxG.save.data.downscroll;
+			case "Accuracy": descText.text = "Display more stuff like Misses, Accuracy: " + FlxG.save.data.accuracy;
+			case "Accuracy Type": if (FlxG.save.data.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + FlxG.save.data.accuracyType; else if (FlxG.save.data.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + FlxG.save.data.accuracyType;
+			case "Botplay": descText.text = "Lets botplay play help for you!: " + FlxG.save.data.botplay;
+			case "Watermark": descText.text = "Enable/Disable Pop Engine Watermark: " + FlxG.save.data.watermark;
+			case "FPS Counter": descText.text = "Display FPS Counter: " + FlxG.save.data.fpsCounter;
+			case "FPS": descText.text = "Currents FPS: " + FlxG.save.data.fps;
+			case "VHS Shader": descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + FlxG.save.data.shadersVHS;
 			case "RESET DATA": descText.text = "RESET ALL DATA WHEN YOU PRESS ENTER";
 			case "Back": descText.text = "Back to Options";
 		}

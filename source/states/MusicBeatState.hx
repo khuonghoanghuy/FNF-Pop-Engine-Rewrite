@@ -34,11 +34,11 @@ class MusicBeatState extends FlxUIState
 		updateCurStep();
 		updateBeat();
 
-		FlxG.drawFramerate = SaveData.fps;
-		FlxG.updateFramerate = SaveData.fps;
+		FlxG.drawFramerate = FlxG.save.data.fps;
+		FlxG.updateFramerate = FlxG.save.data.fps;
 
-		if (!SaveData.fpsCounter) FlxG.stage.removeChild(Main.fpsCounter);
-		else if (SaveData.fpsCounter) FlxG.stage.addChild(Main.fpsCounter);
+		if (!FlxG.save.data.fpsCounter) FlxG.stage.removeChild(Main.fpsCounter);
+		else if (FlxG.save.data.fpsCounter) FlxG.stage.addChild(Main.fpsCounter);
 
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
