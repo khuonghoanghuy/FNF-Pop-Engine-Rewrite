@@ -1620,7 +1620,7 @@ class PlayState extends MusicBeatState
 					}
 
 					if (FlxG.save.data.healthdrain) {
-						if (healthBar.percent < 20) {
+						if (health == 0.023) {
 							health -= 0;
 						} else {
 							health -= 0.0475;
