@@ -20,7 +20,7 @@ class GameplaySubState extends MusicBeatSubstate
         super();
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0;
+		bg.alpha = 0.6;
 		bg.scrollFactor.set();
 		add(bg);
 
@@ -42,11 +42,11 @@ class GameplaySubState extends MusicBeatSubstate
     {
         super.update(elapsed);
 
-        if (controls.UP) {
+        if (controls.UP_P) {
             changeSelection(-1);
         }
 
-        if (controls.DOWN) {
+        if (controls.DOWN_P) {
             changeSelection(1);
         }
 

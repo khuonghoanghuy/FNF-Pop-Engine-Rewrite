@@ -1619,6 +1619,14 @@ class PlayState extends MusicBeatState
 							dad.playAnim('singRIGHT' + altAnim, true);
 					}
 
+					if (FlxG.save.data.healthdrain) {
+						if (healthBar.percent < 20) {
+							health -= 0;
+						} else {
+							health -= 0.0475;
+						}
+					}
+
 					dad.holdTimer = 0;
 
 					if (SONG.needsVoices)
