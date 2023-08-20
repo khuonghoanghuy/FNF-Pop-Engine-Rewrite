@@ -1,9 +1,17 @@
-# Friday Night Funkin': Pop Engine Rewrite!
+# Friday Night Funkin': Pop Engine Rewrite! (WIP)
 [Pop Engine](https://github.com/Hoovy-Team/FNF-Pop-Engine-Legacy) is my first FNF Engine i've made, because of that, i make a rewrite version of Pop Engine
 
 all of this engine is made by me!
 
 # ![Repo Size](https://img.shields.io/github/repo-size/khuonghoanghuy/FNF-Pop-Engine-Rewrite)
+
+# TODO:
+- Fixed Font []
+- Week 7 Song []
+- Fix Chart []
+- Modding Core System []
+- LUA Core System []
+- New Gameplay Screen []
 
 # Feature:
 A custom engine must have a custom feature, pop engine will have:
