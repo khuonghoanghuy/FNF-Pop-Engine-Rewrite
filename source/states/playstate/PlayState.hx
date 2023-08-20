@@ -1138,7 +1138,7 @@ class PlayState extends MusicBeatState
 
 				default:
 					var tex:FlxAtlasFrames;
-					if (FlxG.save.data.noteSimple) {
+					if (!FlxG.save.data.noteSimple) {
 						tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
 					} else {
 						tex = Paths.getSparrowAtlas('arrows/NOTE_simple');
