@@ -1,5 +1,8 @@
 package states;
 
+import flixel.addons.display.FlxBackdrop;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import Conductor.BPMChangeEvent;
 import Section.SwagSection;
 import Song.SwagSong;
@@ -74,9 +77,16 @@ class ChartingState extends MusicBeatState
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
+	var backdrop:FlxBackdrop;
 
 	override function create()
 	{
+		/*backdrop = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B1B29AA, 0x0), X);
+		backdrop.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
+		backdrop.alpha = 0;
+		FlxTween.tween(backdrop, {alpha: 0.4}, 0.5, {ease: FlxEase.quadOut});
+		add(backdrop);*/
+
 		curSection = lastSection;
 
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
