@@ -1,5 +1,6 @@
 package options;
 
+import flixel.system.FlxAssets;
 import flixel.util.FlxSave;
 import flixel.util.FlxColor;
 import flixel.FlxG;
@@ -16,10 +17,11 @@ class OptionsMenu extends MusicBeatState
 
 	var controlsStrings:Array<String> = [];
 
-	var selectArray:Array<String> = ["Controls", "Gameplay", "Misc", "Exit"];
+	var selectArray:Array<String> = ["Controls", "Gameplay", "Type Gameplay", "Misc", "Exit"];
 	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Accuracy Type", "Botplay", "Back"];
+	var typeArray:Array<String> = ["Note Simple", "Back"];
 	var shadersArray:Array<String> = ["VHS Shader", "Back"];
-	var miscArray:Array<String> = ["Watermark", "Show BG Black", "FPS Counter", "FPS", "RESET DATA", "Back"];
+	var miscArray:Array<String> = ["Watermark", "FPS", "RESET DATA", "Debug Allow", "FPS Counter", "Back"];
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
@@ -52,7 +54,7 @@ class OptionsMenu extends MusicBeatState
 		}
 
 		descText = new FlxText(50, 650, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font(font), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		add(descText);
 
@@ -159,9 +161,12 @@ class OptionsMenu extends MusicBeatState
 					controlsStrings = miscArray;
 					regenMenu();
 
+				case "Type Gameplay":
+					controlsStrings = typeArray;
+					regenMenu();
+
 				case "Exit":
 					FlxG.switchState(new MainMenuState());
-					
 			}
 
 			if (controlsStrings == gameplayArray)
@@ -229,6 +234,25 @@ class OptionsMenu extends MusicBeatState
 				}
 			}
 
+			if (controlsStrings == typeArray)
+			{
+				switch (controlsStrings[curSelected])
+				{
+					case "Note Simple":
+						if (FlxG.save.data.noteSimple) {
+							FlxG.save.data.noteSimple = false;
+							descText.text = "If Enable will using the Simple One, Disable for OG Note: " + FlxG.save.data.noteSimple;
+						} else {
+							FlxG.save.data.noteSimple = true;
+							descText.text = "If Enable will using the Simple One, Disable for OG Note: " + FlxG.save.data.noteSimple;
+						}
+
+					case "Back":
+						controlsStrings = selectArray;
+						regenMenu();
+				}
+			}
+
 			if (controlsStrings == miscArray)
 			{
 				switch (controlsStrings[curSelected])
@@ -249,6 +273,15 @@ class OptionsMenu extends MusicBeatState
 						} else {
 							FlxG.save.data.fpsCounter = true;
 							descText.text = "Display FPS Counter: " + FlxG.save.data.fpsCounter;
+						}
+
+					case "Debug Allow":
+						if (FlxG.save.data.debugAllow) {
+							FlxG.save.data.debugAllow = false;
+							descText.text = "Allows Debug Mode: " + FlxG.save.data.debugAllow;
+						} else {
+							FlxG.save.data.debugAllow = true;
+							descText.text = "Allows Debug Mode: " + FlxG.save.data.debugAllow;
 						}
 
 					case "RESET DATA":
@@ -297,7 +330,7 @@ class OptionsMenu extends MusicBeatState
 
 		switch (controlsStrings[curSelected])
 		{
-			case "Controls" | "Gameplay" | "Misc" | "Exit": descText.text = "";
+			case "Controls" | "Gameplay" | "Misc" | "Type Gameplay" | "Exit": descText.text = "";
 			case "Ghost tap": descText.text = "Help you play less miss: " + FlxG.save.data.ghosttap;
 			case "Downscroll": descText.text = "Change layout from upscroll to downscroll: " + FlxG.save.data.downscroll;
 			case "Accuracy": descText.text = "Display more stuff like Misses, Accuracy: " + FlxG.save.data.accuracy;
@@ -308,6 +341,9 @@ class OptionsMenu extends MusicBeatState
 			case "FPS": descText.text = "Currents FPS: " + FlxG.save.data.fps;
 			case "VHS Shader": descText.text = "Enable/Disable VHS Shaders (LAG WARMING): " + FlxG.save.data.shadersVHS;
 			case "RESET DATA": descText.text = "RESET ALL DATA WHEN YOU PRESS ENTER";
+			case "Debug Allow": descText.text = "Allows Debug Mode: " + FlxG.save.data.debugAllow;
+			case "Note Simple": descText.text = "If Enable will using the Simple One, Disable for OG Note: " + FlxG.save.data.noteSimple;
+			case "Font Debugger": descText.text = "If Enable, replace VCR Font with Flixel Debugger Font: " + FlxG.save.data.flixelDebuggerFont;
 			case "Back": descText.text = "Back to Options";
 		}
 

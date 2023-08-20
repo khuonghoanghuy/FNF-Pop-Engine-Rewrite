@@ -1,5 +1,6 @@
 package states;
 
+import states.playstate.PlayState;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -188,6 +189,10 @@ class AnimationDebug extends FlxState
 			updateTexts();
 			genBoyOffsets(false);
 			char.playAnim(animList[curAnim]);
+		}
+
+		if (FlxG.keys.justPressed.ESCAPE) {
+			FlxG.switchState(new PlayState());
 		}
 
 		super.update(elapsed);

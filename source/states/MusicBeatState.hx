@@ -1,5 +1,6 @@
 package states;
 
+import flixel.system.FlxAssets;
 import data.SaveData;
 import Conductor.BPMChangeEvent;
 import flixel.FlxG;
@@ -14,6 +15,16 @@ class MusicBeatState extends FlxUIState
 	private var lastStep:Float = 0;
 	var VERSION_POPENGINE:String = "0.1.0";
 
+	/**
+	 * Using for font was type like: vcr.ttf
+	 */
+	var font:String;
+
+	/**
+	 * Using for font when type the full name like: VCR OSD Mono
+	 */
+	var full_font:String;
+
 	private var curStep:Int = 0;
 	private var curBeat:Int = 0;
 	private var controls(get, never):Controls;
@@ -24,6 +35,14 @@ class MusicBeatState extends FlxUIState
 	override function create()
 	{
 		super.create();
+
+		if (FlxG.save.data.flixelDebuggerFont) {
+			font = FlxAssets.FONT_DEBUGGER;
+			full_font = FlxAssets.FONT_DEBUGGER;
+		} else if (!FlxG.save.data.flixelDebuggerFont) {
+			font = "vcr.ttf";
+			full_font = "VCR OSD Mono";
+		}
 	}
 
 	override function update(elapsed:Float)

@@ -93,12 +93,12 @@ class MainMenuState extends MusicBeatState
 
 		var versionShit:FlxText = new FlxText(10, FlxG.height - 44, 0, "Pop Engine Rewrite v" + VERSION_POPENGINE, 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(full_font, 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
 		var versionShit:FlxText = new FlxText(10, FlxG.height - 22, 0, "v" + Application.current.meta.get('version') + " (v0.2.7.1 CUSTOM BUILD!)", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(full_font, 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();

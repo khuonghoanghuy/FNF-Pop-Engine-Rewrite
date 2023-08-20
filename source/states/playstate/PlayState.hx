@@ -1,5 +1,6 @@
 package states.playstate;
 
+import flixel.graphics.frames.FlxAtlasFrames;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -346,11 +347,6 @@ class PlayState extends MusicBeatState
 					grpLimoDancers.add(dancer);
 				}
 
-				/*var overlayShit:FlxSprite = new FlxSprite(-500, -600).loadGraphic(Paths.image('limo/limoOverlay'));
-				overlayShit.alpha = 0.5;
-				var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
-				FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);*/
-
 				var limoTex = Paths.getSparrowAtlas('limo/limoDrive');
 
 				limo = new FlxSprite(-120, 550);
@@ -692,7 +688,7 @@ class PlayState extends MusicBeatState
 		add(healthBar);
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 42, FlxG.width, "", 18);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font(font), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
@@ -1141,7 +1137,14 @@ class PlayState extends MusicBeatState
 					}
 
 				default:
-					babyArrow.frames = Paths.getSparrowAtlas('NOTE_assets');
+					var tex:FlxAtlasFrames;
+					if (FlxG.save.data.noteSimple) {
+						tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
+					} else {
+						tex = Paths.getSparrowAtlas('arrows/NOTE_simple');
+					}
+	
+					babyArrow.frames = tex;
 					babyArrow.animation.addByPrefix('green', 'arrowUP');
 					babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
 					babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
@@ -1297,6 +1300,8 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		PlayCore.getToggle(FlxG.save.data.debugAllow);
+
 		#if !debug
 		perfectMode = false;
 		#end

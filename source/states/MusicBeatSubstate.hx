@@ -1,15 +1,33 @@
 package states;
 
+import flixel.system.FlxAssets;
 import flixel.FlxG;
-import data.SaveData;
 import Conductor.BPMChangeEvent;
 import flixel.FlxSubState;
 
 class MusicBeatSubstate extends FlxSubState
 {
+	/**
+	 * Using for font was type like: vcr.ttf
+	 */
+	 var font:String;
+
+	 /**
+	  * Using for font when type the full name like: VCR OSD Mono
+	  */
+	 var full_font:String;
+
 	public function new()
 	{
 		super();
+
+		if (FlxG.save.data.flixelDebuggerFont) {
+			font = FlxAssets.FONT_DEBUGGER;
+			full_font = FlxAssets.FONT_DEBUGGER;
+		} else {
+			font = "vcr.ttf";
+			full_font = "VCR OSD Mono";
+		}
 	}
 
 	private var lastBeat:Float = 0;

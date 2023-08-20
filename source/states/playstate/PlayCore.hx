@@ -23,9 +23,22 @@ class PlayCore extends MusicBeatState
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
 		}
+    }
 
-        if (FlxG.keys.justPressed.EIGHT)
-			FlxG.switchState(new AnimationDebug(PlayState.SONG.player2));
+    inline public static function getToggle(debug:Bool)
+    {
+        if (debug)
+        {
+            if (FlxG.keys.justPressed.EIGHT)
+                FlxG.switchState(new AnimationDebug(PlayState.SONG.player1));
+    
+            if (FlxG.keys.justPressed.NINE)
+                FlxG.switchState(new AnimationDebug(PlayState.SONG.player2));
+    
+            if (FlxG.keys.justPressed.ZERO)
+                FlxG.switchState(new AnimationDebug(PlayState.SONG.gfVersion));
+        }
+        return debug;
     }
 
     inline public static function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float, ?getRank:String, ?fcRank:String) {

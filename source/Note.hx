@@ -1,9 +1,8 @@
 package;
 
-import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.math.FlxMath;
-import flixel.util.FlxColor;
+import flixel.FlxG;
+import flixel.FlxSprite;
 #if polymod
 import polymod.format.ParseRules.TargetSignatureElement;
 #end
@@ -81,7 +80,14 @@ class Note extends FlxSprite
 				updateHitbox();
 
 			default:
-				frames = Paths.getSparrowAtlas('NOTE_assets');
+				var tex:FlxAtlasFrames;
+				if (FlxG.save.data.noteSimple) {
+					tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
+				} else {
+					tex = Paths.getSparrowAtlas('arrows/NOTE_simple');
+				}
+
+				frames = tex;
 
 				animation.addByPrefix('greenScroll', 'green0');
 				animation.addByPrefix('redScroll', 'red0');

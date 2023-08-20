@@ -32,20 +32,20 @@ class ControlsState extends MusicBeatSubstate
 
         var versionShit:FlxText = new FlxText(10, FlxG.height - 44, 0, "Press LEFT/RIGHT to Change Key\nPress Escape to Exit with Save Control", 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(full_font, 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
         textCenter = new FlxText(0, 0, 0, "", 64);
         textCenter.scrollFactor.set();
         textCenter.screenCenter(Y);
         textCenter.x += 100;
-        textCenter.setFormat("VCR OSD Mono", 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        textCenter.setFormat(full_font, 64, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(textCenter);
 
         warmText = new FlxText(0, FlxG.height * 0.9 + 18, FlxG.width, "", 32);
         warmText.scrollFactor.set();
         // warmText.screenCenter();
-        warmText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        warmText.setFormat(full_font, 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(warmText);
     }
 
