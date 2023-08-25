@@ -6,7 +6,7 @@ all of this engine is made by me!
 # ![Repo Size](https://img.shields.io/github/repo-size/khuonghoanghuy/FNF-Pop-Engine-Rewrite)
 
 # TODO:
-- Fixed Font []
+- Fixed Font [X]
 - Week 7 Song []
 - Fix Chart []
 - Modding Core System []

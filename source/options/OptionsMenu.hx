@@ -54,7 +54,7 @@ class OptionsMenu extends MusicBeatState
 		}
 
 		descText = new FlxText(50, 650, 1180, "", 32);
-		descText.setFormat(Paths.font(font), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		add(descText);
 

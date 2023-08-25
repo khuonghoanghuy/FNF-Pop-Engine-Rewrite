@@ -13,6 +13,7 @@ import flixel.util.FlxColor;
 import data.CoolUtil;
 import states.playstate.*;
 import states.playstate.*;
+import obj.*;
 
 using StringTools;
 
@@ -77,6 +78,7 @@ class FreeplayState extends MusicBeatState
 		// LOAD CHARACTERS
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+		bg.flipX = true;
 		add(bg);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -103,7 +105,7 @@ class FreeplayState extends MusicBeatState
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
 		// scoreText.autoSize = false;
-		scoreText.setFormat(Paths.font(font), 32, FlxColor.WHITE, RIGHT);
+		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 		// scoreText.alignment = RIGHT;
 
 		var scoreBG:FlxSprite = new FlxSprite(scoreText.x - 6, 0).makeGraphic(Std.int(FlxG.width * 0.35), 66, 0xFF000000);

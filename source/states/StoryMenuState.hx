@@ -15,6 +15,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import states.playstate.*;
+import obj.*;
 
 using StringTools;
 
@@ -93,7 +94,7 @@ class StoryMenuState extends MusicBeatState
 
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
-		rankText.setFormat(Paths.font(font), 32);
+		rankText.setFormat(Paths.font("vcr.ttf"), 32);
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 
@@ -281,7 +282,7 @@ class StoryMenuState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			FlxG.switchState(new MainMenuState());
+			// openSubState(new WarmSubState("Are You sure that you will exit story Mode?", FlxColor.WHITE, CENTER, (new MainMenuState())));
 		}
 
 		if (FlxG.keys.justPressed.CONTROL) {

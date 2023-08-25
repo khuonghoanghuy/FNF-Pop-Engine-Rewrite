@@ -1,5 +1,7 @@
 package states.playstate;
 
+import flixel.math.FlxAngle;
+import tankman.TankmenBG;
 import flixel.graphics.frames.FlxAtlasFrames;
 #if desktop
 import Discord.DiscordClient;
@@ -26,6 +28,8 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
+import data.BGSprite;
+import obj.*;
 
 using StringTools;
 
@@ -95,6 +99,13 @@ class PlayState extends MusicBeatState
 	var santa:FlxSprite;
 
 	var bgGirls:BackgroundGirls;
+
+	// tankman
+	var foregroundSprites:FlxTypedGroup<BGSprite>;
+	var tankmanRun:FlxTypedGroup<TankmenBG>;
+	var tankWatchtower:BGSprite;
+	var tankGround:BGSprite;
+
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 
 	var talking:Bool = true;
@@ -497,6 +508,79 @@ class PlayState extends MusicBeatState
 				bg.scale.set(6, 6);
 				add(bg);
 
+			case "tank":
+				defaultCamZoom = 0.90;
+				curStage = 'tank';
+
+				var bg:BGSprite = new BGSprite('tankSky', -400, -400, 0, 0);
+				add(bg);
+
+				var tankSky:BGSprite = new BGSprite('tankClouds', FlxG.random.int(-700, -100), FlxG.random.int(-20, 20), 0.1, 0.1);
+				tankSky.active = true;
+				tankSky.velocity.x = FlxG.random.float(5, 15);
+				add(tankSky);
+
+				var tankMountains:BGSprite = new BGSprite('tankMountains', -300, -20, 0.2, 0.2);
+				tankMountains.setGraphicSize(Std.int(tankMountains.width * 1.2));
+				tankMountains.updateHitbox();
+				add(tankMountains);
+
+				var tankBuildings:BGSprite = new BGSprite('tankBuildings', -200, 0, 0.30, 0.30);
+				tankBuildings.setGraphicSize(Std.int(tankBuildings.width * 1.1));
+				tankBuildings.updateHitbox();
+				add(tankBuildings);
+
+				var tankRuins:BGSprite = new BGSprite('tankRuins', -200, 0, 0.35, 0.35);
+				tankRuins.setGraphicSize(Std.int(tankRuins.width * 1.1));
+				tankRuins.updateHitbox();
+				add(tankRuins);
+
+				var smokeLeft:BGSprite = new BGSprite('smokeLeft', -200, -100, 0.4, 0.4, ['SmokeBlurLeft'], true);
+				add(smokeLeft);
+
+				var smokeRight:BGSprite = new BGSprite('smokeRight', 1100, -100, 0.4, 0.4, ['SmokeRight'], true);
+				add(smokeRight);
+
+				// tankGround.
+
+				tankWatchtower = new BGSprite('tankWatchtower', 100, 50, 0.5, 0.5, ['watchtower gradient color']);
+				add(tankWatchtower);
+
+				tankGround = new BGSprite('tankRolling', 300, 300, 0.5, 0.5, ['BG tank w lighting'], true);
+				add(tankGround);
+				// tankGround.active = false;
+
+				tankmanRun = new FlxTypedGroup<TankmenBG>();
+				add(tankmanRun);
+
+				var tankGround:BGSprite = new BGSprite('tankGround', -420, -150);
+				tankGround.setGraphicSize(Std.int(tankGround.width * 1.15));
+				tankGround.updateHitbox();
+				add(tankGround);
+
+				moveTank();
+
+				// smokeLeft.screenCenter();
+
+				var fgTank0:BGSprite = new BGSprite('tank0', -500, 650, 1.7, 1.5, ['fg']);
+				foregroundSprites.add(fgTank0);
+
+				var fgTank1:BGSprite = new BGSprite('tank1', -300, 750, 2, 0.2, ['fg']);
+				foregroundSprites.add(fgTank1);
+
+				// just called 'foreground' just cuz small inconsistency no bbiggei
+				var fgTank2:BGSprite = new BGSprite('tank2', 450, 940, 1.5, 1.5, ['foreground']);
+				foregroundSprites.add(fgTank2);
+
+				var fgTank4:BGSprite = new BGSprite('tank4', 1300, 900, 1.5, 1.5, ['fg']);
+				foregroundSprites.add(fgTank4);
+
+				var fgTank5:BGSprite = new BGSprite('tank5', 1620, 700, 1.5, 1.5, ['fg']);
+				foregroundSprites.add(fgTank5);
+
+				var fgTank3:BGSprite = new BGSprite('tank3', 1300, 1200, 3.5, 2.5, ['fg']);
+				foregroundSprites.add(fgTank3);
+
 			default:
 				defaultCamZoom = 0.9;
 				var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback'));
@@ -687,11 +771,6 @@ class PlayState extends MusicBeatState
 		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
 		add(healthBar);
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 42, FlxG.width, "", 18);
-		scoreTxt.setFormat(Paths.font(font), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.scrollFactor.set();
-		add(scoreTxt);
-
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
@@ -699,6 +778,11 @@ class PlayState extends MusicBeatState
 		iconP2 = new HealthIcon(SONG.player2, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
+
+		scoreTxt = new FlxText(0, healthBarBG.y + 42, FlxG.width, "", 18);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
 
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1328,6 +1412,9 @@ class PlayState extends MusicBeatState
 					}
 				}
 				// phillyCityLights.members[curLight].alpha -= (Conductor.crochet / 1000) * FlxG.elapsed;
+
+			case 'tank':
+				moveTank();
 		}
 
 		super.update(elapsed);
@@ -1361,11 +1448,8 @@ class PlayState extends MusicBeatState
 			#end
 		}
 
-		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
-		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
-
-		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
-		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
+		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50 * FlxG.save.data.fps)));
+		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50 * FlxG.save.data.fps)));
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -2257,6 +2341,25 @@ class PlayState extends MusicBeatState
 			resetFastCar();
 		});
 	}
+
+	function moveTank():Void
+	{
+		if (!inCutscene)
+		{
+			var daAngleOffset:Float = 1;
+			tankAngle += FlxG.elapsed * tankSpeed;
+			tankGround.angle = tankAngle - 90 + 15;
+
+			tankGround.x = tankX + Math.cos(FlxAngle.asRadians((tankAngle * daAngleOffset) + 180)) * 1500;
+			tankGround.y = 1300 + Math.sin(FlxAngle.asRadians((tankAngle * daAngleOffset) + 180)) * 1100;
+		}
+	}
+
+	var tankResetShit:Bool = false;
+	var tankMoving:Bool = false;
+	var tankAngle:Float = FlxG.random.int(-90, 45);
+	var tankSpeed:Float = FlxG.random.float(5, 7);
+	var tankX:Float = 400;
 
 	var trainMoving:Bool = false;
 	var trainFrameTiming:Float = 0;

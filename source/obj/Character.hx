@@ -1,4 +1,4 @@
-package;
+package obj;
 
 import data.CoolUtil;
 import Section.SwagSection;

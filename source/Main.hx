@@ -38,6 +38,9 @@ class Main extends Sprite
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
+
+		#if crash_allowed
+		#end
 	}
 
 	private function init(?E:Event):Void
