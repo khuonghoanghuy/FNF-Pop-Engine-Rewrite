@@ -1,8 +1,9 @@
 package states.playstate;
 
 import flixel.FlxG;
-import flixel.ui.FlxBar;
-import flixel.FlxSprite;
+#if sys
+import funkinLua.LuaCode;
+#end
 #if discord_allows
 import Discord.DiscordClient;
 #end
@@ -15,14 +16,6 @@ class PlayCore extends MusicBeatState
 
     override function update(elapsed:Float) {
         super.update(elapsed);
-
-		if (FlxG.keys.justPressed.SEVEN) {
-			FlxG.switchState(new ChartingState());
-	
-			#if desktop
-			DiscordClient.changePresence("Chart Editor", null, null, true);
-			#end
-		}
     }
 
     inline public static function getToggle(debug:Bool)
@@ -37,7 +30,16 @@ class PlayCore extends MusicBeatState
     
             if (FlxG.keys.justPressed.ZERO)
                 FlxG.switchState(new AnimationDebug(PlayState.SONG.gfVersion));
+
+            if (FlxG.keys.justPressed.SEVEN) {
+                FlxG.switchState(new ChartingState());
+        
+                #if desktop
+                DiscordClient.changePresence("Chart Editor", null, null, true);
+                #end
+            }
         }
+
         return debug;
     }
 

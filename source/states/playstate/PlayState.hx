@@ -1,5 +1,6 @@
 package states.playstate;
 
+import flixel.FlxBasic;
 import flixel.math.FlxAngle;
 import tankman.TankmenBG;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -30,6 +31,10 @@ import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import data.BGSprite;
 import obj.*;
+#if sys
+import funkinLua.LuaCode;
+import sys.FileSystem;
+#end
 
 using StringTools;
 
@@ -46,9 +51,9 @@ class PlayState extends MusicBeatState
 
 	private var vocals:FlxSound;
 
-	private var dad:Character;
-	private var gf:Character;
-	private var boyfriend:Boyfriend;
+	public var dad:Character;
+	public var gf:Character;
+	public var boyfriend:Boyfriend;
 
 	private var notes:FlxTypedGroup<Note>;
 	private var unspawnNotes:Array<Note> = [];
@@ -60,14 +65,14 @@ class PlayState extends MusicBeatState
 
 	private static var prevCamFollow:FlxObject;
 
-	private var strumLineNotes:FlxTypedGroup<FlxSprite>;
-	private var playerStrums:FlxTypedGroup<FlxSprite>;
+	public var strumLineNotes:FlxTypedGroup<FlxSprite>;
+	public var playerStrums:FlxTypedGroup<FlxSprite>;
 
 	private var camZooming:Bool = false;
 	private var curSong:String = "";
 
 	private var gfSpeed:Int = 1;
-	private var health:Float = 1;
+	public var health:Float = 1;
 	private var combo:Int = 0;
 
 	private var healthBarBG:FlxSprite;
@@ -76,8 +81,8 @@ class PlayState extends MusicBeatState
 	private var generatedMusic:Bool = false;
 	private var startingSong:Bool = false;
 
-	private var iconP1:HealthIcon;
-	private var iconP2:HealthIcon;
+	public var iconP1:HealthIcon;
+	public var iconP2:HealthIcon;
 	private var camHUD:FlxCamera;
 	private var camGame:SwagCamera;
 
@@ -109,8 +114,8 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 
 	var talking:Bool = true;
-	var songScore:Int = 0;
-	var songMisses:Int = 0;
+	public var songScore:Int = 0;
+	public var songMisses:Int = 0;
 	var songAccuracy:Float = 0.00;
 	var songTotalHit:Float = 0.00;
 	var songTotalPlayed:Int = 0;
@@ -127,6 +132,14 @@ class PlayState extends MusicBeatState
 
 	var inCutscene:Bool = false;
 	public static var inClass:PlayState = null;
+	
+	public function addObject(object:FlxBasic) { 
+		add(object); 
+	}
+
+	public function removeObject(object:FlxBasic) { 
+		remove(object); 
+	}
 
 	#if desktop
 	// Discord RPC variables
@@ -137,9 +150,29 @@ class PlayState extends MusicBeatState
 	var detailsPausedText:String = "";
 	#end
 
+	var runlua = false;
+    #if sys
+    var luaCode:LuaCode;
+    #end
+
+	function luaInit() {
+		#if sys
+        runlua = FileSystem.exists(Paths.lua(PlayState.SONG.song.toLowerCase()  + "/lua"));
+        trace(runlua);
+		luaCode.startInit();
+        #end
+        #if !cpp
+        runlua = false;
+        #end
+	}
+
 	override public function create()
 	{
 		inClass = this;
+
+		#if sys
+		luaInit();
+		#end
 
 		Paths.cacheSound(Paths.inst(SONG.song));
 		Paths.cacheSound(Paths.voices(SONG.song));
@@ -940,6 +973,11 @@ class PlayState extends MusicBeatState
 	function startCountdown():Void
 	{
 		inCutscene = false;
+		
+		#if sys
+		luaCode.create();
+		luaCode.executeState('startSong', [PlayState.SONG.song]);
+		#end
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
@@ -1388,6 +1426,11 @@ class PlayState extends MusicBeatState
 
 		#if !debug
 		perfectMode = false;
+		#end
+
+		#if sys
+		luaCode.updateInit();
+		luaCode.executeState('update', [elapsed]);
 		#end
 
 		if (FlxG.keys.justPressed.NINE)
@@ -2303,6 +2346,12 @@ class PlayState extends MusicBeatState
 
 	function getDisplay(getBool:Bool) {
 		return scoreTxt.text = PlayCore.displayScore(getBool, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		getAccuracy();
+	}
+
+	// like as getDisplay but for lua
+	public function getDisplayByLua() {
+		return scoreTxt.text = PlayCore.displayScore(FlxG.save.data.accuracy, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
 		getAccuracy();
 	}
 

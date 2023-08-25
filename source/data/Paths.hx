@@ -98,6 +98,11 @@ class Paths
 		return getPath('data/$key.json', TEXT, library);
 	}
 
+	inline static public function lua(key:String, ?library:String)
+	{
+		return getPath('data/$key.lua', TEXT, library);
+	}
+
 	inline static public function song(key:String, song:String, ?library:String)
 	{
 		return getPath('data/' + song + '/$key.json', TEXT, library);
