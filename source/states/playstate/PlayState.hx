@@ -975,8 +975,11 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		
 		#if sys
-		luaCode.create();
-		luaCode.executeState('startSong', [PlayState.SONG.song]);
+		if (runlua && luaCode != null)
+		{
+			luaCode = LuaCode.create();
+			luaCode.executeState('startSong', [PlayState.SONG.song]);
+		}
 		#end
 
 		generateStaticArrows(0);
@@ -1429,8 +1432,10 @@ class PlayState extends MusicBeatState
 		#end
 
 		#if sys
-		luaCode.updateInit();
-		luaCode.executeState('update', [elapsed]);
+		if (runlua && luaCode != null)
+		{
+			luaCode.executeState('update', [elapsed]);
+		}
 		#end
 
 		if (FlxG.keys.justPressed.NINE)
@@ -2479,6 +2484,14 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
+		#if sys
+		if (runlua && luaCode != null)
+		{
+			luaCode.setVar('curStep', curStep);
+			luaCode.executeState('stepHit', [curStep]);
+		}
+		#end
+
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
 			resyncVocals();
@@ -2496,6 +2509,14 @@ class PlayState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
+
+		#if sys
+		if (runlua && luaCode != null)
+		{
+			luaCode.setVar('curBeat', curBeat);
+			luaCode.executeState('beatHit', [curBeat]);
+		}
+		#end
 
 		if (generatedMusic)
 		{

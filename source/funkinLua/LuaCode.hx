@@ -1,26 +1,19 @@
 package funkinLua;
 
-import Type.ValueType;
 import states.playstate.PlayState;
 import flixel.FlxSprite;
-import openfl.display.BitmapData;
 import lime.app.Application;
 import llua.Convert;
 import llua.Lua;
 import llua.State;
 import llua.LuaL;
 import flixel.FlxG;
-import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.tweens.FlxEase;
-import openfl.filters.ShaderFilter;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import openfl.geom.Matrix;
-import flixel.FlxBasic;
-import flixel.FlxCamera;
 import obj.*;
+#if sys
+import openfl.geom.Matrix;
 import flixel.util.FlxColor;
+import openfl.display.BitmapData;
+#end
 
 using StringTools;
 
@@ -37,6 +30,86 @@ class LuaCode
         lua = LuaL.newstate();
         LuaL.openlibs(lua);
         Lua.init_callbacks(lua);
+        // var stuff
+        setVar("curStep", 0);
+        setVar("curBeat", 0);
+        setVar("screenWidth", FlxG.width);
+        setVar("screenHeight", FlxG.height);
+        setVar("windowWidth", FlxG.width);
+        setVar("windowHeight", FlxG.height);
+
+        result = LuaL.dofile(lua, Paths.lua(PlayState.SONG.song.toLowerCase() + "/lua"));
+
+        // obj stuff
+        Lua_helper.add_callback(lua, "changeChar", function(fromDad:Bool, x:Float, y:Float, id:String) {
+            if (fromDad)
+            {
+                PlayState.inClass.dad.x = x;
+                PlayState.inClass.dad.y = y;
+                PlayState.inClass.removeObject(PlayState.inClass.dad);
+                PlayState.inClass.dad = new Character(x, y, id);
+                PlayState.inClass.addObject(PlayState.inClass.dad);
+                PlayState.inClass.iconP2.animation.play(id);
+            }
+            else
+            {
+                PlayState.inClass.boyfriend.x = x;
+                PlayState.inClass.boyfriend.y = y;
+                PlayState.inClass.removeObject(PlayState.inClass.boyfriend);
+                PlayState.inClass.boyfriend = new Boyfriend(x, y, id);
+                PlayState.inClass.addObject(PlayState.inClass.boyfriend);
+                PlayState.inClass.iconP1.animation.play(id);
+            }
+        });
+
+        // gameplay stuff
+        Lua_helper.add_callback(lua, "makeSprite", makeLuaSprite);
+        Lua_helper.add_callback(lua,"destroySprite", destroySprite);
+
+        Lua_helper.add_callback(lua, "setHealth", function(float:Float){
+            PlayState.inClass.health = float;
+        });
+
+        Lua_helper.add_callback(lua, "addHealth", function(float:Float){
+            PlayState.inClass.health += float;
+        });
+
+        Lua_helper.add_callback(lua, "setScore", function(int:Int){
+            PlayState.inClass.songScore = int;
+            PlayState.inClass.getDisplayByLua();
+        });
+
+        Lua_helper.add_callback(lua, "addScore", function(int:Int){
+            PlayState.inClass.songScore += int;
+            PlayState.inClass.getDisplayByLua();
+        });
+
+        Lua_helper.add_callback(lua, "setMiss", function(int:Int){
+            PlayState.inClass.songMisses = int;
+            PlayState.inClass.getDisplayByLua();
+        });
+
+        Lua_helper.add_callback(lua, "addMiss", function(int:Int){
+            PlayState.inClass.songMisses += int;
+            PlayState.inClass.getDisplayByLua();
+        });
+
+        // other stuff
+        Lua_helper.add_callback(lua, "trace", function(string:String){
+            trace(string);
+        });
+        // lime stuff
+        Lua_helper.add_callback(lua, "changeTitle", function(string:String){
+            return Application.current.window.title = string;
+        });
+
+        Lua_helper.add_callback(lua, "addWarm", function(string:String, title:String){
+            return Application.current.window.alert(string, title);
+        });
+
+        Lua_helper.add_callback(lua, "changeframe", function(fps:Int){
+            Application.current.window.frameRate = fps;
+        });
     }
 
     inline public static function getLua(name:String, arg:Array<Dynamic>, ?type:String):Dynamic {
@@ -53,7 +126,7 @@ class LuaCode
         }
     }
 
-    inline public static function setVar(var_name:String, obj:Dynamic) {
+    public function setVar(var_name:String, obj:Dynamic) {
         Lua.pushnumber(lua, obj);
 		Lua.setglobal(lua, var_name);
     }
@@ -214,89 +287,7 @@ class LuaCode
     // for create
     public function startInit()
     {
-        // var stuff
-        setVar("curStep", 0);
-        setVar("curBeat", 0);
-        setVar("screenWidth", FlxG.width);
-        setVar("screenHeight", FlxG.height);
-        setVar("windowWidth", FlxG.width);
-        setVar("windowHeight", FlxG.height);
 
-        // obj stuff
-        Lua_helper.add_callback(lua, "changeChar", function(fromDad:Bool, x:Float, y:Float, id:String) {
-            if (fromDad)
-            {
-                PlayState.inClass.dad.x = x;
-                PlayState.inClass.dad.y = y;
-                PlayState.inClass.removeObject(PlayState.inClass.dad);
-                PlayState.inClass.dad = new Character(x, y, id);
-                PlayState.inClass.addObject(PlayState.inClass.dad);
-                PlayState.inClass.iconP2.animation.play(id);
-            }
-            else
-            {
-                PlayState.inClass.boyfriend.x = x;
-                PlayState.inClass.boyfriend.y = y;
-                PlayState.inClass.removeObject(PlayState.inClass.boyfriend);
-                PlayState.inClass.boyfriend = new Boyfriend(x, y, id);
-                PlayState.inClass.addObject(PlayState.inClass.boyfriend);
-                PlayState.inClass.iconP1.animation.play(id);
-            }
-        });
-
-        // gameplay stuff
-        Lua_helper.add_callback(lua, "makeSprite", makeLuaSprite);
-        Lua_helper.add_callback(lua,"destroySprite", destroySprite);
-
-        Lua_helper.add_callback(lua, "setHealth", function(float:Float){
-            PlayState.inClass.health = float;
-        });
-
-        Lua_helper.add_callback(lua, "addHealth", function(float:Float){
-            PlayState.inClass.health += float;
-        });
-
-        Lua_helper.add_callback(lua, "setScore", function(int:Int){
-            PlayState.inClass.songScore = int;
-            PlayState.inClass.getDisplayByLua();
-        });
-
-        Lua_helper.add_callback(lua, "addScore", function(int:Int){
-            PlayState.inClass.songScore += int;
-            PlayState.inClass.getDisplayByLua();
-        });
-
-        Lua_helper.add_callback(lua, "setMiss", function(int:Int){
-            PlayState.inClass.songMisses = int;
-            PlayState.inClass.getDisplayByLua();
-        });
-
-        Lua_helper.add_callback(lua, "addMiss", function(int:Int){
-            PlayState.inClass.songMisses += int;
-            PlayState.inClass.getDisplayByLua();
-        });
-
-        // other stuff
-        Lua_helper.add_callback(lua, "trace", function(string:String){
-            trace(string);
-        });
-    }
-
-    // for update
-    public function updateInit()
-    {
-        // lime stuff
-        Lua_helper.add_callback(lua, "changeTitle", function(string:String){
-            return Application.current.window.title = string;
-        });
-
-        Lua_helper.add_callback(lua, "addWarm", function(string:String, title:String){
-            return Application.current.window.alert(string, title);
-        });
-
-        Lua_helper.add_callback(lua, "changeframe", function(fps:Int){
-            Application.current.window.frameRate = fps;
-        });
     }
 
     public function executeState(name:String, args:Array<Dynamic>)
@@ -304,7 +295,7 @@ class LuaCode
         return Lua.tostring(lua, getLua(name, args));
     }
 
-    public function create():LuaCode
+    public static function create():LuaCode
     {
         return new LuaCode();
     }
