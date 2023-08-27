@@ -61,6 +61,17 @@ class LuaCode
             }
         });
 
+        GetLua.enter.addcallback("setCAMShake", function (typeCam:String, shake:Float, time:Float) 
+        {
+            switch (typeCam)
+            {
+                case "game":
+                    PlayState.inClass.camGame.shake(shake, time);
+                case "hud":
+                    PlayState.inClass.camHUD.shake(shake, time);
+            }
+        });
+
         GetLua.enter.addcallback("addCAMAngle", function (typeCam:String, angle:Float) 
         {
             switch (typeCam)
@@ -129,12 +140,12 @@ class LuaCode
                 case "down": controls.DOWN_P;
                 case "up": controls.UP_P;
                 case "right": controls.RIGHT_P;
+                case "enter": controls.ACCEPT;
+                case "esc": controls.BACK;
+                case "doCheatBro": controls.CHEAT;
+                case "reset": controls.RESET;
+                case "pause": controls.PAUSE;
             }
-        });
-
-        GetLua.enter.addcallback("keyPressANY", function (keyPress:Array<FlxKey>)
-        {
-            return FlxG.keys.anyJustPressed(keyPress);
         });
 
         GetLua.enter.addcallback("keyRelease", function (keyname:String) 
@@ -145,12 +156,12 @@ class LuaCode
                 case "down": controls.DOWN_R;
                 case "up": controls.UP_R;
                 case "right": controls.RIGHT_R;
+                case "enter": controls.ACCEPT;
+                case "esc": controls.BACK;
+                case "doCheatBro": controls.CHEAT;
+                case "reset": controls.RESET;
+                case "pause": controls.PAUSE;
             }
-        });
-
-        GetLua.enter.addcallback("keyReleaseANY", function (keyRelease:Array<FlxKey>)
-        {
-            return FlxG.keys.anyJustReleased(keyRelease);
         });
 
         GetLua.enter.addcallback("changeWindowTitle", function (newTitle:String)
