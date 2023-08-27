@@ -1,5 +1,6 @@
 package states.playstate;
 
+import funkinLua.LuaCode;
 import flixel.FlxBasic;
 import flixel.math.FlxAngle;
 import tankman.TankmenBG;
@@ -83,8 +84,8 @@ class PlayState extends MusicBeatState
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
-	private var camHUD:FlxCamera;
-	private var camGame:SwagCamera;
+	public var camHUD:FlxCamera;
+	public var camGame:SwagCamera;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 
@@ -150,29 +151,30 @@ class PlayState extends MusicBeatState
 	var detailsPausedText:String = "";
 	#end
 
-	var runlua = false;
-    #if sys
-    var luaCode:LuaCode;
-    #end
+	var luaArray:Array<LuaCode> = [];
 
-	function luaInit() {
-		#if sys
-        runlua = FileSystem.exists(Paths.lua(PlayState.SONG.song.toLowerCase()  + "/lua"));
-        trace(runlua);
-		luaCode.startInit();
-        #end
-        #if !cpp
-        runlua = false;
-        #end
+	// took from psych engine ;-;
+	public function callOnLuas(event:String, args:Array<Dynamic>):Dynamic {
+		var returnVal:Dynamic = LuaCode.Function_Continue;
+		for (i in 0...luaArray.length) {
+			var ret:Dynamic = luaArray[i].call(event, args);
+			if(ret != LuaCode.Function_Continue) {
+				returnVal = ret;
+			}
+		}
+		return returnVal;
+	}
+
+	// took from psych engine ;-;
+	public function setOnLuas(variable:String, arg:Dynamic) {
+		for (i in 0...luaArray.length) {
+			luaArray[i].addVar(variable, arg);
+		}
 	}
 
 	override public function create()
 	{
 		inClass = this;
-
-		#if sys
-		luaInit();
-		#end
 
 		Paths.cacheSound(Paths.inst(SONG.song));
 		Paths.cacheSound(Paths.voices(SONG.song));
@@ -828,6 +830,18 @@ class PlayState extends MusicBeatState
 
 		startingSong = true;
 
+		#if sys
+		var push:Bool = false;
+		var file:String = Paths.lua(SONG.song.toLowerCase()+ '/lua');
+		
+		if (sys.FileSystem.exists(file)) {
+			doPush = true;
+		}
+
+		if (push)
+			luaArray.push(new FunkinLua(luaFile));
+		#end
+
 		if (isStoryMode)
 		{
 			switch (curSong.toLowerCase())
@@ -973,14 +987,6 @@ class PlayState extends MusicBeatState
 	function startCountdown():Void
 	{
 		inCutscene = false;
-		
-		#if sys
-		if (runlua && luaCode != null)
-		{
-			luaCode = LuaCode.create();
-			luaCode.executeState('startSong', [PlayState.SONG.song]);
-		}
-		#end
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
@@ -1426,16 +1432,10 @@ class PlayState extends MusicBeatState
 	override public function update(elapsed:Float)
 	{
 		PlayCore.getToggle(FlxG.save.data.debugAllow);
+		callOnLuas("inUpdate", [elapsed]);
 
 		#if !debug
 		perfectMode = false;
-		#end
-
-		#if sys
-		if (runlua && luaCode != null)
-		{
-			luaCode.executeState('update', [elapsed]);
-		}
 		#end
 
 		if (FlxG.keys.justPressed.NINE)
@@ -1487,17 +1487,8 @@ class PlayState extends MusicBeatState
 			#end
 		}
 
-		if (FlxG.keys.justPressed.SEVEN)
-		{
-			FlxG.switchState(new ChartingState());
-
-			#if desktop
-			DiscordClient.changePresence("Chart Editor", null, null, true);
-			#end
-		}
-
-		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50 * FlxG.save.data.fps)));
-		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50 * FlxG.save.data.fps)));
+		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
+		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -1519,14 +1510,6 @@ class PlayState extends MusicBeatState
 			iconP2.animation.curAnim.curFrame = 1;
 		else
 			iconP2.animation.curAnim.curFrame = 0;
-
-		/* if (FlxG.keys.justPressed.NINE)
-			FlxG.switchState(new Charting()); */
-
-		#if debug
-		if (FlxG.keys.justPressed.EIGHT)
-			FlxG.switchState(new AnimationDebug(SONG.player2));
-		#end
 
 		if (startingSong)
 		{
@@ -2484,23 +2467,14 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
-		#if sys
-		if (runlua && luaCode != null)
-		{
-			luaCode.setVar('curStep', curStep);
-			luaCode.executeState('stepHit', [curStep]);
-		}
-		#end
 
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
 			resyncVocals();
 		}
 
-		if (dad.curCharacter == 'spooky' && curStep % 4 == 2)
-		{
-			// dad.dance();
-		}
+		setOnLuas('curStep', curStep);
+		callOnLuas("inStepHit", [curStep]);
 	}
 
 	var lightningStrikeBeat:Int = 0;
@@ -2509,14 +2483,6 @@ class PlayState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
-
-		#if sys
-		if (runlua && luaCode != null)
-		{
-			luaCode.setVar('curBeat', curBeat);
-			luaCode.executeState('beatHit', [curBeat]);
-		}
-		#end
 
 		if (generatedMusic)
 		{
@@ -2626,6 +2592,9 @@ class PlayState extends MusicBeatState
 		{
 			lightningStrikeShit();
 		}
+
+		setOnLuas('curBeat', curBeat);
+		callOnLuas("inBeatHit", [curBeat]);
 	}
 
 	var curLight:Int = 0;
