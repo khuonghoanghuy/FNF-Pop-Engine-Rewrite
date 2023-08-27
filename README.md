@@ -1,7 +1,7 @@
 # Friday Night Funkin': Pop Engine Rewrite! (WIP)
 [Pop Engine](https://github.com/Hoovy-Team/FNF-Pop-Engine-Legacy) is my first FNF Engine i've made, because of that, i make a rewrite version of Pop Engine
 
-all of this engine is made by me!
+all of this engine is made by me and some other code i found!
 
 # ![Repo Size](https://img.shields.io/github/repo-size/khuonghoanghuy/FNF-Pop-Engine-Rewrite)
 
