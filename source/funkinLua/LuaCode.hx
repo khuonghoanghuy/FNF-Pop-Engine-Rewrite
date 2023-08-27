@@ -23,7 +23,7 @@ class LuaCode
         lua = LuaL.newstate();
         LuaL.openlibs(lua);
         Lua.init_callbacks(lua);
-        trace("file " + script + ".lua complete!");
+        trace("file " + script + " load complete!");
 
         var result:Dynamic = LuaL.dofile(lua, script);
         var resultString:String = Lua.tostring(lua, result);
@@ -43,22 +43,12 @@ class LuaCode
 
     function init()
     {
-        addVar("score", 0);
-        addVar("misses", 0);
-        addVar("curBeat", 0);
-        addVar("curStep", 0);
+        GetLua.enter.addVar("score", 0);
+        GetLua.enter.addVar("misses", 0);
+        GetLua.enter.addVar("curBeat", 0);
+        GetLua.enter.addVar("curStep", 0);
 
-        /*addcallback("addScore", function (value:Int = 0) {
-            PlayState.inClass.songScore += value;
-            PlayState.inClass.getDisplayByLua();
-        });
-
-        addcallback("addMisses", function (value:Int = 0) {
-            PlayState.inClass.songMisses += value;
-            PlayState.inClass.getDisplayByLua(); 
-        });*/
-
-        addcallback("addMountInt", function (type:String, mount:Int) 
+        GetLua.enter.addcallback("addMountInt", function (type:String, mount:Int) 
         {
             switch (type)
             {
@@ -71,7 +61,7 @@ class LuaCode
             PlayState.inClass.getDisplayByLua();
         });
 
-        addcallback("changeCharacter", function (type:String, x:Float, y:Float, name:String, isPlayer:Bool) 
+        GetLua.enter.addcallback("changeCharacter", function (type:String, x:Float, y:Float, name:String, isPlayer:Bool) 
         {
             switch (type)
             {
@@ -94,7 +84,7 @@ class LuaCode
             }
         });
 
-        addcallback("keyPress", function (keyname:String) 
+        GetLua.enter.addcallback("keyPress", function (keyname:String) 
         {
             switch (keyname)
             {
@@ -105,7 +95,7 @@ class LuaCode
             }
         });
 
-        addcallback("keyRelease", function (keyname:String) 
+        GetLua.enter.addcallback("keyRelease", function (keyname:String) 
         {
             switch (keyname)
             {
@@ -117,53 +107,18 @@ class LuaCode
         });
 
         // only do if u open the app with cmd app
-        addcallback("doTrace", function (text:String = "cool text") {
+        GetLua.enter.addcallback("doTrace", function (text:String = "cool text") {
             trace(text);
         });
     }
 
-    function addcallback(fname:String, f:Dynamic)
+    public function call(event:String, args:Array<Dynamic>):Dynamic
     {
-        Lua_helper.add_callback(lua, fname, f);
+        return GetLua.enter.call(event, args);
     }
 
     public function addVar(vari:String, dt:Dynamic)
     {
-        Convert.toLua(lua, dt);
-        Lua.setglobal(lua, vari);
+        return GetLua.enter.addVar(vari, dt);
     }
-
-    public function call(event:String, args:Array<Dynamic>):Dynamic {
-		if(lua == null) {
-			return Function_Continue;
-		}
-
-		Lua.getglobal(lua, event);
-
-		for (arg in args) {
-			Convert.toLua(lua, arg);
-		}
-
-		var result:Null<Int> = Lua.pcall(lua, args.length, 1, 0);
-		if(result != null && resultIsAllowed(lua, result)) {
-			if(Lua.type(lua, -1) == Lua.LUA_TSTRING) {
-				var error:String = Lua.tostring(lua, -1);
-				if(error == 'attempt to call a nil value') {
-					return Function_Continue;
-				}
-			}
-			var conv:Dynamic = Convert.fromLua(lua, result);
-			//Lua.pop(lua, 1);
-			return conv;
-		}
-		return Function_Continue;
-	}
-
-    function resultIsAllowed(leLua:State, leResult:Null<Int>) { //Makes it ignore warnings
-		switch(Lua.type(leLua, leResult)) {
-			case Lua.LUA_TNIL | Lua.LUA_TBOOLEAN | Lua.LUA_TNUMBER | Lua.LUA_TSTRING | Lua.LUA_TTABLE:
-				return true;
-		}
-		return false;
-	}
 }
