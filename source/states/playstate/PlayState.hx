@@ -192,7 +192,6 @@ class PlayState extends MusicBeatState
 		if (FlxG.save.data.shadersVHS) {
 			var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
 			bg.scrollFactor.set();
-			// bg.shader = vhs;
 			bg.screenCenter();
 			add(bg);
 		}

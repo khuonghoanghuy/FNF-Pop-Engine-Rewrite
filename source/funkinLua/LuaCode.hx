@@ -1,5 +1,8 @@
 package funkinLua;
 
+import obj.Boyfriend;
+import obj.Character;
+import states.MusicBeatState;
 import states.playstate.PlayState;
 import llua.Lua.Lua_helper;
 import lime.app.Application;
@@ -20,6 +23,7 @@ class LuaCode
         lua = LuaL.newstate();
         LuaL.openlibs(lua);
         Lua.init_callbacks(lua);
+        trace("file " + script + ".lua complete!");
 
         var result:Dynamic = LuaL.dofile(lua, script);
         var resultString:String = Lua.tostring(lua, result);
@@ -41,8 +45,10 @@ class LuaCode
     {
         addVar("score", 0);
         addVar("misses", 0);
+        addVar("curBeat", 0);
+        addVar("curStep", 0);
 
-        addcallback("addScore", function (value:Int = 0) {
+        /*addcallback("addScore", function (value:Int = 0) {
             PlayState.inClass.songScore += value;
             PlayState.inClass.getDisplayByLua();
         });
@@ -50,11 +56,48 @@ class LuaCode
         addcallback("addMisses", function (value:Int = 0) {
             PlayState.inClass.songMisses += value;
             PlayState.inClass.getDisplayByLua(); 
+        });*/
+
+        addcallback("addMountInt", function (type:String, mount:Int) 
+        {
+            switch (type)
+            {
+                case "score":
+                    PlayState.inClass.songScore += mount;
+
+                case "misses":
+                    PlayState.inClass.songMisses += mount;
+            }
+
+            PlayState.inClass.getDisplayByLua();
+        });
+
+        addcallback("changeCharacter", function (type:String, x:Float, y:Float, name:String, isPlayer:Bool) 
+        {
+            switch (type)
+            {
+                case "dad":
+                    PlayState.inClass.removeObject(PlayState.inClass.dad);
+                    PlayState.inClass.dad = new Character(x, y, name, isPlayer);
+                    PlayState.inClass.iconP2.animation.play(name);
+                    PlayState.inClass.addObject(PlayState.inClass.dad);
+
+                case "bf":
+                    PlayState.inClass.removeObject(PlayState.inClass.boyfriend);
+                    PlayState.inClass.boyfriend = new Boyfriend(x, y, name);
+                    PlayState.inClass.iconP1.animation.play(name);
+                    PlayState.inClass.addObject(PlayState.inClass.boyfriend);
+
+                case "gf":
+                    PlayState.inClass.removeObject(PlayState.inClass.gf);
+                    PlayState.inClass.gf = new Character(x, y, name);
+                    PlayState.inClass.addObject(PlayState.inClass.gf);
+            }
         });
 
         // only do if u open the app with cmd app
         addcallback("doTrace", function (text:String = "cool text") {
-            return trace(text);
+            trace(text);
         });
     }
 
