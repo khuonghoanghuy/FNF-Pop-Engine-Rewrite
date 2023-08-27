@@ -841,6 +841,9 @@ class PlayState extends MusicBeatState
 			luaArray.push(new LuaCode(file));
 		#end
 
+		// idk if work?
+		callOnLuas("inCreate", []);
+
 		if (isStoryMode)
 		{
 			switch (curSong.toLowerCase())
@@ -1097,6 +1100,8 @@ class PlayState extends MusicBeatState
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
+
+		callOnLuas("inStart", []);
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
@@ -1481,6 +1486,8 @@ class PlayState extends MusicBeatState
 			else
 				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		
+			callOnLuas("inPause", []);
+
 			#if desktop
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 			#end
@@ -1792,6 +1799,8 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		callOnLuas("inEnd", []);
+
 		canPause = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
@@ -2190,7 +2199,7 @@ class PlayState extends MusicBeatState
 	var wasMiss:Bool = false;
 
 	function noteMiss(direction:Int = 1):Void
-	{
+	{	
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
@@ -2328,6 +2337,7 @@ class PlayState extends MusicBeatState
 			}
 
 			getDisplay(FlxG.save.data.accuracy);
+			callOnLuas("inGoodHit", [note.isSustainNote, note.noteData]);
 		}
 	}
 

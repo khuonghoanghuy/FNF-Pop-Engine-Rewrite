@@ -1,10 +1,10 @@
 package funkinLua;
 
-import data.Controls.Control;
+import flixel.FlxG;
+import flixel.input.keyboard.FlxKey;
 import obj.Boyfriend;
 import obj.Character;
 import states.playstate.PlayState;
-import llua.Lua.Lua_helper;
 import lime.app.Application;
 import llua.*;
 
@@ -47,6 +47,30 @@ class LuaCode
         GetLua.enter.addVar("misses", 0);
         GetLua.enter.addVar("curBeat", 0);
         GetLua.enter.addVar("curStep", 0);
+        GetLua.enter.addVar("curBMP", Conductor.bpm);
+        GetLua.enter.addVar("isBotplay", FlxG.save.data.botplay);
+
+        GetLua.enter.addcallback("setCAMAngle", function (typeCam:String, angle:Float) 
+        {
+            switch (typeCam)
+            {
+                case "game":
+                    PlayState.inClass.camGame.angle = angle;
+                case "hud":
+                    PlayState.inClass.camHUD.angle = angle;
+            }
+        });
+
+        GetLua.enter.addcallback("addCAMAngle", function (typeCam:String, angle:Float) 
+        {
+            switch (typeCam)
+            {
+                case "game":
+                    PlayState.inClass.camGame.angle += angle;
+                case "hud":
+                    PlayState.inClass.camHUD.angle += angle;
+            }
+        });
 
         GetLua.enter.addcallback("addMountInt", function (type:String, mount:Int) 
         {
@@ -56,6 +80,19 @@ class LuaCode
                     PlayState.inClass.songScore += mount;
                 case "misses":
                     PlayState.inClass.songMisses += mount;
+            }
+
+            PlayState.inClass.getDisplayByLua();
+        });
+
+        GetLua.enter.addcallback("setMountInt", function (type:String, mount:Int) 
+        {
+            switch (type)
+            {
+                case "score":
+                    PlayState.inClass.songScore = mount;
+                case "misses":
+                    PlayState.inClass.songMisses = mount;
             }
 
             PlayState.inClass.getDisplayByLua();
@@ -95,6 +132,11 @@ class LuaCode
             }
         });
 
+        GetLua.enter.addcallback("keyPressANY", function (keyPress:Array<FlxKey>)
+        {
+            return FlxG.keys.anyJustPressed(keyPress);
+        });
+
         GetLua.enter.addcallback("keyRelease", function (keyname:String) 
         {
             switch (keyname)
@@ -106,8 +148,29 @@ class LuaCode
             }
         });
 
+        GetLua.enter.addcallback("keyReleaseANY", function (keyRelease:Array<FlxKey>)
+        {
+            return FlxG.keys.anyJustReleased(keyRelease);
+        });
+
+        GetLua.enter.addcallback("changeWindowTitle", function (newTitle:String)
+        {
+            return Application.current.window.title = newTitle;
+        });
+
+        GetLua.enter.addcallback("changeFPS", function (newfps:Int)
+        {
+            return Application.current.window.frameRate = newfps;
+        });
+
+        GetLua.enter.addcallback("playAlert", function (text:String, title:String) 
+        {
+            return Application.current.window.alert(text, title);
+        });
+
         // only do if u open the app with cmd app
-        GetLua.enter.addcallback("doTrace", function (text:String = "cool text") {
+        GetLua.enter.addcallback("doTrace", function (text:String = "cool text") 
+        {
             trace(text);
         });
     }
