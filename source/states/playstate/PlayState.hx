@@ -839,7 +839,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (push)
-			luaArray.push(new LuaCode(luaFile));
+			luaArray.push(new LuaCode(file));
 		#end
 
 		if (isStoryMode)
