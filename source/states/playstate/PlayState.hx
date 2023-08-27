@@ -835,11 +835,11 @@ class PlayState extends MusicBeatState
 		var file:String = Paths.lua(SONG.song.toLowerCase()+ '/lua');
 		
 		if (sys.FileSystem.exists(file)) {
-			doPush = true;
+			push = true;
 		}
 
 		if (push)
-			luaArray.push(new FunkinLua(luaFile));
+			luaArray.push(new LuaCode(luaFile));
 		#end
 
 		if (isStoryMode)

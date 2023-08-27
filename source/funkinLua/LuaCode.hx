@@ -52,6 +52,7 @@ class LuaCode
             PlayState.inClass.getDisplayByLua(); 
         });
 
+        // only do if u open the app with cmd app
         addcallback("doTrace", function (text:String = "cool text") {
             return trace(text);
         });
