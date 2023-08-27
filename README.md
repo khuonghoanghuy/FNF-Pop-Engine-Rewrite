@@ -10,7 +10,7 @@ all of this engine is made by me!
 - Week 7 Song []
 - Fix Chart []
 - Modding Core System []
-- LUA Core System []
+- LUA Core System [X]
 - New Gameplay Screen []
 
 # Feature:
