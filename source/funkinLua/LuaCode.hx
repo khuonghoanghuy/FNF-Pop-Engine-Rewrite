@@ -1,5 +1,6 @@
 package funkinLua;
 
+import flixel.text.FlxText;
 import flixel.FlxG;
 import obj.Boyfriend;
 import obj.Character;
@@ -133,36 +134,59 @@ class LuaCode
             }
         });
 
+        GetLua.enter.addcallback("makeText", function (x:Float, y:Float, withd:Float, text:String, size:Int, al:String, typeCam:String)
+        {
+            var text:FlxText = new FlxText(x, y, withd, text, size);
+            
+            switch (al)
+            {
+                case "left":
+                    text.alignment = LEFT;
+                case "right":
+                    text.alignment = RIGHT;
+                case "center":
+                    text.alignment = CENTER;
+            }
+
+            switch (typeCam)
+            {
+                case "game": // test
+                    text.cameras = [PlayState.inClass.camGame];
+                case "hud": // recommended
+                    text.cameras = [PlayState.inClass.camHUD];
+            }
+
+            PlayState.inClass.addObject(text);
+        });
+
         GetLua.enter.addcallback("keyPress", function (keyname:String) 
         {
+            var key:Bool = false;
+
             switch (keyname)
             {
-                case "left": controls.LEFT_P;
-                case "down": controls.DOWN_P;
-                case "up": controls.UP_P;
-                case "right": controls.RIGHT_P;
-                case "enter": controls.ACCEPT;
-                case "esc": controls.BACK;
-                case "doCheatBro": controls.CHEAT;
-                case "reset": controls.RESET;
-                case "pause": controls.PAUSE;
+                case "left": key = controls.LEFT_P;
+                case "down": key = controls.DOWN_P;
+                case "up": key = controls.UP_P;
+                case "right": key = controls.RIGHT_P;
             }
+
+            return key;
         });
 
         GetLua.enter.addcallback("keyRelease", function (keyname:String) 
         {
+            var key:Bool = false;
+
             switch (keyname)
             {
-                case "left": controls.LEFT_R;
-                case "down": controls.DOWN_R;
-                case "up": controls.UP_R;
-                case "right": controls.RIGHT_R;
-                case "enter": controls.ACCEPT;
-                case "esc": controls.BACK;
-                case "doCheatBro": controls.CHEAT;
-                case "reset": controls.RESET;
-                case "pause": controls.PAUSE;
+                case "left": key = controls.LEFT_R;
+                case "down": key = controls.DOWN_R;
+                case "up": key = controls.UP_R;
+                case "right": key = controls.RIGHT_R;
             }
+
+            return key;
         });
 
         GetLua.enter.addcallback("changeWindowTitle", function (newTitle:String)
@@ -172,7 +196,7 @@ class LuaCode
 
         GetLua.enter.addcallback("changeFPS", function (newfps:Int)
         {
-            return Application.current.window.frameRate = newfps;
+            return fpsChange(newfps);
         });
 
         GetLua.enter.addcallback("playAlert", function (text:String, title:String) 
@@ -195,5 +219,11 @@ class LuaCode
     public function addVar(vari:String, dt:Dynamic)
     {
         return GetLua.enter.addVar(vari, dt);
+    }
+
+    function fpsChange(newfps:Int)
+    {
+        FlxG.drawFramerate = newfps;
+        FlxG.updateFramerate = newfps;
     }
 }
