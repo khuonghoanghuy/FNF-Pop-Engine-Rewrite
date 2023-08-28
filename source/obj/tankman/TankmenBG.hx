@@ -1,4 +1,4 @@
-package tankman;
+package obj.tankman;
 
 import flixel.FlxG;
 import flixel.FlxSprite;

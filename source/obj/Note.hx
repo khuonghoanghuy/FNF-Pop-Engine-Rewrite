@@ -1,4 +1,4 @@
-package;
+package obj;
 
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxG;

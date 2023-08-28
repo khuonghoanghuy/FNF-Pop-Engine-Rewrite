@@ -3,7 +3,7 @@ package states.playstate;
 import funkinLua.LuaCode;
 import flixel.FlxBasic;
 import flixel.math.FlxAngle;
-import tankman.TankmenBG;
+import obj.tankman.TankmenBG;
 import flixel.graphics.frames.FlxAtlasFrames;
 #if desktop
 import Discord.DiscordClient;
@@ -652,10 +652,8 @@ class PlayState extends MusicBeatState
 					gfVersion = "gf-christmas";
 				case "school" | "schoolEvil":
 					gfVersion = "gf-pixel";
-				// default:
-				//	gfVersion = 'gf';
 				default:
-					gfVersion = SONG.gfVersion;
+					gfVersion = 'gf';
 			}
 		}
 

@@ -1,4 +1,4 @@
-package tankman;
+package obj.tankman;
 
 import flixel.FlxSprite;
 import flixel.sound.FlxSound;

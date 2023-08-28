@@ -1,7 +1,6 @@
 package funkinLua;
 
 import flixel.FlxG;
-import flixel.input.keyboard.FlxKey;
 import obj.Boyfriend;
 import obj.Character;
 import states.playstate.PlayState;
@@ -49,6 +48,8 @@ class LuaCode
         GetLua.enter.addVar("curStep", 0);
         GetLua.enter.addVar("curBMP", Conductor.bpm);
         GetLua.enter.addVar("isBotplay", FlxG.save.data.botplay);
+        GetLua.enter.addVar("isGhosttap", FlxG.save.data.ghosttap);
+        GetLua.enter.addVar("isDownscroll", FlxG.save.data.downscroll);
 
         GetLua.enter.addcallback("setCAMAngle", function (typeCam:String, angle:Float) 
         {
