@@ -18,6 +18,7 @@ class LuaCode
 
     public static var lua:State = null;
     private var controls:Controls;
+    var VERSION_POPENGINE:String = '0.1.0';
 
     public function new(script:String) {
         lua = LuaL.newstate();
@@ -47,6 +48,7 @@ class LuaCode
         GetLua.enter.addVar("misses", 0);
         GetLua.enter.addVar("curBeat", 0);
         GetLua.enter.addVar("curStep", 0);
+        GetLua.enter.addVar("versionEngine", VERSION_POPENGINE);
         GetLua.enter.addVar("curBMP", Conductor.bpm);
         GetLua.enter.addVar("isBotplay", FlxG.save.data.botplay);
         GetLua.enter.addVar("isGhosttap", FlxG.save.data.ghosttap);
@@ -136,27 +138,29 @@ class LuaCode
 
         GetLua.enter.addcallback("makeText", function (x:Float, y:Float, withd:Float, text:String, size:Int, al:String, typeCam:String)
         {
-            var text:FlxText = new FlxText(x, y, withd, text, size);
+            var textT:FlxText;
+            PlayState.inClass.removeObject(textT);
+            textT = new FlxText(x, y, withd, text, size);
             
             switch (al)
             {
                 case "left":
-                    text.alignment = LEFT;
+                    textT.alignment = LEFT;
                 case "right":
-                    text.alignment = RIGHT;
+                    textT.alignment = RIGHT;
                 case "center":
-                    text.alignment = CENTER;
+                    textT.alignment = CENTER;
             }
 
             switch (typeCam)
             {
                 case "game": // test
-                    text.cameras = [PlayState.inClass.camGame];
+                    textT.cameras = [PlayState.inClass.camGame];
                 case "hud": // recommended
-                    text.cameras = [PlayState.inClass.camHUD];
+                    textT.cameras = [PlayState.inClass.camHUD];
             }
 
-            PlayState.inClass.addObject(text);
+            PlayState.inClass.addObject(textT);
         });
 
         GetLua.enter.addcallback("keyPress", function (keyname:String) 

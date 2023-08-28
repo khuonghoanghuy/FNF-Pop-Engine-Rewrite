@@ -1,13 +1,9 @@
 package states;
 
 import flixel.system.FlxAssets;
-import data.SaveData;
 import Conductor.BPMChangeEvent;
 import flixel.FlxG;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxUIState;
-import flixel.math.FlxRect;
-import flixel.util.FlxTimer;
 
 class MusicBeatState extends FlxUIState
 {

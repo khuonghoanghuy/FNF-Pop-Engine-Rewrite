@@ -176,6 +176,8 @@ class PlayState extends MusicBeatState
 	{
 		inClass = this;
 
+		callOnLuas("inCreate", []);
+
 		Paths.cacheSound(Paths.inst(SONG.song));
 		Paths.cacheSound(Paths.voices(SONG.song));
 
@@ -838,9 +840,6 @@ class PlayState extends MusicBeatState
 		if (push)
 			luaArray.push(new LuaCode(file));
 		#end
-
-		// idk if work?
-		callOnLuas("inCreate", []);
 
 		if (isStoryMode)
 		{
