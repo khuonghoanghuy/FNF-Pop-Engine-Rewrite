@@ -1,5 +1,6 @@
 package states.playstate;
 
+import lime.app.Application;
 import funkinLua.LuaCode;
 import flixel.FlxBasic;
 import flixel.math.FlxAngle;
@@ -175,8 +176,6 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 		inClass = this;
-
-		callOnLuas("inCreate", []);
 
 		Paths.cacheSound(Paths.inst(SONG.song));
 		Paths.cacheSound(Paths.voices(SONG.song));
@@ -828,6 +827,8 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camHUD];
 
 		startingSong = true;
+
+		callOnLuas("inCreate", []);
 
 		#if sys
 		var push:Bool = false;
@@ -1796,7 +1797,9 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
-		callOnLuas("inEnd", []);
+		callOnLuas("inEnd", []); 
+		// make sure that title will change!
+		Application.current.window.title = "Friday Night Funkin': Pop Engine Rewrite";
 
 		canPause = false;
 		FlxG.sound.music.volume = 0;

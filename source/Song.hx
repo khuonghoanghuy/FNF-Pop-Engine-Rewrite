@@ -1,7 +1,7 @@
 package;
 
 import Section.SwagSection;
-import haxe.Json;
+import tjson.TJSON as Json;
 import lime.utils.Assets;
 
 using StringTools;

@@ -1,5 +1,6 @@
 package funkinLua;
 
+import flixel.system.FlxAssets;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import obj.Boyfriend;
@@ -136,12 +137,9 @@ class LuaCode
             }
         });
 
-        GetLua.enter.addcallback("makeText", function (x:Float, y:Float, withd:Float, text:String, size:Int, al:String, typeCam:String)
+        GetLua.enter.addcallback("makeText", function (x:Float, y:Float, withd:Float, text:String, size:Int, al:String = 'left', typeCam:String = 'hud', color:Int = 0xFFFFFF)
         {
-            var textT:FlxText;
-            PlayState.inClass.removeObject(textT);
-            textT = new FlxText(x, y, withd, text, size);
-            
+            var textT:FlxText = new FlxText(x, y, withd, text, size);
             switch (al)
             {
                 case "left":
@@ -151,7 +149,6 @@ class LuaCode
                 case "center":
                     textT.alignment = CENTER;
             }
-
             switch (typeCam)
             {
                 case "game": // test
@@ -159,6 +156,7 @@ class LuaCode
                 case "hud": // recommended
                     textT.cameras = [PlayState.inClass.camHUD];
             }
+            textT.color = color;
 
             PlayState.inClass.addObject(textT);
         });

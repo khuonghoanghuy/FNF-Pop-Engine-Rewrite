@@ -118,7 +118,14 @@
 	<haxelib name="tjson" />
 	<!--<haxelib name="hxjsonast" />-->
 
+	<!-- LUA STUFF-->
 	<haxelib name="linc_luajit" />
+
+	<!-- CACHE STUFF-->
+	<haxelib name="FlashCache" />
+
+	<!-- MODDING STUFF-->
+	<haxelib name="polymod" />
 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
 
 	<!-- <haxelib name="markdown" /> -->
@@ -175,4 +182,6 @@
 	<haxedef name="HXCPP_STACK_LINE" />  <!--if you want line numbers-->
 	<haxedef name="HXCPP_STACK_TRACE"/>  <!--if you want stack traces-->
 	
+	<define name="polymod" />
+
 </project>
