@@ -122,11 +122,11 @@
 	<haxelib name="linc_luajit" />
 
 	<!-- CACHE STUFF-->
-	<haxelib name="FlashCache" />
+	<!-- <haxelib name="FlashCache" /> 
 
-	<!-- MODDING STUFF-->
-	<haxelib name="polymod" />
-	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
+	MODDING STUFF
+	<haxelib name="polymod" /> -->
+ 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
