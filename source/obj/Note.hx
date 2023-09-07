@@ -3,9 +3,6 @@ package obj;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxG;
 import flixel.FlxSprite;
-#if polymod
-import polymod.format.ParseRules.TargetSignatureElement;
-#end
 import states.playstate.*;
 
 using StringTools;

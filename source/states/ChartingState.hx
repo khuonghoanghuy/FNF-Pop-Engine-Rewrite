@@ -18,7 +18,11 @@ import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
+#if (flixel == "4.11.0")
+import flixel.system.FlxSound;
+#else
 import flixel.sound.FlxSound;
+#end
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;

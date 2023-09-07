@@ -23,7 +23,11 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
+#if (flixel == "4.11.0")
+import flixel.system.FlxSound;
+#else
 import flixel.sound.FlxSound;
+#end
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
