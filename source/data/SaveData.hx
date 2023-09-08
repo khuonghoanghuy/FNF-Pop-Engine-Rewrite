@@ -72,6 +72,41 @@ class SaveData
 			FlxG.save.data.rightAltArrow = "RIGHT";
 		}
 
+		// key ui
+		if (FlxG.save.data.enter == null) {
+			FlxG.save.data.enter = "ENTER";
+		}
+
+		if (FlxG.save.data.pause == null) {
+			FlxG.save.data.pause = "ENTER";
+		}
+
+		if (FlxG.save.data.reset == null) {
+			FlxG.save.data.reset = "R";
+		}
+
+		if (FlxG.save.data.back == null) {
+			FlxG.save.data.back = "ESCAPE";
+		}
+
+		// key debug
+		if (FlxG.save.data.press7 == null) {
+			FlxG.save.data.press7 = "7";
+		}
+
+		if (FlxG.save.data.press8 == null) {
+			FlxG.save.data.press8 = "8";
+		}
+
+		if (FlxG.save.data.press9 == null) {
+			FlxG.save.data.press9 = "9";
+		}
+
+		if (FlxG.save.data.press0 == null) {
+			FlxG.save.data.press0 = "0";
+		}
+
+		// stuff
 		if (FlxG.save.data.randomArrow == null) {
 			FlxG.save.data.randomArrow = false;
 		}
