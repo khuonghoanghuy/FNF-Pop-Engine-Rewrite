@@ -25,3 +25,15 @@ Yeah, this engine will have a LUA Support, as a WIP one
 With `TimeBar/TimeText`, `Memory Counter`, `Accuracy && Ranking`
 ### Quick Options:
 Come with this, you can now edit some quick options such as `Downscroll`, `Accuracy`,...Each select and press enter, game will auto restart level to make sure that save work
+
+# How to build:
+1. Download [Haxe 4.2.5](https://haxe.org/download/version/4.2.5/)
+2. Install [Flixel and other tool by this tutorial page here](https://haxeflixel.com/documentation/install-haxeflixel/)
+3. After That, you should ready to build my FNF Engine now (If you are using Linux or build for HTML5 version)
+### For windows:
+> 1. Download Visual Studio 2019:
+> 2. Install The follow of the list here:
+> - MSVC v142 - VS 2019 C++ x64/x86 build tools
+> - Windows SDK (10.0.17763.0)
+### For MacOS:
+`idk, maybe you should check in the internet!`
