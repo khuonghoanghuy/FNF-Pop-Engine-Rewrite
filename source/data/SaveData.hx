@@ -114,6 +114,10 @@ class SaveData
 			FlxG.save.data.flixelDebuggerFont = false;
 		}
 
+		if (FlxG.save.data.scrollspeedMod == null) {
+			FlxG.save.data.scrollspeedMod = 0.00;
+		}
+
 		// FlxG.save.flush();
 	}
 

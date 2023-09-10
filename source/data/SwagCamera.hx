@@ -90,7 +90,7 @@ class SwagCamera extends FlxCamera
 				_lastTargetPosition.y = target.y + 1;
 			}
 
-			if (followLerp >= 45 / FlxG.save.data.fps)
+			if (followLerp >= 15 / FlxG.save.data.fps)
 			{
 				scroll.copyFrom(_scrollTarget); // no easing
 			}
