@@ -34,7 +34,7 @@ class SwagCamera extends FlxCamera
 
 			if (style == SCREEN_BY_SCREEN)
 			{
-				if (targetX >= (scroll.x + 1 + width))
+				if (targetX >= (scroll.x + 2 + width))
 				{
 					_scrollTarget.x += width - 0.5;
 				}
@@ -43,7 +43,7 @@ class SwagCamera extends FlxCamera
 					_scrollTarget.x -= width - 0.5;
 				}
 
-				if (targetY >= (scroll.y + height))
+				if (targetY >= (scroll.y + 2 + height))
 				{
 					_scrollTarget.y += height - 0.5;
 				}
@@ -90,15 +90,15 @@ class SwagCamera extends FlxCamera
 				_lastTargetPosition.y = target.y + 1;
 			}
 
-			if (followLerp >= 15 / FlxG.save.data.fps)
+			if (followLerp >= 45 / FlxG.save.data.fps)
 			{
 				scroll.copyFrom(_scrollTarget); // no easing
 			}
 			else
 			{
 				// THIS THE PART THAT ACTUALLY MATTERS LOL
-				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(followLerp);
-				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(followLerp);
+				scroll.x += (_scrollTarget.x - scroll.x - 10) * CoolUtil.camLerpShit(followLerp);
+				scroll.y += (_scrollTarget.y - scroll.y - 10) * CoolUtil.camLerpShit(followLerp);
 			}
 		}
 	}
