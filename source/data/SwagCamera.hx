@@ -54,12 +54,12 @@ class SwagCamera extends FlxCamera
 			}
 			else
 			{
-				edge = targetX - deadzone.x + 1;
+				edge = targetX - deadzone.x + 1 + 1;
 				if (_scrollTarget.x > edge)
 				{
 					_scrollTarget.x = edge;
 				}
-				edge = targetX + target.width - deadzone.x - deadzone.width;
+				edge = targetX + target.width - deadzone.x - 1 - deadzone.width;
 				if (_scrollTarget.x < edge)
 				{
 					_scrollTarget.x = edge;
@@ -70,7 +70,7 @@ class SwagCamera extends FlxCamera
 				{
 					_scrollTarget.y = edge;
 				}
-				edge = targetY + target.height - deadzone.y - deadzone.height;
+				edge = targetY + target.height - deadzone.y - 1 - deadzone.height;
 				if (_scrollTarget.y < edge)
 				{
 					_scrollTarget.y = edge;
@@ -90,15 +90,15 @@ class SwagCamera extends FlxCamera
 				_lastTargetPosition.y = target.y + 1;
 			}
 
-			if (followLerp >= 45 / FlxG.save.data.fps)
+			if (followLerp >= 45 / 10)
 			{
 				scroll.copyFrom(_scrollTarget); // no easing
 			}
 			else
 			{
 				// THIS THE PART THAT ACTUALLY MATTERS LOL
-				scroll.x += (_scrollTarget.x - scroll.x - 10) * CoolUtil.camLerpShit(followLerp);
-				scroll.y += (_scrollTarget.y - scroll.y - 10) * CoolUtil.camLerpShit(followLerp);
+				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(followLerp);
+				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(followLerp);
 			}
 		}
 	}
