@@ -115,7 +115,7 @@ class SaveData
 		}
 
 		if (FlxG.save.data.scrollspeedMod == null) {
-			FlxG.save.data.scrollspeedMod = 0.00;
+			FlxG.save.data.scrollspeedMod = 1.00;
 		}
 
 		// FlxG.save.flush();
