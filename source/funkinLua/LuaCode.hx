@@ -206,8 +206,17 @@ class LuaCode
             return Application.current.window.alert(text, title);
         });
 
+        GetLua.enter.addcallback("printInG", function (text:String, color:Int)
+        {
+            var text:FlxText = new FlxText(0, 0, 0, "", 16);
+            text.color = color;
+            text.text += text;
+            text.cameras = [PlayState.inClass.camHUD];
+            PlayState.inClass.add(text);
+        });
+
         // only do if u open the app with cmd app
-        GetLua.enter.addcallback("doTrace", function (text:String = "cool text") 
+        GetLua.enter.addcallback("print", function (text:String = "cool text") 
         {
             trace(text);
         });
