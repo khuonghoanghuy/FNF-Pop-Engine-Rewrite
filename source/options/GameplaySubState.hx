@@ -4,6 +4,8 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxG;
+import flixel.text.FlxText;
+import flixel.system.FlxAssets;
 
 class GameplaySubState extends MusicBeatSubstate
 {
@@ -15,6 +17,7 @@ class GameplaySubState extends MusicBeatSubstate
 
     var group:FlxTypedGroup<Alphabet>;
     var curSelected:Int = 0;
+    var curText:FlxText;
 
     public function new() 
     {
@@ -35,6 +38,11 @@ class GameplaySubState extends MusicBeatSubstate
             controlLabel.targetY = i;
             group.add(controlLabel);
         }
+
+        curText = new FlxText(0, 0, 0, "", 32);
+        curText.setFormat(FlxAssets.FONT_DEBUGGER, 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        curText.scrollFactor.set();
+        add(curText);
 
         changeSelection();
     }
@@ -94,6 +102,13 @@ class GameplaySubState extends MusicBeatSubstate
 			curSelected = group.length - 1;
 		if (curSelected >= group.length)
 			curSelected = 0;
+
+        switch (arrayOption[curSelected])
+        {
+            case "Random Note": curText.text = FlxG.save.data.randomArrow;
+            case "Stair Note": curText.text = FlxG.save.data.stairArrow;
+            case "Health Drain": curText.text = FlxG.save.data.healthdrain;
+        }
 
         var bullShit:Int = 0;
 

@@ -552,12 +552,6 @@ class Controls extends FlxActionSet
 		var right:String = FlxG.save.data.rightArrow;
 		var rightAlt:String = FlxG.save.data.rightAltArrow;
 
-		// key ui
-		var enter:String = FlxG.save.data.enter;
-		var back:String = FlxG.save.data.back;
-		var pause:String = FlxG.save.data.pause;
-		var reset:String = FlxG.save.data.reset;
-
 		// key debug
 		var press7:String = FlxG.save.data.press7;
 		var press8:String = FlxG.save.data.press8;
@@ -572,10 +566,10 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.DOWN, [down, downAlt]);
 				inline bindKeys(Control.LEFT, [left, leftAlt]);
 				inline bindKeys(Control.RIGHT, [right, rightAlt]);
-				inline bindKeys(Control.ACCEPT, [enter]);
-				inline bindKeys(Control.BACK, [back]);
-				inline bindKeys(Control.PAUSE, [pause]);
-				inline bindKeys(Control.RESET, [reset]);
+				inline bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
+				inline bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
+				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
+				inline bindKeys(Control.RESET, [R]);
 				inline bindKeys(Control._7, [press7]);
 				inline bindKeys(Control._8, [press8]);
 				inline bindKeys(Control._9, [press9]);
@@ -586,10 +580,10 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.DOWN, [down]);
 				inline bindKeys(Control.LEFT, [left]);
 				inline bindKeys(Control.RIGHT, [right]);
-				inline bindKeys(Control.ACCEPT, [enter]);
-				inline bindKeys(Control.BACK, [back]);
-				inline bindKeys(Control.PAUSE, [pause]);
-				inline bindKeys(Control.RESET, [reset]);
+				inline bindKeys(Control.ACCEPT, [G, Z]);
+				inline bindKeys(Control.BACK, [H, X]);
+				inline bindKeys(Control.PAUSE, [ONE]);
+				inline bindKeys(Control.RESET, [R]);
 				inline bindKeys(Control._7, [press7]);
 				inline bindKeys(Control._8, [press8]);
 				inline bindKeys(Control._9, [press9]);
@@ -600,10 +594,10 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.DOWN, [downAlt]);
 				inline bindKeys(Control.LEFT, [leftAlt]);
 				inline bindKeys(Control.RIGHT, [rightAlt]);
-				inline bindKeys(Control.ACCEPT, [enter]);
-				inline bindKeys(Control.BACK, [back]);
-				inline bindKeys(Control.PAUSE, [pause]);
-				inline bindKeys(Control.RESET, [reset]);
+				inline bindKeys(Control.ACCEPT, [O]);
+				inline bindKeys(Control.BACK, [P]);
+				inline bindKeys(Control.PAUSE, [ENTER]);
+				inline bindKeys(Control.RESET, [BACKSPACE]);
 				inline bindKeys(Control._7, [press7]);
 				inline bindKeys(Control._8, [press8]);
 				inline bindKeys(Control._9, [press9]);

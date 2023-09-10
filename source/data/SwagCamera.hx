@@ -11,6 +11,8 @@ class SwagCamera extends FlxCamera
 	 * properly follow framerate
 	 * most of this just copied from FlxCamera,
 	 * only lines 96 and 97 are changed
+	 * 
+	 * and im change alot thing about them
 	 */
 	override public function updateFollow():Void
 	{
@@ -25,8 +27,8 @@ class SwagCamera extends FlxCamera
 		else
 		{
 			var edge:Float;
-			var targetX:Float = target.x + targetOffset.x;
-			var targetY:Float = target.y + targetOffset.y;
+			var targetX:Float = target.x + targetOffset.x + 2;
+			var targetY:Float = target.y + targetOffset.y + 2;
 
 			if (style == SCREEN_BY_SCREEN)
 			{
@@ -50,7 +52,7 @@ class SwagCamera extends FlxCamera
 			}
 			else
 			{
-				edge = targetX - deadzone.x;
+				edge = targetX - deadzone.x + 1;
 				if (_scrollTarget.x > edge)
 				{
 					_scrollTarget.x = edge;
@@ -79,14 +81,14 @@ class SwagCamera extends FlxCamera
 				{
 					_lastTargetPosition = FlxPoint.get(target.x, target.y); // Creates this point.
 				}
-				_scrollTarget.x += (target.x - _lastTargetPosition.x) * followLead.x;
-				_scrollTarget.y += (target.y - _lastTargetPosition.y) * followLead.y;
+				_scrollTarget.x += (target.x - _lastTargetPosition.x + 1) * followLead.x;
+				_scrollTarget.y += (target.y - _lastTargetPosition.y + 1) * followLead.y;
 
-				_lastTargetPosition.x = target.x;
-				_lastTargetPosition.y = target.y;
+				_lastTargetPosition.x = target.x + 1;
+				_lastTargetPosition.y = target.y + 1;
 			}
 
-			if (followLerp >= 60 / FlxG.updateFramerate)
+			if (followLerp >= 45 / FlxG.save.data.fps)
 			{
 				scroll.copyFrom(_scrollTarget); // no easing
 			}

@@ -9,6 +9,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import data.SaveData;
 import states.MainMenuState;
+import flixel.system.FlxAssets;
 
 class OptionsMenu extends MusicBeatState
 {
@@ -26,7 +27,7 @@ class OptionsMenu extends MusicBeatState
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
 	var descText:FlxText;
-	var inBool:Bool;
+	// var inBool:Bool;
 
 	override function create()
 	{
@@ -54,7 +55,7 @@ class OptionsMenu extends MusicBeatState
 		}
 
 		descText = new FlxText(50, 650, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(FlxAssets.FONT_DEBUGGER, 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		add(descText);
 
@@ -81,6 +82,7 @@ class OptionsMenu extends MusicBeatState
 		if (controls.LEFT_R)
 		{
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+
 			if (controlsStrings == gameplayArray)
 			{
 				switch (controlsStrings[curSelected])
@@ -92,6 +94,28 @@ class OptionsMenu extends MusicBeatState
 						if (FlxG.save.data.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + FlxG.save.data.accuracyType; else if (FlxG.save.data.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + FlxG.save.data.accuracyType;
 				}
 			}
+		}
+
+		if (controls.RIGHT_R)
+		{
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+
+			if (controlsStrings == gameplayArray)
+			{
+				switch (controlsStrings[curSelected])
+				{
+					case "Accuracy Type":
+						if (FlxG.save.data.accuracyType == "SIMPLE") FlxG.save.data.accuracyType = "COMPLEX";
+						else if (FlxG.save.data.accuracyType == "COMPLEX") FlxG.save.data.accuracyType = "SIMPLE";
+						FlxG.save.data.accuracyType = FlxG.save.data.accuracyType;
+						if (FlxG.save.data.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + FlxG.save.data.accuracyType; else if (FlxG.save.data.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + FlxG.save.data.accuracyType;
+				}
+			}
+		}
+
+		if (controls.LEFT_R)
+		{
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 			if (controlsStrings == miscArray)
 			{
@@ -112,17 +136,6 @@ class OptionsMenu extends MusicBeatState
 		if (controls.RIGHT_P)
 		{
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-			if (controlsStrings == gameplayArray)
-			{
-				switch (controlsStrings[curSelected])
-				{
-					case "Accuracy Type":
-						if (FlxG.save.data.accuracyType == "SIMPLE") FlxG.save.data.accuracyType = "COMPLEX";
-						else if (FlxG.save.data.accuracyType == "COMPLEX") FlxG.save.data.accuracyType = "SIMPLE";
-						FlxG.save.data.accuracyType = FlxG.save.data.accuracyType;
-						if (FlxG.save.data.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + FlxG.save.data.accuracyType; else if (FlxG.save.data.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + FlxG.save.data.accuracyType;
-				}
-			}
 
 			if (controlsStrings == miscArray)
 			{

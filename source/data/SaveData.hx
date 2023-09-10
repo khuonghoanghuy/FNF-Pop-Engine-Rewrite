@@ -72,23 +72,6 @@ class SaveData
 			FlxG.save.data.rightAltArrow = "RIGHT";
 		}
 
-		// key ui
-		if (FlxG.save.data.enter == null) {
-			FlxG.save.data.enter = "ENTER";
-		}
-
-		if (FlxG.save.data.pause == null) {
-			FlxG.save.data.pause = "ENTER";
-		}
-
-		if (FlxG.save.data.reset == null) {
-			FlxG.save.data.reset = "R";
-		}
-
-		if (FlxG.save.data.back == null) {
-			FlxG.save.data.back = "ESCAPE";
-		}
-
 		// key debug
 		if (FlxG.save.data.press7 == null) {
 			FlxG.save.data.press7 = "7";
