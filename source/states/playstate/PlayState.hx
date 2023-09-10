@@ -1611,8 +1611,8 @@ class PlayState extends MusicBeatState
 
 		if (camZooming)
 		{
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95);
-			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
+			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, 0.95 * 1 / FlxG.save.data.fps);
+			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95 * 1 / FlxG.save.data.fps);
 		}
 
 		FlxG.watch.addQuick("beatShit", curBeat);
@@ -1625,15 +1625,10 @@ class PlayState extends MusicBeatState
 				case 16:
 					camZooming = true;
 					gfSpeed = 2;
-				case 48:
+				case 48, 112:
 					gfSpeed = 1;
 				case 80:
 					gfSpeed = 2;
-				case 112:
-					gfSpeed = 1;
-				case 163:
-					// FlxG.sound.music.stop();
-					// FlxG.switchState(new TitleState());
 			}
 		}
 
@@ -1643,8 +1638,6 @@ class PlayState extends MusicBeatState
 			{
 				case 128, 129, 130:
 					vocals.volume = 0;
-					// FlxG.sound.music.stop();
-					// FlxG.switchState(new PlayState());
 			}
 		}
 		// better streaming of shit
@@ -1711,7 +1704,7 @@ class PlayState extends MusicBeatState
 					daNote.active = true;
 				}
 
-				daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
+				daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.85 * FlxMath.roundDecimal(SONG.speed, 2)));
 
 				// i am so fucking sorry for this if condition
 				if (daNote.isSustainNote

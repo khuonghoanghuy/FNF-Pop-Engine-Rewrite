@@ -13,6 +13,8 @@ class SwagCamera extends FlxCamera
 	 * only lines 96 and 97 are changed
 	 * 
 	 * and im change alot thing about them
+	 * 
+	 * Cool Util
 	 */
 	override public function updateFollow():Void
 	{
@@ -32,22 +34,22 @@ class SwagCamera extends FlxCamera
 
 			if (style == SCREEN_BY_SCREEN)
 			{
-				if (targetX >= (scroll.x + width))
+				if (targetX >= (scroll.x + 1 + width))
 				{
-					_scrollTarget.x += width;
+					_scrollTarget.x += width - 0.5;
 				}
 				else if (targetX < scroll.x)
 				{
-					_scrollTarget.x -= width;
+					_scrollTarget.x -= width - 0.5;
 				}
 
 				if (targetY >= (scroll.y + height))
 				{
-					_scrollTarget.y += height;
+					_scrollTarget.y += height - 0.5;
 				}
 				else if (targetY < scroll.y)
 				{
-					_scrollTarget.y -= height;
+					_scrollTarget.y -= height - 0.5;
 				}
 			}
 			else
