@@ -166,10 +166,10 @@ class LuaCode
 
             switch (keyname)
             {
-                case "left": key = controls.LEFT_P; break;
-                case "down": key = controls.DOWN_P; break;
-                case "up": key = controls.UP_P; break;
-                case "right": key = controls.RIGHT_P; break;
+                case "left": key = controls.LEFT_P; // break;
+                case "down": key = controls.DOWN_P; // break;
+                case "up": key = controls.UP_P; // break;
+                case "right": key = controls.RIGHT_P; // break;
             }
 
             return key;
@@ -181,10 +181,10 @@ class LuaCode
 
             switch (keyname)
             {
-                case "left": key = controls.LEFT_R; break;
-                case "down": key = controls.DOWN_R; break;
-                case "up": key = controls.UP_R; break;
-                case "right": key = controls.RIGHT_R; break;
+                case "left": key = controls.LEFT_R; // break;
+                case "down": key = controls.DOWN_R; // break;
+                case "up": key = controls.UP_R; // break;
+                case "right": key = controls.RIGHT_R; // break;
             }
 
             return key;
