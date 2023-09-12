@@ -140,6 +140,7 @@ class LuaCode
         GetLua.enter.addcallback("makeText", function (x:Float, y:Float, withd:Float, text:String, size:Int, al:String = 'left', typeCam:String = 'hud', color:Int = 0xFFFFFF)
         {
             var textT:FlxText = new FlxText(x, y, withd, text, size);
+            textT.setFormat(Paths.font("vcr.ttf"), size, color);
             switch (al)
             {
                 case "left":
@@ -151,13 +152,11 @@ class LuaCode
             }
             switch (typeCam)
             {
-                case "game": // test
+                case "game": // work!
                     textT.cameras = [PlayState.inClass.camGame];
                 case "hud": // recommended
                     textT.cameras = [PlayState.inClass.camHUD];
             }
-            textT.color = color;
-
             PlayState.inClass.addObject(textT);
         });
 
@@ -167,10 +166,10 @@ class LuaCode
 
             switch (keyname)
             {
-                case "left": key = controls.LEFT_P;
-                case "down": key = controls.DOWN_P;
-                case "up": key = controls.UP_P;
-                case "right": key = controls.RIGHT_P;
+                case "left": key = controls.LEFT_P; break;
+                case "down": key = controls.DOWN_P; break;
+                case "up": key = controls.UP_P; break;
+                case "right": key = controls.RIGHT_P; break;
             }
 
             return key;
@@ -182,10 +181,10 @@ class LuaCode
 
             switch (keyname)
             {
-                case "left": key = controls.LEFT_R;
-                case "down": key = controls.DOWN_R;
-                case "up": key = controls.UP_R;
-                case "right": key = controls.RIGHT_R;
+                case "left": key = controls.LEFT_R; break;
+                case "down": key = controls.DOWN_R; break;
+                case "up": key = controls.UP_R; break;
+                case "right": key = controls.RIGHT_R; break;
             }
 
             return key;
