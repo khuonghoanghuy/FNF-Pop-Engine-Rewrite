@@ -33,7 +33,7 @@ class PlayCore extends MusicBeatState
                 FlxG.switchState(new AnimationDebug(PlayState.SONG.gfVersion));
 
             if (FlxG.keys.justPressed.SEVEN) {
-                FlxG.switchState(new ChartingState());
+                FlxG.switchState(new modding.ChartingState());
         
                 #if desktop
                 DiscordClient.changePresence("Chart Editor", null, null, true);
