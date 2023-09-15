@@ -35,6 +35,7 @@ import openfl.events.IOErrorEvent;
 import openfl.media.Sound;
 import openfl.net.FileReference;
 import openfl.utils.ByteArray;
+import obj.*;
 
 using StringTools;
 
@@ -112,8 +113,8 @@ class ChartingState extends MusicBeatState
 		curRenderedNotes = new FlxTypedGroup<Note>();
 		curRenderedSustains = new FlxTypedGroup<FlxSprite>();
 
-		if (PlayState.SONG != null)
-			_song = PlayState.SONG;
+		if (states.playstate.PlayState.SONG != null)
+			_song = states.playstate.PlayState.SONG;
 		else
 		{
 			_song = {
@@ -230,6 +231,8 @@ class ChartingState extends MusicBeatState
 		stepperBPM.name = 'song_bpm';
 
 		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		var gfs:Array<String> = CoolUtil.coolTextFile(Paths.txt("gfList"));
+		var stages:Array<String> = CoolUtil.coolTextFile(Paths.txt("stageList"));
 
 		var player1DropDown = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
 		{
@@ -561,10 +564,10 @@ class ChartingState extends MusicBeatState
 		{
 			lastSection = curSection;
 
-			PlayState.SONG = _song;
+			states.playstate.PlayState.SONG = _song;
 			FlxG.sound.music.stop();
 			vocals.stop();
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new states.playstate.PlayState());
 		}
 
 		if (FlxG.keys.justPressed.E)
@@ -1035,13 +1038,13 @@ class ChartingState extends MusicBeatState
 
 	function loadJson(song:String):Void
 	{
-		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+		states.playstate.PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
 		FlxG.resetState();
 	}
 
 	function loadAutosave():Void
 	{
-		PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
+		states.playstate.PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
 		FlxG.resetState();
 	}
 
