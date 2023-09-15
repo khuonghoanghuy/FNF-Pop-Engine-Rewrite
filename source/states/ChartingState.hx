@@ -1,8 +1,5 @@
 package states;
 
-import flixel.addons.display.FlxBackdrop;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
 import Conductor.BPMChangeEvent;
 import Section.SwagSection;
 import Song.SwagSong;
@@ -10,14 +7,18 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.ui.FlxInputText;
+import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIDropDownMenu;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
+import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
 #if (flixel == "4.11.0")
 import flixel.system.FlxSound;
 #else
@@ -25,14 +26,15 @@ import flixel.sound.FlxSound;
 #end
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import haxe.Json;
+import lime.utils.Assets;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
+import openfl.media.Sound;
 import openfl.net.FileReference;
-import data.CoolUtil;
-import states.playstate.*;
-import obj.*;
+import openfl.utils.ByteArray;
 
 using StringTools;
 
@@ -82,16 +84,9 @@ class ChartingState extends MusicBeatState
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
-	var backdrop:FlxBackdrop;
 
 	override function create()
 	{
-		/*backdrop = new FlxBackdrop(FlxGridOverlay.createGrid(30, 30, 60, 60, true, 0x3B1B29AA, 0x0), X);
-		backdrop.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
-		backdrop.alpha = 0;
-		FlxTween.tween(backdrop, {alpha: 0.4}, 0.5, {ease: FlxEase.quadOut});
-		add(backdrop);*/
-
 		curSection = lastSection;
 
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
@@ -141,6 +136,8 @@ class ChartingState extends MusicBeatState
 		tempBpm = _song.bpm;
 
 		addSection();
+
+		// sections = _song.notes;
 
 		updateGrid();
 
@@ -233,8 +230,6 @@ class ChartingState extends MusicBeatState
 		stepperBPM.name = 'song_bpm';
 
 		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
-		var gfs:Array<String> = CoolUtil.coolTextFile(Paths.txt("gfList"));
-		var stages:Array<String> = CoolUtil.coolTextFile(Paths.txt("stageList"));
 
 		var player1DropDown = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
 		{

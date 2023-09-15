@@ -44,7 +44,7 @@ import sys.FileSystem;
 
 using StringTools;
 
-class PlayState extends MusicBeatState
+class PlayState extends PlayCore
 {
 	public static var curStage:String = '';
 	public static var SONG:SwagSong;
@@ -2339,21 +2339,24 @@ class PlayState extends MusicBeatState
 	}
 
 	function getDisplay(getBool:Bool) {
+		songTotalPlayed++;
+		songAccuracy = songTotalHit / songTotalPlayed * 100;
 		return scoreTxt.text = PlayCore.displayScore(getBool, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
-		getAccuracy();
+		// getAccuracy();
 	}
 
 	// like as getDisplay but for lua
 	public function getDisplayByLua() {
-		return scoreTxt.text = PlayCore.displayScore(FlxG.save.data.accuracy, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
-		getAccuracy();
-	}
-
-	function getAccuracy()
-	{
 		songTotalPlayed++;
 		songAccuracy = songTotalHit / songTotalPlayed * 100;
+		return scoreTxt.text = PlayCore.displayScore(FlxG.save.data.accuracy, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		// getAccuracy();
 	}
+
+	/*function getAccuracy()
+	{
+
+	}*/
 
 	inline public static function truncateFloat(number:Float, precision:Int):Float
 	{

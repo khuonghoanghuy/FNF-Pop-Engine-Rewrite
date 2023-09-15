@@ -12,6 +12,7 @@ class PlayCore extends MusicBeatState
 {
     override function create() {
         super.create();
+        trace("Play Core Create!");
     }
 
     override function update(elapsed:Float) {
