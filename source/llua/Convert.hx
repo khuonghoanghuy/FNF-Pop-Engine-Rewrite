@@ -1,6 +1,6 @@
 package llua;
 
-
+#if (cpp && !macro)
 import llua.State;
 import llua.Lua;
 import llua.LuaL;
@@ -284,3 +284,4 @@ extern class Anon {
 	public function add(k:String, v:Any):Void;
 
 }
+#end
