@@ -1437,7 +1437,7 @@ class PlayState extends PlayCore
 
 	override public function update(elapsed:Float)
 	{
-		PlayCore.getToggle(FlxG.save.data.debugAllow);
+		getToggle(FlxG.save.data.debugAllow);
 		callOnLuas("inUpdate", [elapsed]);
 
 		#if !debug
@@ -1622,13 +1622,11 @@ class PlayState extends PlayCore
 		{
 			switch (curBeat)
 			{
-				case 16:
+				case 16, 80:
 					camZooming = true;
 					gfSpeed = 2;
 				case 48, 112:
 					gfSpeed = 1;
-				case 80:
-					gfSpeed = 2;
 			}
 		}
 
@@ -1704,7 +1702,7 @@ class PlayState extends PlayCore
 					daNote.active = true;
 				}
 
-				daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 + FlxG.save.data.scrollspeedMod * FlxMath.roundDecimal(SONG.speed, 2)));
+				daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 
 				// i am so fucking sorry for this if condition
 				if (daNote.isSustainNote
@@ -2341,7 +2339,7 @@ class PlayState extends PlayCore
 	function getDisplay(getBool:Bool) {
 		songTotalPlayed++;
 		songAccuracy = songTotalHit / songTotalPlayed * 100;
-		return scoreTxt.text = PlayCore.displayScore(getBool, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		return scoreTxt.text = displayScore(getBool, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
 		// getAccuracy();
 	}
 
@@ -2349,7 +2347,7 @@ class PlayState extends PlayCore
 	public function getDisplayByLua() {
 		songTotalPlayed++;
 		songAccuracy = songTotalHit / songTotalPlayed * 100;
-		return scoreTxt.text = PlayCore.displayScore(FlxG.save.data.accuracy, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		return scoreTxt.text = displayScore(FlxG.save.data.accuracy, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
 		// getAccuracy();
 	}
 

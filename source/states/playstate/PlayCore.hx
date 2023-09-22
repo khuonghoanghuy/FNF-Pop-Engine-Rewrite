@@ -19,7 +19,7 @@ class PlayCore extends MusicBeatState
         super.update(elapsed);
     }
 
-    inline public static function getToggle(debug:Bool)
+    inline function getToggle(debug:Bool)
     {
         if (debug)
         {
@@ -44,7 +44,7 @@ class PlayCore extends MusicBeatState
         return debug;
     }
 
-    inline public static function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float, ?getRank:String, ?fcRank:String) {
+    inline function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float, ?getRank:String, ?fcRank:String) {
         return PlayState.inClass.scoreTxt.text = (ifneed ? 
             "Score: " + curScore + " - Misses: " + missesNeed + " - Accuracy: " + curAcc + "% - Rank: " + getRank + " (" + fcRank + ")"
             : "Score: " + curScore);
