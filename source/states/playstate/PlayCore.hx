@@ -1,6 +1,7 @@
 package states.playstate;
 
 import flixel.FlxG;
+import data.SaveData;
 #if sys
 import funkinLua.LuaCode;
 #end
@@ -12,6 +13,7 @@ class PlayCore extends MusicBeatState
 {
     override function create() {
         super.create();
+        SaveData.init();
         trace("Play Core Create!");
     }
 
@@ -39,14 +41,17 @@ class PlayCore extends MusicBeatState
                 DiscordClient.changePresence("Chart Editor", null, null, true);
                 #end
             }
+
+            if (FlxG.keys.justPressed.F4) {
+                FlxG.resetState();
+            }
         }
 
         return debug;
     }
 
-    inline function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float, ?getRank:String, ?fcRank:String) {
+    inline function displayScore(ifneed:Bool, curScore:Int, ?missesNeed:Int, ?curAcc:Float) {
         return PlayState.inClass.scoreTxt.text = (ifneed ? 
-            "Score: " + curScore + " - Misses: " + missesNeed + " - Accuracy: " + curAcc + "% - Rank: " + getRank + " (" + fcRank + ")"
-            : "Score: " + curScore);
+            "Score: " + curScore + " - Misses: " + missesNeed + " - Accuracy: " + curAcc + "%" : "Score: " + curScore);
     }
 }

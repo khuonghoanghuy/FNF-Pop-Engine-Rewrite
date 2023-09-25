@@ -38,6 +38,6 @@ class CoolUtil
 	}
 
 	public static function camLerpShit(lerp:Float):Float {
-		return lerp * (FlxG.elapsed / (4 / 90));
+		return lerp * (FlxG.elapsed / (4 / 120));
 	}
 }

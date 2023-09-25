@@ -118,6 +118,10 @@ class SaveData
 			FlxG.save.data.scrollspeedMod = 1.00;
 		}
 
+		if (FlxG.save.data.noteSplashMode == null) {
+			FlxG.save.data.noteSplashMode = true;
+		}
+
 		// FlxG.save.flush();
 	}
 

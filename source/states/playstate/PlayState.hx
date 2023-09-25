@@ -73,6 +73,7 @@ class PlayState extends PlayCore
 
 	public var strumLineNotes:FlxTypedGroup<FlxSprite>;
 	public var playerStrums:FlxTypedGroup<FlxSprite>;
+	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
 	private var camZooming:Bool = false;
 	private var curSong:String = "";
@@ -765,10 +766,18 @@ class PlayState extends PlayCore
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
 		strumLine.scrollFactor.set();
 
+		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
+
+		var noteSplash:NoteSplash = new NoteSplash(100, 100, 0);
+		grpNoteSplashes.add(noteSplash);
+		noteSplash.alpha = 0.1;
+
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
+
+		add(grpNoteSplashes);
 
 		// startCountdown();
 
@@ -822,6 +831,7 @@ class PlayState extends PlayCore
 		add(scoreTxt);
 
 		strumLineNotes.cameras = [camHUD];
+		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
@@ -1874,7 +1884,7 @@ class PlayState extends PlayCore
 
 	var endingSong:Bool = false;
 
-	private function popUpScore(strumtime:Float):Void
+	private function popUpScore(strumtime:Float, daNote:Note):Void
 	{
 		var noteDiff:Float = Math.abs(strumtime - Conductor.songPosition);
 		// boyfriend.playAnim('hey');
@@ -1913,6 +1923,12 @@ class PlayState extends PlayCore
 		if (daRating == 'sick')
 		{	
 			songTotalHit += 1;
+			if (FlxG.save.data.noteSplashMode)
+			{
+				var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
+				noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
+				grpNoteSplashes.add(noteSplash);
+			}
 		}
 
 		songScore += score;
@@ -2290,7 +2306,7 @@ class PlayState extends PlayCore
 		{
 			if (!note.isSustainNote)
 			{
-				popUpScore(note.strumTime);
+				popUpScore(note.strumTime, note);
 				combo += 1;
 			}
 			else
@@ -2339,7 +2355,7 @@ class PlayState extends PlayCore
 	function getDisplay(getBool:Bool) {
 		songTotalPlayed++;
 		songAccuracy = songTotalHit / songTotalPlayed * 100;
-		return scoreTxt.text = displayScore(getBool, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		return scoreTxt.text = displayScore(getBool, songScore, songMisses, truncateFloat(songAccuracy, 2));
 		// getAccuracy();
 	}
 
@@ -2347,7 +2363,7 @@ class PlayState extends PlayCore
 	public function getDisplayByLua() {
 		songTotalPlayed++;
 		songAccuracy = songTotalHit / songTotalPlayed * 100;
-		return scoreTxt.text = displayScore(FlxG.save.data.accuracy, songScore, songMisses, truncateFloat(songAccuracy, 2), songRank, songFCRank);
+		return scoreTxt.text = displayScore(FlxG.save.data.accuracy, songScore, songMisses, truncateFloat(songAccuracy, 2));
 		// getAccuracy();
 	}
 

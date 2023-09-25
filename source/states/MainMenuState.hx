@@ -187,6 +187,11 @@ class MainMenuState extends MusicBeatState
 			}
 		}
 
+		if (FlxG.keys.justPressed.SEVEN) {
+			trace("enter modding state");
+			FlxG.switchState(new modding.EditiorsState());
+		}
+
 		super.update(elapsed);
 
 		menuItems.forEach(function(spr:FlxSprite)

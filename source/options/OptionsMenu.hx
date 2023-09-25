@@ -19,7 +19,7 @@ class OptionsMenu extends MusicBeatState
 	var controlsStrings:Array<String> = [];
 
 	var selectArray:Array<String> = ["Controls", "Gameplay", "Type Gameplay", "Misc", "Exit"];
-	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Accuracy Type", "Botplay", "Back"];
+	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Accuracy Type", "Note Splash", "Botplay", "Back"];
 	var typeArray:Array<String> = ["Note Simple", "Back"];
 	var shadersArray:Array<String> = ["VHS Shader", "Back"];
 	var miscArray:Array<String> = ["Watermark", "FPS", "RESET DATA", "Debug Allow", "FPS Counter", "Back"];
@@ -54,7 +54,7 @@ class OptionsMenu extends MusicBeatState
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 		}
 
-		descText = new FlxText(50, 650, 1180, "", 32);
+		descText = new FlxText(50, 635, 1180, "", 32);
 		descText.setFormat(FlxAssets.FONT_DEBUGGER, 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		add(descText);
@@ -113,7 +113,7 @@ class OptionsMenu extends MusicBeatState
 			}
 		}
 
-		if (controls.LEFT_R)
+		if (controls.LEFT_P)
 		{
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
@@ -220,6 +220,15 @@ class OptionsMenu extends MusicBeatState
 						} else {
 							FlxG.save.data.botplay = true;
 							descText.text = "Lets botplay play help for you!: " + FlxG.save.data.botplay;
+						}
+
+					case "Note Splash":
+						if (FlxG.save.data.noteSplashMode) {
+							FlxG.save.data.noteSplashMode = false;
+							descText.text = "If you hit sick!, note will do a splash: " + FlxG.save.data.noteSplashMode;
+						} else {
+							FlxG.save.data.noteSplashMode = true;
+							descText.text = "If you hit sick!, note will do a splash: " + FlxG.save.data.noteSplashMode;
 						}
 
 					case "Back":
@@ -349,6 +358,7 @@ class OptionsMenu extends MusicBeatState
 			case "Accuracy": descText.text = "Display more stuff like Misses, Accuracy: " + FlxG.save.data.accuracy;
 			case "Accuracy Type": if (FlxG.save.data.accuracyType == "SIMPLE") descText.text = "If SIMPLE, only hit note\nType: " + FlxG.save.data.accuracyType; else if (FlxG.save.data.accuracyType == "COMPLEX") descText.text = "If COMPLEX, harder than SIMPLE, more Accurate\nType: " + FlxG.save.data.accuracyType;
 			case "Botplay": descText.text = "Lets botplay play help for you!: " + FlxG.save.data.botplay;
+			case "Note Splash": descText.text = "If you hit sick!, note will do a splash: " + FlxG.save.data.noteSplashMode;
 			case "Watermark": descText.text = "Enable/Disable Pop Engine Watermark: " + FlxG.save.data.watermark;
 			case "FPS Counter": descText.text = "Display FPS Counter: " + FlxG.save.data.fpsCounter;
 			case "FPS": descText.text = "Currents FPS: " + FlxG.save.data.fps;
