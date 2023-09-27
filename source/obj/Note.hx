@@ -78,11 +78,7 @@ class Note extends FlxSprite
 
 			default:
 				var tex:FlxAtlasFrames;
-				if (!FlxG.save.data.noteSimple) {
-					tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
-				} else {
-					tex = Paths.getSparrowAtlas('arrows/NOTE_simple');
-				}
+				tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
 
 				frames = tex;
 

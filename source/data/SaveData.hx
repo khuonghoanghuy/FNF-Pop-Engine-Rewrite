@@ -106,9 +106,9 @@ class SaveData
 			FlxG.save.data.debugAllow = true;
 		}
 
-		if (FlxG.save.data.noteSimple == null) {
+		/* if (FlxG.save.data.noteSimple == null) {
 			FlxG.save.data.noteSimple = false;
-		}
+		} */
 
 		if (FlxG.save.data.flixelDebuggerFont == null) {
 			FlxG.save.data.flixelDebuggerFont = false;

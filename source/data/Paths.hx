@@ -4,7 +4,9 @@ import lime.utils.Assets;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
+import openfl.system.System;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.graphics.FlxGraphic;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
@@ -19,6 +21,41 @@ class Paths
 	static public function setCurrentLevel(name:String)
 	{
 		currentLevel = name.toLowerCase();
+	}
+
+	// from psych engine
+	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+	public static var localTrackedAssets:Array<String> = [];
+	public static var dumpExclusions:Array<String> =
+	[
+		'assets/music/freakyMenu.$SOUND_EXT',
+		'assets/shared/music/breakfast.$SOUND_EXT',
+		'assets/shared/music/tea-time.$SOUND_EXT',
+	];
+	static public function clearUnusedMemory()
+	{
+		// clear non local assets in the tracked assets list
+		for (key in currentTrackedAssets.keys()) {
+			// if it is not currently contained within the used local assets
+			if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key)) {
+				var obj = currentTrackedAssets.get(key);
+				@:privateAccess
+				if (obj != null) {
+					// remove the key from all cache maps
+					FlxG.bitmap._cache.remove(key);
+					openfl.Assets.cache.removeBitmapData(key);
+					currentTrackedAssets.remove(key);
+
+					// and get rid of the object
+					obj.persist = false; // make sure the garbage collector actually clears it up
+					obj.destroyOnNoUse = true;
+					obj.destroy();
+				}
+			}
+		}
+
+		// run the garbage collector for good measure lmfao
+		System.gc();
 	}
 
 	static function getPath(file:String, type:AssetType, ?library:Null<String> = null)

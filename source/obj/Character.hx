@@ -11,6 +11,10 @@ import states.playstate.*;
 
 using StringTools;
 
+typedef Data = {
+	
+}
+
 class Character extends FlxSprite
 {
 	public var animOffsets:Map<String, Array<Dynamic>>;

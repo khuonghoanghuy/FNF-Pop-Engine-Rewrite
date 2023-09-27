@@ -121,6 +121,9 @@
 	<!-- LUA STUFF-->
 	<haxelib name="linc_luajit" />
 
+	<!-- SHADERS STUFF-->
+	<haxelib name="hxShaders"/>  
+
 	<!-- CACHE STUFF-->
 	<!-- <haxelib name="FlashCache" /> 
 

@@ -123,7 +123,7 @@ class PlayState extends PlayCore
 	var talking:Bool = true;
 	public var songScore:Int = 0;
 	public var songMisses:Int = 0;
-	var songAccuracy:Float = 0.00;
+	public var songAccuracy:Float = 0.00;
 	var songTotalHit:Float = 0.00;
 	var songTotalPlayed:Int = 0;
 	var songRank:String = '?';
@@ -194,13 +194,6 @@ class PlayState extends PlayCore
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
-
-		if (FlxG.save.data.shadersVHS) {
-			var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.WHITE);
-			bg.scrollFactor.set();
-			bg.screenCenter();
-			add(bg);
-		}
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -1285,11 +1278,7 @@ class PlayState extends PlayCore
 
 				default:
 					var tex:FlxAtlasFrames;
-					if (!FlxG.save.data.noteSimple) {
-						tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
-					} else {
-						tex = Paths.getSparrowAtlas('arrows/NOTE_simple');
-					}
+					tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
 	
 					babyArrow.frames = tex;
 					babyArrow.animation.addByPrefix('green', 'arrowUP');

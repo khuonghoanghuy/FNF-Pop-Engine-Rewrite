@@ -1,6 +1,6 @@
 package shaders;
 
-import flixel.system.FlxAssets.FlxShader;
+import FlxShader;
 
 /**
  * Fetched from 'https://github.com/jobf/haxeflixel-vcr-effect-shader'

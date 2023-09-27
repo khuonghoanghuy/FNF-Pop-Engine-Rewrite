@@ -18,7 +18,7 @@ class OptionsMenu extends MusicBeatState
 
 	var controlsStrings:Array<String> = [];
 
-	var selectArray:Array<String> = ["Controls", "Gameplay", "Type Gameplay", "Misc", "Exit"];
+	var selectArray:Array<String> = ["Controls", "Gameplay", "Misc", "Exit"];
 	var gameplayArray:Array<String> = ["Ghost tap", "Downscroll", "Accuracy", "Accuracy Type", "Note Splash", "Botplay", "Back"];
 	var typeArray:Array<String> = ["Note Simple", "Back"];
 	var shadersArray:Array<String> = ["VHS Shader", "Back"];

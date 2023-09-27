@@ -1,4 +1,4 @@
-package states;
+package modding;
 
 import states.playstate.PlayState;
 import flixel.FlxG;
@@ -10,12 +10,20 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import obj.*;
+import openfl.events.IOErrorEvent;
+import openfl.events.Event;
+import openfl.net.FileReference;
+import flixel.addons.ui.FlxUITabMenu;
+import flixel.FlxCamera;
+
+using StringTools;
 
 /**
 	*DEBUG MODE
  */
 class AnimationDebug extends FlxState
 {
+	var _file:FileReference;
 	var bf:Boyfriend;
 	var dad:Character;
 	var char:Character;
@@ -27,6 +35,10 @@ class AnimationDebug extends FlxState
 	var daAnim:String = 'spooky';
 	var camFollow:FlxObject;
 
+	// ui box thing
+	var camHUD:FlxCamera;
+	var UI_box:FlxUITabMenu;
+
 	public function new(daAnim:String = 'spooky')
 	{
 		super();
@@ -37,9 +49,15 @@ class AnimationDebug extends FlxState
 	{
 		FlxG.sound.music.stop();
 
-		var gridBG:FlxSprite = FlxGridOverlay.create(10, 10);
-		gridBG.scrollFactor.set(0.5, 0.5);
-		add(gridBG);
+		camHUD = new FlxCamera();
+		camHUD.bgColor.alpha = 0;
+		FlxG.cameras.add(camHUD, false);
+
+		var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback'));
+		bg.antialiasing = true;
+		bg.scrollFactor.set(0.9, 0.9);
+		bg.active = false;
+		add(bg);
 
 		if (daAnim == 'bf')
 			isDad = false;
@@ -71,6 +89,7 @@ class AnimationDebug extends FlxState
 		textAnim = new FlxText(300, 16);
 		textAnim.size = 26;
 		textAnim.scrollFactor.set();
+		textAnim.cameras = [camHUD];
 		add(textAnim);
 
 		genBoyOffsets();
@@ -81,7 +100,31 @@ class AnimationDebug extends FlxState
 
 		FlxG.camera.follow(camFollow);
 
+		var tabs = [
+			{name: "Data Character", label: 'Data Character'},
+			{name: "Info", label: 'Info'}
+		];
+
+		UI_box = new FlxUITabMenu(null, tabs, true);
+		UI_box.resize(300, 400);
+		UI_box.x = FlxG.width / 6;
+		UI_box.y = 20;
+		UI_box.cameras = [camHUD];
+		add(UI_box);
+
+		addDataCharacterUI();
+		addInfoUI();
+
 		super.create();
+	}
+
+	function addDataCharacterUI():Void
+	{
+	}
+
+	function addInfoUI():Void
+	{
+		
 	}
 
 	function genBoyOffsets(pushList:Bool = true):Void
@@ -92,7 +135,8 @@ class AnimationDebug extends FlxState
 		{
 			var text:FlxText = new FlxText(10, 20 + (18 * daLoop), 0, anim + ": " + offsets, 15);
 			text.scrollFactor.set();
-			text.color = FlxColor.BLUE;
+			text.color = FlxColor.WHITE;
+			text.cameras = [camHUD];
 			dumbTexts.add(text);
 
 			if (pushList)
@@ -196,6 +240,62 @@ class AnimationDebug extends FlxState
 			FlxG.switchState(new PlayState());
 		}
 
+		if (FlxG.keys.justPressed.R) {
+			saveOffsets();
+		}
+
 		super.update(elapsed);
+	}
+
+	function saveOffsets()
+	{
+		var offsetsText:String = "";
+	
+		for (anim => offsets in char.animOffsets)
+		{
+			offsetsText += anim + " " + offsets[0] + " " + offsets[1] + "\n";
+		}
+	
+		if ((offsetsText != "") && (offsetsText.length > 0))
+		{
+			if (offsetsText.endsWith("\n"))
+				offsetsText = offsetsText.substr(0, offsetsText.length - 1);
+	
+			_file = new FileReference();
+			_file.addEventListener(Event.COMPLETE, onSaveComplete);
+			_file.addEventListener(Event.CANCEL, onSaveCancel);
+			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+	
+			_file.save(offsetsText, "offsets.txt");
+		}
+	}
+
+	function onSaveComplete(_):Void {
+		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+		_file.removeEventListener(Event.CANCEL, onSaveCancel);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+		_file = null;
+		FlxG.log.notice("Successfully saved OFFSETS FILE.");
+	}
+
+	/**
+	 * Called when the save file dialog is cancelled.
+	 */
+	function onSaveCancel(_):Void {
+		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+		_file.removeEventListener(Event.CANCEL, onSaveCancel);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+		_file = null;
+	}
+
+	/**
+	 * Called if there is an error while saving the gameplay recording.
+	 */
+	function onSaveError(_):Void {
+		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+		_file.removeEventListener(Event.CANCEL, onSaveCancel);
+		_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+		_file = null;
+		FlxG.log.error("Problem saving offsets file");
 	}
 }

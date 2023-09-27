@@ -19,7 +19,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.ui.FlxSpriteButton;
@@ -155,18 +155,19 @@ class ChartingState extends MusicBeatState
 		add(dummyArrow);
 
 		var tabs = [
+			{name: "Data", label: 'Data'},
 			{name: "Song", label: 'Song'},
 			{name: "Section", label: 'Section'},
 			{name: "Note", label: 'Note'}
 		];
 
 		UI_box = new FlxUITabMenu(null, tabs, true);
-
 		UI_box.resize(300, 400);
 		UI_box.x = FlxG.width / 2;
 		UI_box.y = 20;
 		add(UI_box);
 
+		addDataUI();
 		addSongUI();
 		addSectionUI();
 		addNoteUI();
@@ -176,6 +177,44 @@ class ChartingState extends MusicBeatState
 
 		changeSection();
 		super.create();
+	}
+
+	function addDataUI():Void
+	{
+		var tab_group_data = new FlxUI(null, UI_box);
+		tab_group_data.name = 'Data';
+
+		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		var gfss:Array<String> = CoolUtil.coolTextFile(Paths.txt('gfList'));
+		var stagess:Array<String> = CoolUtil.coolTextFile(Paths.txt('stageList'));
+
+		var player1DropDown = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
+		{
+			_song.player1 = characters[Std.parseInt(character)];
+			updateHeads();
+		});
+		player1DropDown.selectedLabel = _song.player1;
+		var player2DropDown = new FlxUIDropDownMenu(30, 200, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
+		{
+			_song.player2 = characters[Std.parseInt(character)];
+			updateHeads();
+		});
+		player2DropDown.selectedLabel = _song.player2;
+		var gfDropDown = new FlxUIDropDownMenu(140, 100, FlxUIDropDownMenu.makeStrIdLabelArray(gfss, true), function(gfs:String)
+		{
+			_song.gfVersion = characters[Std.parseInt(gfs)];
+		});
+		gfDropDown.selectedLabel = _song.gfVersion;
+		var stageDropDown = new FlxUIDropDownMenu(170, 200, FlxUIDropDownMenu.makeStrIdLabelArray(stagess, true), function(stages:String)
+		{
+			_song.stages = characters[Std.parseInt(stages)];
+		});
+		stageDropDown.selectedLabel = _song.stages;
+		
+		tab_group_data.add(player1DropDown);
+		tab_group_data.add(player2DropDown);
+		tab_group_data.add(gfDropDown);
+		tab_group_data.add(stageDropDown);
 	}
 
 	function addSongUI():Void
@@ -229,22 +268,6 @@ class ChartingState extends MusicBeatState
 		stepperBPM.value = Conductor.bpm;
 		stepperBPM.name = 'song_bpm';
 
-		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
-
-		var player1DropDown = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
-		{
-			_song.player1 = characters[Std.parseInt(character)];
-			updateHeads();
-		});
-		player1DropDown.selectedLabel = _song.player1;
-
-		var player2DropDown = new FlxUIDropDownMenu(140, 100, FlxUIDropDownMenu.makeStrIdLabelArray(characters, true), function(character:String)
-		{
-			_song.player2 = characters[Std.parseInt(character)];
-			updateHeads();
-		});
-		player2DropDown.selectedLabel = _song.player2;
-
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
@@ -257,8 +280,6 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperSpeed);
-		tab_group_song.add(player1DropDown);
-		tab_group_song.add(player2DropDown);
 
 		UI_box.addGroup(tab_group_song);
 		UI_box.scrollFactor.set();
