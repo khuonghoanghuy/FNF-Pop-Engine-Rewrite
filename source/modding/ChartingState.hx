@@ -130,7 +130,7 @@ class ChartingState extends MusicBeatState
 		}
 
 		FlxG.mouse.visible = true;
-		SaveData.getPath("data", "popenginerewrite");
+		SaveData.setPath("data", "popenginerewrite");
 
 		tempBpm = _song.bpm;
 

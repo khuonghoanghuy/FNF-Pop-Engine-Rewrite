@@ -53,7 +53,7 @@ class TitleState extends MusicBeatState
 		super.create();
 		
 		SaveData.init();
-		SaveData.getPath("data", "popenginerewrite");
+		SaveData.setPath("data", "popenginerewrite");
 
 		Highscore.load();
 

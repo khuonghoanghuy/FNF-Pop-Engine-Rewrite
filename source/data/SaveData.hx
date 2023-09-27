@@ -125,7 +125,7 @@ class SaveData
 		// FlxG.save.flush();
 	}
 
-	inline public static function getPath(name:String, ?path:String)
+	inline public static function setPath(name:String, ?path:String)
 	{
 		var save:FlxSave = new FlxSave();
 		save.bind(name, path);
