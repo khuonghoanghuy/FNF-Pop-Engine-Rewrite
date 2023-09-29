@@ -9,7 +9,7 @@ class MusicBeatState extends FlxUIState
 {
 	private var lastBeat:Float = 0;
 	private var lastStep:Float = 0;
-	var VERSION_POPENGINE:String = "0.1.0";
+	var VERSION_POPENGINE:String = "0.1.0-BETA";
 
 	/**
 	 * Using for font was type like: vcr.ttf
