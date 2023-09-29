@@ -7,13 +7,7 @@ all of this engine is made by me and some other code i found!
 
 # ![Repo Size](https://img.shields.io/github/repo-size/khuonghoanghuy/FNF-Pop-Engine-Rewrite)
 
-# TODO:
-- Fixed Font [X]
-- Week 7 Song []
-- Fix Chart []
-- Modding Core System []
-- LUA Core System [X]
-- New Gameplay Screen []
+# TODO: `Check the TODO file`
 
 # Feature:
 A custom engine must have a custom feature, pop engine will have:
