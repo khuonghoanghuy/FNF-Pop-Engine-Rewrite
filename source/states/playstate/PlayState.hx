@@ -126,9 +126,11 @@ class PlayState extends PlayCore
 	public var songAccuracy:Float = 0.00;
 	var songTotalHit:Float = 0.00;
 	var songTotalPlayed:Int = 0;
-	var songRank:String = '?';
-	var songFCRank:String = '?';
+	var songRank:String = 'UNKNOW';
+	var songFCRank:String = 'UNKNOW';
 	public var scoreTxt:FlxText;
+
+	public var alphaRank:Alphabet;
 
 	public static var campaignScore:Int = 0;
 
@@ -827,6 +829,10 @@ class PlayState extends PlayCore
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
+		alphaRank = new Alphabet(-100, scoreTxt.y, songRank, true, false);
+		alphaRank.scrollFactor.set();
+		add(alphaRank);
+
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -835,6 +841,8 @@ class PlayState extends PlayCore
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		alphaRank.cameras = [camHUD];
+
 		doof.cameras = [camHUD];
 
 		startingSong = true;
@@ -1442,6 +1450,26 @@ class PlayState extends PlayCore
 	{
 		getToggle(FlxG.save.data.debugAllow);
 		callOnLuas("inUpdate", [elapsed]);
+
+		alphaRank.text = songRank;
+
+		switch (songAccuracy)
+		{
+			case 100: // s rank
+				songRank = "S";
+			case 90: // a rank
+				songRank = "A";
+			case 80: // b rank
+				songRank = "B";
+			case 70: // c rank
+				songRank = "C";
+			case 60: // d rank
+				songRank = "D";
+			case 50: // f rank, the lowest rank
+				songRank = "F";
+			default:
+				songRank = "UNKNOW";
+		}
 
 		#if !debug
 		perfectMode = false;
@@ -2067,7 +2095,7 @@ class PlayState extends PlayCore
 
 			notes.forEachAlive(function(daNote:Note)
 			{
-				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit)
+				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate)
 				{
 					// the sorting probably doesn't need to be in here? who cares lol
 					possibleNotes.push(daNote);
@@ -2216,8 +2244,6 @@ class PlayState extends PlayCore
 			songScore -= 10;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
-			// FlxG.log.add('played imss note');
 
 			boyfriend.stunned = true;
 			wasMiss = true;

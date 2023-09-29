@@ -194,24 +194,4 @@ class Paths
 	{
 		return FlxG.sound.cache(sound);
 	}
-
-	static public var currentModDirectory:String = null;
-	public static var ignoreModFolders:Map<String, Bool> = new Map();
-	static public function getModFolders()
-	{
-		ignoreModFolders.set('data', true);
-		ignoreModFolders.set('songs', true);
-		ignoreModFolders.set('music', true);
-		ignoreModFolders.set('images', true);
-	}
-
-	static public function modFolders(key:String) {
-		if(currentModDirectory != null && currentModDirectory.length > 0) {
-			var fileToCheck:String = mods(currentModDirectory + '/' + key);
-			if(FileSystem.exists(fileToCheck)) {
-				return fileToCheck;
-			}
-		}
-		return 'mods/assets/' + key;
-	}
 }
