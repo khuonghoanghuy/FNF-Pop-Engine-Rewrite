@@ -1,5 +1,6 @@
 package data;
 
+import states.playstate.PlayState;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -97,8 +98,8 @@ class SwagCamera extends FlxCamera
 			else
 			{
 				// THIS THE PART THAT ACTUALLY MATTERS LOL
-				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(followLerp);
-				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(followLerp);
+				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(followLerp * PlayState.SONG.camlerpInt);
+				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(followLerp * PlayState.SONG.camlerpInt);
 			}
 		}
 	}

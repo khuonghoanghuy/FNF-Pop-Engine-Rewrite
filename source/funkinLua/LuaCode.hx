@@ -195,6 +195,11 @@ class LuaCode
             return Application.current.window.title = newTitle;
         });
 
+        GetLua.enter.addcallback("resizeWindow", function (w:Int, h:Int)
+        {
+            return FlxG.resizeGame(w, h);
+        });
+
         GetLua.enter.addcallback("changeFPS", function (newfps:Int)
         {
             return fpsChange(newfps);

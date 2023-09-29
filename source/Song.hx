@@ -19,6 +19,8 @@ typedef SwagSong =
 	var gfVersion:String;
 	var stages:String;
 	var validScore:Bool;
+
+	var camlerpInt:Int;
 }
 
 class Song
@@ -33,6 +35,7 @@ class Song
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';
 	public var stages:String = 'stage';
+	public var camlerpInt:Int = 90;
 
 	public function new(song, notes, bpm)
 	{

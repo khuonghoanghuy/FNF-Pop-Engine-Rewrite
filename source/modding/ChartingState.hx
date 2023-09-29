@@ -125,7 +125,8 @@ class ChartingState extends MusicBeatState
 				gfVersion: 'gf',
 				stages: 'stage',
 				speed: 1,
-				validScore: false
+				validScore: false,
+				camlerpInt: 90
 			};
 		}
 
@@ -264,9 +265,13 @@ class ChartingState extends MusicBeatState
 		stepperSpeed.value = _song.speed;
 		stepperSpeed.name = 'song_speed';
 
-		var stepperBPM:FlxUINumericStepper = new FlxUINumericStepper(10, 65, 1, 100, 1, 999, 3);
+		var stepperBPM:FlxUINumericStepper = new FlxUINumericStepper(10, 65, 1, 100, 10, 999, 2);
 		stepperBPM.value = Conductor.bpm;
 		stepperBPM.name = 'song_bpm';
+
+		var stepperCam:FlxUINumericStepper = new FlxUINumericStepper(10, 50, 1, 90, -999, 999, 2);
+		stepperCam.value = _song.camlerpInt;
+		stepperCam.name = 'song_cam';
 
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
@@ -280,6 +285,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperSpeed);
+		tab_group_song.add(stepperCam);
 
 		UI_box.addGroup(tab_group_song);
 		UI_box.scrollFactor.set();
