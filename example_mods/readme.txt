@@ -1,2 +1,5 @@
-THIS MOD FOLDER DOES NOT ENTIRELY WORK JUST YET!!!
-DONT EXPECT MUCH OUT OF IT RIGHT NOW!!!
+This Engine now support modding stuff
+
+sadly, the modding core is only replace assets
+cuz im trying to added this support modding
+so wait pls

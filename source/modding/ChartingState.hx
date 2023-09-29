@@ -126,7 +126,7 @@ class ChartingState extends MusicBeatState
 				stages: 'stage',
 				speed: 1,
 				validScore: false,
-				camlerpInt: 90
+				camlerpInt: 60
 			};
 		}
 
@@ -269,7 +269,7 @@ class ChartingState extends MusicBeatState
 		stepperBPM.value = Conductor.bpm;
 		stepperBPM.name = 'song_bpm';
 
-		var stepperCam:FlxUINumericStepper = new FlxUINumericStepper(10, 50, 1, 90, -999, 999, 2);
+		var stepperCam:FlxUINumericStepper = new FlxUINumericStepper(10, 50, 1, 60, -999, 999, 2);
 		stepperCam.value = _song.camlerpInt;
 		stepperCam.name = 'song_cam';
 

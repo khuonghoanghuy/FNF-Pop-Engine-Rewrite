@@ -98,8 +98,8 @@ class SwagCamera extends FlxCamera
 			else
 			{
 				// THIS THE PART THAT ACTUALLY MATTERS LOL
-				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(followLerp * PlayState.SONG.camlerpInt);
-				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(followLerp * PlayState.SONG.camlerpInt);
+				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(PlayState.SONG.camlerpInt / FlxG.updateFramerate);
+				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(PlayState.SONG.camlerpInt / FlxG.updateFramerate);
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package states;
 
+import modding.ModCore;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -48,7 +49,8 @@ class TitleState extends MusicBeatState
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
-		// DEBUG BULLSHIT
+		// yessir
+		ModCore.pathFolders("mods/", ["assets"]);
 
 		super.create();
 		

@@ -35,7 +35,7 @@ class Song
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';
 	public var stages:String = 'stage';
-	public var camlerpInt:Int = 90;
+	public var camlerpInt:Int = 60;
 
 	public function new(song, notes, bpm)
 	{

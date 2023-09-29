@@ -182,6 +182,10 @@ class PlayState extends PlayCore
 	{
 		inClass = this;
 
+		/*if (SONG.camlerpInt == null) {
+			SONG.camlerpInt = 60; // for default thingie :)
+		}*/
+
 		Paths.cacheSound(Paths.inst(SONG.song));
 		Paths.cacheSound(Paths.voices(SONG.song));
 

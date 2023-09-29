@@ -122,14 +122,10 @@
 	<haxelib name="linc_luajit" />
 
 	<!-- SHADERS STUFF-->
-	<haxelib name="hxShaders"/>  
+	<haxelib name="hxShaders"/>
 
-	<!-- CACHE STUFF-->
-	<!-- <haxelib name="FlashCache" /> 
-
-	MODDING STUFF
-	<haxelib name="polymod" /> -->
- 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
+	<!-- MODDING STUFF-->
+	<haxelib name="polymod"/>
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
