@@ -2,7 +2,7 @@ v0.1.0-BETA TODO List:
 - Fixed Font [X]
 - Week 7 Song []
 - Fix Chart []
-- Modding Core System []
+- Modding Core System [] (For the First BETA Version, imma just do like modding replace assets from `mods` folder)
 - LUA Core System [X]
 - New Gameplay Screen []
 - Made a Fixed Input []
