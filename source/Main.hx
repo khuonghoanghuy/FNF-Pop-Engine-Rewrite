@@ -6,6 +6,7 @@ import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import states.CacheState;
+import core.ToastCore;
 
 class Main extends Sprite
 {
@@ -29,32 +30,7 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
-
-		if (stage != null)
-		{
-			init();
-		}
-		else
-		{
-			addEventListener(Event.ADDED_TO_STAGE, init);
-		}
-
-		#if crash_allowed
-		#end
-	}
-
-	private function init(?E:Event):Void
-	{
-		if (hasEventListener(Event.ADDED_TO_STAGE))
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-		}
-
-		setupGame();
-	}
-
-	private function setupGame():Void
-	{
+		
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
@@ -74,5 +50,8 @@ class Main extends Sprite
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 		fpsCounter = new Counter(10, 3, 0xFFFFFF);
 		addChild(fpsCounter);
+
+		toast = new ToastCore();
+		addChild(toast);
 	}
 }
