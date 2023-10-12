@@ -32,6 +32,7 @@ jobs:
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
           haxelib install tjson 1.4.0
           haxelib git hxShaders https://github.com/JonnycatMeow/hxShaders.git
+          haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit
         shell: cmd
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
