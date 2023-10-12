@@ -272,7 +272,7 @@ class Paths
 	}
 
 	#if FUTURE_POLYMOD
-	var modsPath:String = 'mods/';
+	static public var modsPath:String = 'mods/';
 
 	static public function mods(key:String = '')
 	{
