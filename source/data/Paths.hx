@@ -274,7 +274,7 @@ class Paths
 	#if FUTURE_POLYMOD
 	static public var modsPath:String = 'mods/';
 
-	static public function mods(key:String = '')
+	static public function mods(key:String)
 	{
 		if (ModCore.trackedMods != [])
 		{
