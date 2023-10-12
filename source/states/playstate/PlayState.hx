@@ -188,8 +188,8 @@ class PlayState extends PlayCore
 			SONG.camlerpInt = 60; // for default thingie :)
 		}*/
 
-		Paths.cacheSound(Paths.inst(SONG.song));
-		Paths.cacheSound(Paths.voices(SONG.song));
+		/*Paths.cacheSound(Paths.inst(SONG.song));
+		Paths.cacheSound(Paths.voices(SONG.song));*/
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();

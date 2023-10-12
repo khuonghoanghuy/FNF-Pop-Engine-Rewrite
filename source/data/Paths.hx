@@ -1,5 +1,6 @@
 package data;
 
+import openfl.media.Sound;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
@@ -183,29 +184,29 @@ class Paths
 		return getPath('data/' + song + '/$key.json', TEXT, library);
 	}
 
-	static public function sound(key:String, ?library:String, ?cache:Bool = true):Sound
+	static public function sound(key:String, ?cache:Bool = true):Sound
 	{
-		return returnSound('sounds/$key', library, cache);
+		return returnSound('sounds/$key', cache);
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
+	inline static public function soundRandom(key:String, min:Int, max:Int, ?cache:Bool)
 	{
-		return sound(key + FlxG.random.int(min, max), library);
+		return sound(key + FlxG.random.int(min, max), cache);
 	}
 
-	inline static public function music(key:String, ?library:String, ?cache:Bool = true)
+	inline static public function music(key:String, ?cache:Bool = true)
 	{
-		return returnSound('music/$key', library, cache);
+		return returnSound('music/$key', cache);
 	}
 
 	inline static public function voices(song:String, ?cache:Bool = true)
 	{
-		return returnSound('songs/' + ${song.toLowerCase()} + '/Voices', library, cache);
+		return returnSound('songs/' + ${song.toLowerCase()} + '/Voices', cache);
 	}
 
 	inline static public function inst(song:String, ?cache:Bool = true)
 	{
-		return returnSound('songs/' + ${song.toLowerCase()} + '/Inst', library, cache);
+		return returnSound('songs/' + ${song.toLowerCase()} + '/Inst', cache);
 	}
 
 	inline static public function image(key:String, ?library:String, ?cache:Bool = true):FlxGraphic
@@ -228,12 +229,12 @@ class Paths
 		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic('images/$key', cache), txt('images/$key'));
 	}
 
-	inline static public function cacheSound(sound:String)
+	inline static public function cacheSound(sound:String):Sound
 	{
 		return FlxG.sound.cache(sound);
 	}
 
-	public static function returnGraphic(key:String, ?cache:Bool = true):FlxGraphic
+	public static function returnGraphic(key:String, ?cache:Null<Bool> = true):FlxGraphic
 	{
 		var path:String = 'assets/$key.png';
 		if (Assets.exists(path, IMAGE))
@@ -253,7 +254,7 @@ class Paths
 		return null;
 	}
 
-	public static function returnSound(key:String, ?cache:Bool = true):Sound
+	public static function returnSound(key:String, ?cache:Null<Bool> = true):Sound
 	{
 		if (Assets.exists('assets/$key.$SOUND_EXT', SOUND))
 		{

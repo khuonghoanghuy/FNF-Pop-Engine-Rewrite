@@ -184,4 +184,6 @@
 	
 	<define name="polymod" />
 	<define name="modding" />
+
+	<haxedef name="hscriptPos" value="true" />
 </project>

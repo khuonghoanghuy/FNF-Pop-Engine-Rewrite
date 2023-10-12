@@ -31,6 +31,8 @@ class MainMenuState extends MusicBeatState
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 
+	public static var havemods:Bool = false;
+
 	override function create()
 	{
 		#if desktop
@@ -92,6 +94,14 @@ class MainMenuState extends MusicBeatState
 		}
 
 		FlxG.camera.follow(camFollow, null, 0.06);
+
+		if (havemods)
+		{
+			var versionShit:FlxText = new FlxText(10, FlxG.height - 66, 0, "Press M to open Mod State", 12);
+			versionShit.scrollFactor.set();
+			versionShit.setFormat(full_font, 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			add(versionShit);
+		}
 
 		var versionShit:FlxText = new FlxText(10, FlxG.height - 44, 0, "Pop Engine Rewrite v" + VERSION_POPENGINE, 12);
 		versionShit.scrollFactor.set();

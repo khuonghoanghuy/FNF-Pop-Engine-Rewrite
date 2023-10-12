@@ -53,9 +53,13 @@ class TitleState extends MusicBeatState
 		#if FUTURE_POLYMOD
 		ModCore.reload();
 		if (ModCore.trackedMods != []) {
-			for (i in ModCore.trackedMods)
+			for (i in ModCore.trackedMods) {
 				Main.toast.create('Mods installed', 0xFFFFFF00, ' ${i.title}');
+			}
 		}
+		MainMenuState.havemods = true;
+		#else
+		MainMenuState.havemods = false; // test thingie
 		#end
 
 		super.create();
