@@ -262,41 +262,7 @@ class PlayState extends PlayCore
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 		#end
 
-		// curStage = SONG.stages;
-
-		if (SONG.stages == null)
-		{
-			switch (SONG.song.toLowerCase())
-			{
-				case "bopeebo" | "fresh" | "dadbattle": // week 1
-					curStage = "stage";
-	
-				case "spookeez" | "south" | "monster": // week 2
-					curStage = "halloween";
-	
-				case "pico" | "philly" | "blammed": // week 3
-					curStage = "philly";
-	
-				case "satin-panties" | "high" | "milf":
-					curStage = "limo";
-	
-				case "cocoa" | "eggnog":
-					curStage = "mall";
-	
-				case "winter-horrorland":
-					curStage = "mallEvil";
-				
-				case "senpai" | "roses":
-					curStage = "school";
-	
-				case "thorns":
-					curStage = "schoolEvil";
-
-				default:
-					curStage = SONG.stages;
-			}
-		}
-
+		curStage = SONG.stages;
 		switch (SONG.stages)
 		{
 			case "stage":
@@ -829,7 +795,7 @@ class PlayState extends PlayCore
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
-		alphaRank = new Alphabet(-100, scoreTxt.y, songRank, true, false);
+		alphaRank = new Alphabet(50, scoreTxt.y + -42, songRank, true, false);
 		alphaRank.scrollFactor.set();
 		add(alphaRank);
 
@@ -1467,8 +1433,6 @@ class PlayState extends PlayCore
 				songRank = "D";
 			case 50: // f rank, the lowest rank
 				songRank = "F";
-			default:
-				songRank = "UNKNOW";
 		}
 
 		#if !debug

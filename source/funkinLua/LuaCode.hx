@@ -8,6 +8,7 @@ import obj.Character;
 import states.playstate.PlayState;
 import lime.app.Application;
 import llua.*;
+import data.SwagCamera;
 
 /**
  * Code from Psych Engine
@@ -49,6 +50,7 @@ class LuaCode
         GetLua.enter.addVar("misses", 0);
         GetLua.enter.addVar("curBeat", 0);
         GetLua.enter.addVar("curStep", 0);
+        GetLua.enter.addVar("camlerpInt", SwagCamera.camlerpInt);
         GetLua.enter.addVar("versionEngine", VERSION_POPENGINE);
         GetLua.enter.addVar("curBMP", Conductor.bpm);
         GetLua.enter.addVar("isBotplay", FlxG.save.data.botplay);
@@ -114,6 +116,18 @@ class LuaCode
             PlayState.inClass.getDisplayByLua();
         });
 
+        GetLua.enter.addcallback("addMountFloat", function (mount:Float) 
+        {
+            PlayState.inClass.songAccuracy += mount;
+            PlayState.inClass.getDisplayByLua();
+        });
+
+        GetLua.enter.addcallback("setMountFloat", function (mount:Float) 
+        {
+            PlayState.inClass.songAccuracy = mount;
+            PlayState.inClass.getDisplayByLua();
+        });
+
         GetLua.enter.addcallback("changeCharacter", function (type:String, x:Float, y:Float, name:String, isPlayer:Bool) 
         {
             switch (type)
@@ -160,16 +174,16 @@ class LuaCode
             PlayState.inClass.addObject(textT);
         });
 
-        GetLua.enter.addcallback("keyPress", function (keyname:String) 
+        /* GetLua.enter.addcallback("keyPress", function (keyname:String) 
         {
             var key:Bool = false;
 
             switch (keyname)
             {
-                case "left": key = controls.LEFT_P; // break;
-                case "down": key = controls.DOWN_P; // break;
-                case "up": key = controls.UP_P; // break;
-                case "right": key = controls.RIGHT_P; // break;
+                case "left": key = FlxG.keys.anyJustPressed([controls.LEFT]); // break;
+                case "down": key = FlxG.keys.anyJustPressed([controls.DOWN]); // break;
+                case "up": key = FlxG.keys.anyJustPressed([controls.UP]); // break;
+                case "right": key = FlxG.keys.anyJustPressed([controls.RIGHT]); // break;
             }
 
             return key;
@@ -181,14 +195,14 @@ class LuaCode
 
             switch (keyname)
             {
-                case "left": key = controls.LEFT_R; // break;
-                case "down": key = controls.DOWN_R; // break;
-                case "up": key = controls.UP_R; // break;
-                case "right": key = controls.RIGHT_R; // break;
+                case "left": key = FlxG.keys.anyJustReleased([controls.LEFT]); // break;
+                case "down": key = FlxG.keys.anyJustReleased([controls.DOWN]); // break;
+                case "up": key = FlxG.keys.anyJustReleased([controls.UP]); // break;
+                case "right": key = FlxG.keys.anyJustReleased([controls.RIGHT]); // break;
             }
 
             return key;
-        });
+        });*/
 
         GetLua.enter.addcallback("changeWindowTitle", function (newTitle:String)
         {
@@ -202,7 +216,7 @@ class LuaCode
 
         GetLua.enter.addcallback("changeFPS", function (newfps:Int)
         {
-            return fpsChange(newfps);
+            fpsChange(newfps);
         });
 
         GetLua.enter.addcallback("playAlert", function (text:String, title:String) 
@@ -223,6 +237,11 @@ class LuaCode
         GetLua.enter.addcallback("print", function (text:String = "cool text") 
         {
             trace(text);
+        });
+
+        GetLua.enter.addcallback("resizeWindow", function (w:Int, h:Int) 
+        {
+            return FlxG.resizeWindow(w, h);    
         });
     }
 

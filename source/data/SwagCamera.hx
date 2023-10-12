@@ -8,6 +8,8 @@ import flixel.math.FlxPoint;
 
 class SwagCamera extends FlxCamera
 {
+	public static var camlerpInt:Int = 60;
+
 	/**
 	 * properly follow framerate
 	 * most of this just copied from FlxCamera,
@@ -98,8 +100,8 @@ class SwagCamera extends FlxCamera
 			else
 			{
 				// THIS THE PART THAT ACTUALLY MATTERS LOL
-				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(PlayState.SONG.camlerpInt / FlxG.updateFramerate);
-				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(PlayState.SONG.camlerpInt / FlxG.updateFramerate);
+				scroll.x += (_scrollTarget.x - scroll.x) * CoolUtil.camLerpShit(followLerp);
+				scroll.y += (_scrollTarget.y - scroll.y) * CoolUtil.camLerpShit(followLerp);
 			}
 		}
 	}

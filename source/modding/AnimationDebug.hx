@@ -15,6 +15,7 @@ import openfl.events.Event;
 import openfl.net.FileReference;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.FlxCamera;
+import flixel.graphics.frames.FlxAtlasFrames;
 
 using StringTools;
 
@@ -38,6 +39,11 @@ class AnimationDebug extends FlxState
 	// ui box thing
 	var camHUD:FlxCamera;
 	var UI_box:FlxUITabMenu;
+
+	var previewMode:Bool = false; // if u wanna test ur characters, just using this
+	var previewText:FlxText;
+	var strumLine:FlxTypedGroup<FlxSprite>;
+	var missisAnim:Bool = false;
 
 	public function new(daAnim:String = 'spooky')
 	{
@@ -107,7 +113,7 @@ class AnimationDebug extends FlxState
 
 		UI_box = new FlxUITabMenu(null, tabs, true);
 		UI_box.resize(300, 400);
-		UI_box.x = FlxG.width / 6;
+		UI_box.x = FlxG.width / 1;
 		UI_box.y = 20;
 		UI_box.cameras = [camHUD];
 		add(UI_box);
@@ -115,11 +121,77 @@ class AnimationDebug extends FlxState
 		addDataCharacterUI();
 		addInfoUI();
 
+		strumLine = new FlxTypedGroup<FlxSprite>();
+		add(strumLine);
+
+		previewText = new FlxText(0, 0, 0, "");
+		previewText.size = 26;
+		previewText.x = textAnim.x;
+		previewText.x = textAnim.y - 16;
+		previewText.scrollFactor.set();
+		previewText.cameras = [camHUD];
+		add(previewText);
+
+		generateStaticArrows();
+
 		super.create();
+	}
+
+	function generateStaticArrows():Void
+	{
+		for (i in 0...4)
+		{
+			var tex:FlxAtlasFrames;
+			tex = Paths.getSparrowAtlas('arrows/NOTE_assets');
+			var babyArrow:FlxSprite = new FlxSprite(textAnim.x, 0);
+			babyArrow.frames = tex;
+			babyArrow.animation.addByPrefix('green', 'arrowUP');
+			babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
+			babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
+			babyArrow.animation.addByPrefix('red', 'arrowRIGHT');
+
+			babyArrow.antialiasing = true;
+			babyArrow.setGraphicSize(Std.int(babyArrow.width * 0.7));
+
+			switch (Math.abs(i))
+			{
+				case 0:
+					babyArrow.x += Note.swagWidth * 0;
+					babyArrow.animation.addByPrefix('static', 'arrowLEFT');
+					babyArrow.animation.addByPrefix('lpressed', 'left press', 24, false);
+					babyArrow.animation.addByPrefix('lconfirm', 'left confirm', 24, false);
+				case 1:
+					babyArrow.x += Note.swagWidth * 1;
+					babyArrow.animation.addByPrefix('static', 'arrowDOWN');
+					babyArrow.animation.addByPrefix('dpressed', 'down press', 24, false);
+					babyArrow.animation.addByPrefix('dconfirm', 'down confirm', 24, false);
+				case 2:
+					babyArrow.x += Note.swagWidth * 2;
+					babyArrow.animation.addByPrefix('static', 'arrowUP');
+					babyArrow.animation.addByPrefix('upressed', 'up press', 24, false);
+					babyArrow.animation.addByPrefix('uconfirm', 'up confirm', 24, false);
+				case 3:
+					babyArrow.x += Note.swagWidth * 3;
+					babyArrow.animation.addByPrefix('static', 'arrowRIGHT');
+					babyArrow.animation.addByPrefix('rpressed', 'right press', 24, false);
+					babyArrow.animation.addByPrefix('rconfirm', 'right confirm', 24, false);
+			}
+			babyArrow.updateHitbox();
+			babyArrow.scrollFactor.set();
+			babyArrow.ID = i;
+	
+			babyArrow.animation.play('static');
+			babyArrow.x += 50;
+			babyArrow.x += ((FlxG.width / 3.5));
+			babyArrow.y -= 10;
+			babyArrow.cameras = [camHUD];
+			strumLine.add(babyArrow);
+		}
 	}
 
 	function addDataCharacterUI():Void
 	{
+
 	}
 
 	function addInfoUI():Void
@@ -159,6 +231,15 @@ class AnimationDebug extends FlxState
 	{
 		textAnim.text = char.animation.curAnim.name;
 
+		strumLine.forEach(function(sprite:FlxSprite)
+		{
+			if (previewMode) {
+				sprite.visible = true;
+			} else if (!previewMode) {
+				sprite.visible = false;
+			}
+		});
+
 		if (FlxG.keys.justPressed.E)
 			FlxG.camera.zoom += 0.25;
 		if (FlxG.keys.justPressed.Q)
@@ -185,14 +266,17 @@ class AnimationDebug extends FlxState
 			camFollow.velocity.set();
 		}
 
-		if (FlxG.keys.justPressed.W)
+		if (!previewMode)
 		{
-			curAnim -= 1;
-		}
+			if (FlxG.keys.justPressed.W)
+			{
+				curAnim -= 1;
+			}
 
-		if (FlxG.keys.justPressed.S)
-		{
-			curAnim += 1;
+			if (FlxG.keys.justPressed.S)
+			{
+				curAnim += 1;
+			}
 		}
 
 		if (curAnim < 0)
@@ -201,12 +285,15 @@ class AnimationDebug extends FlxState
 		if (curAnim >= animList.length)
 			curAnim = 0;
 
-		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE)
+		if (!previewMode)
 		{
-			char.playAnim(animList[curAnim]);
+			if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE)
+			{
+				char.playAnim(animList[curAnim]);
 
-			updateTexts();
-			genBoyOffsets(false);
+				updateTexts();
+				genBoyOffsets(false);
+			}
 		}
 
 		var upP = FlxG.keys.anyJustPressed([UP]);
@@ -219,29 +306,107 @@ class AnimationDebug extends FlxState
 		if (holdShift)
 			multiplier = 10;
 
-		if (upP || rightP || downP || leftP)
+		if (!previewMode)
 		{
-			updateTexts();
-			if (upP)
-				char.animOffsets.get(animList[curAnim])[1] += 1 * multiplier;
-			if (downP)
-				char.animOffsets.get(animList[curAnim])[1] -= 1 * multiplier;
-			if (leftP)
-				char.animOffsets.get(animList[curAnim])[0] += 1 * multiplier;
-			if (rightP)
-				char.animOffsets.get(animList[curAnim])[0] -= 1 * multiplier;
+			if (upP || rightP || downP || leftP)
+			{
+				updateTexts();
+				if (upP)
+					char.animOffsets.get(animList[curAnim])[1] += 1 * multiplier;
+				if (downP)
+					char.animOffsets.get(animList[curAnim])[1] -= 1 * multiplier;
+				if (leftP)
+					char.animOffsets.get(animList[curAnim])[0] += 1 * multiplier;
+				if (rightP)
+					char.animOffsets.get(animList[curAnim])[0] -= 1 * multiplier;
 
-			updateTexts();
-			genBoyOffsets(false);
-			char.playAnim(animList[curAnim]);
-		}
+				updateTexts();
+				genBoyOffsets(false);
+				char.playAnim(animList[curAnim]);
+			}
+
+			if (FlxG.keys.justPressed.R) {
+				saveOffsets();
+			}
+		}	
 
 		if (FlxG.keys.justPressed.ESCAPE) {
 			FlxG.switchState(new PlayState());
 		}
 
-		if (FlxG.keys.justPressed.R) {
-			saveOffsets();
+		// toggle preview mode
+		if (FlxG.keys.justPressed.P && !previewMode) {
+			previewMode = true;
+			previewText.text = "PREVIEW MODE";
+			char.playAnim("idle");
+		} else if (FlxG.keys.justPressed.P && previewMode) {
+			previewMode = false;
+			previewText.text = "";
+			char.playAnim("idle");
+		}
+
+		if (previewMode)
+		{
+			if (FlxG.keys.anyJustPressed([UP, W]))
+			{
+				strumLine.forEach(function(anim:FlxSprite)
+				{
+					if (missisAnim)
+					{
+						anim.animation.play("upressed");
+					}
+					else if (!missisAnim)
+					{
+						anim.animation.play("uconfirm");
+					}
+				});
+				char.playAnim("singUP", true);
+			}
+			if (FlxG.keys.anyJustPressed([DOWN, S]))
+			{
+				strumLine.forEach(function(anim:FlxSprite)
+				{
+					if (missisAnim)
+					{
+						anim.animation.play("dpressed");
+					}
+					else if (!missisAnim)
+					{
+						anim.animation.play("dconfirm");
+					}
+				});
+				char.playAnim("singDOWN", true);
+			}
+			if (FlxG.keys.anyJustPressed([LEFT, A]))
+			{
+				strumLine.forEach(function(anim:FlxSprite)
+				{
+					if (missisAnim)
+					{
+						anim.animation.play("lpressed");
+					}
+					else if (!missisAnim)
+					{
+						anim.animation.play("lconfirm");
+					}
+				});
+				char.playAnim("singLEFT", true);
+			}
+			if (FlxG.keys.anyJustPressed([RIGHT, D]))
+			{
+				strumLine.forEach(function(anim:FlxSprite)
+				{
+					if (missisAnim)
+					{
+						anim.animation.play("rpressed");
+					}
+					else if (!missisAnim)
+					{
+						anim.animation.play("rconfirm");
+					}
+				});
+				char.playAnim("singRIGHT", true);
+			}
 		}
 
 		super.update(elapsed);
