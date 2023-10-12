@@ -46,6 +46,7 @@
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
+	<define name="FUTURE_POLYMOD" if="desktop" unless="android"/>
 	<define name="discord_allows" if="desktop" unless="html5 | android | neko"/>
 	<define name="crash_allowed" unless="html5 | flash"/>
 	
@@ -125,7 +126,7 @@
 	<haxelib name="hxShaders"/>
 
 	<!-- MODDING STUFF-->
-	<haxelib name="polymod"/>
+	<haxelib name="polymod-joalor64"/>
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
