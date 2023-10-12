@@ -272,7 +272,7 @@ class Paths
 	}
 
 	#if FUTURE_POLYMOD
-	static public function mods(key:String = '')
+	static public function mods(key:String = ''):String
 	{
 		if (ModCore.trackedMods != [])
 		{
@@ -287,25 +287,25 @@ class Paths
 		}
 	}
 
-	inline static public function modsFont(key:String)
+	inline static public function modsFont(key:String):String
 		return mods('fonts/$key');
 
-	inline static public function modsTxt(key:String)
+	inline static public function modsTxt(key:String):String
 		return mods('data/$key.txt');
 
-	inline static public function modsJson(key:String)
+	inline static public function modsJson(key:String):String
 		return mods('data/$key.json');
 
-	inline static public function modsLua(key:String)
+	inline static public function modsLua(key:String):String
 		return mods('data/$key.lua');
 
-	inline static public function modsSounds(key:String)
+	inline static public function modsSounds(key:String):String
 		return mods('sounds/$key.$SOUND_EXT');
 
-	inline static public function modsImages(key:String)
+	inline static public function modsImages(key:String):String
 		return mods('images/$key.png');
 
-	inline static public function modsXml(key:String)
+	inline static public function modsXml(key:String):String
 		return mods('images/$key.xml');
 	#end
 }
