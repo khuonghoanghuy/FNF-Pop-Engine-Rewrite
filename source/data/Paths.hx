@@ -285,27 +285,29 @@ class Paths
 		{
 			return 'mods/' + key;
 		}
+
+		return 'mods/' + key;
 	}
 
-	inline static public function modsFont(key:String):String
+	inline static public function modsFont(key:String)
 		return mods('fonts/$key');
 
-	inline static public function modsTxt(key:String):String
+	inline static public function modsTxt(key:String)
 		return mods('data/$key.txt');
 
-	inline static public function modsJson(key:String):String
+	inline static public function modsJson(key:String)
 		return mods('data/$key.json');
 
-	inline static public function modsLua(key:String):String
+	inline static public function modsLua(key:String)
 		return mods('data/$key.lua');
 
-	inline static public function modsSounds(key:String):String
+	inline static public function modsSounds(key:String)
 		return mods('sounds/$key.$SOUND_EXT');
 
-	inline static public function modsImages(key:String):String
+	inline static public function modsImages(key:String)
 		return mods('images/$key.png');
 
-	inline static public function modsXml(key:String):String
+	inline static public function modsXml(key:String)
 		return mods('images/$key.xml');
 	#end
 }
