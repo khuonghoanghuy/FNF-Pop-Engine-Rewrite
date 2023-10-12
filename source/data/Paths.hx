@@ -274,17 +274,16 @@ class Paths
 	#if FUTURE_POLYMOD
 	static public function mods(key:String = '')
 	{
-		var modsPath:String = "mods/";
 		if (ModCore.trackedMods != [])
 		{
 			for (i in 0...ModCore.trackedMods.length)
 			{
-				return modsPath + ModCore.trackedMods[i] + '/' + key;
+				return 'mods/' + ModCore.trackedMods[i] + '/' + key;
 			}
 		}
 		else
 		{
-			return modsPath + key;
+			return 'mods/' + key;
 		}
 	}
 
