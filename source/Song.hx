@@ -3,6 +3,10 @@ package;
 import Section.SwagSection;
 import tjson.TJSON as Json;
 import lime.utils.Assets;
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
 
 using StringTools;
 
@@ -46,7 +50,16 @@ class Song
 
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
 	{
-		var rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
+		var rawJson = null;
+
+		#if (sys && FUTURE_POLYMOD)
+		if (FileSystem.exists(Paths.modsJson(folder.toLowerCase() + '/' + jsonInput.toLowerCase())))
+			rawJson = File.getContent(Paths.modsJson(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
+		else
+			rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
+		#else
+		rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
+		#end
 
 		while (!rawJson.endsWith("}")) rawJson = rawJson.substr(0, rawJson.length - 1);
 

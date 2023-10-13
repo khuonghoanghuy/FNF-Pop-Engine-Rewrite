@@ -1,5 +1,6 @@
 package data;
 
+import core.ModCore;
 import openfl.media.Sound;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -13,7 +14,7 @@ import sys.io.File;
 
 class Paths
 {
-	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
+	inline public static final SOUND_EXT = #if web "mp3" #else "ogg" #end;
 
 	static var currentLevel:String;
 
@@ -269,4 +270,44 @@ class Paths
 		trace('$key its null');
 		return null;
 	}
+
+	#if FUTURE_POLYMOD
+	static public function mods(key:String = ''):String
+	{
+		if (ModCore.trackedMods != [])
+		{
+			for (i in 0...ModCore.trackedMods.length)
+			{
+				return 'mods/' + ModCore.trackedMods[i] + '/' + key;
+			}
+		}
+		else
+		{
+			return 'mods/' + key;
+		}
+
+		return 'mods/' + key;
+	}
+
+	inline static public function modsFont(key:String)
+		return mods('fonts/$key');
+
+	inline static public function modsTxt(key:String)
+		return mods('data/$key.txt');
+
+	inline static public function modsJson(key:String)
+		return mods('data/$key.json');
+
+	inline static public function modsLua(key:String)
+		return mods('data/$key.lua');
+
+	inline static public function modsSounds(key:String)
+		return mods('sounds/$key.$SOUND_EXT');
+
+	inline static public function modsImages(key:String)
+		return mods('images/$key.png');
+
+	inline static public function modsXml(key:String)
+		return mods('images/$key.xml');
+	#end
 }
