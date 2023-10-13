@@ -51,6 +51,13 @@ class GameplaySubState extends MusicBeatSubstate
     {
         super.update(elapsed);
 
+        switch (arrayOption[curSelected])
+        {
+            case "Random Note": curText.text = FlxG.save.data.randomArrow;
+            case "Stair Note": curText.text = FlxG.save.data.stairArrow;
+            case "Health Drain": curText.text = FlxG.save.data.healthdrain;
+        }
+
         if (controls.UP_P) {
             changeSelection(-1);
         }
