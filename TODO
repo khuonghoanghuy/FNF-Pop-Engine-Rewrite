@@ -1,11 +1,18 @@
+Note: {
+    if i put `?` mean that just planned, maybe that todo will move this into a new todo update!
+    if i put `X` at `[]` mean that todo was done!
+}
+
+v0.1.1-BETA TODO List: (Just Planned to Do)
+- New Gameplay Screen []
+- Week 7 Song and Chart [] (?)
+- Made a Fixed Input []
+- Recreate Ghost tap Input [] (?)
+- Fix Chart [] (?)
+
 v0.1.0-BETA TODO List:
 - Fixed Font [X]
-- Week 7 Song and Chart []
-- Fix Chart []
 - Modding Core System [] (For the First BETA Version, imma just do like modding replace assets from `mods` folder)
 - LUA Core System [X]
-- New Gameplay Screen []
-- Made a Fixed Input []
 - Clean Game to make more Optimization []
-- Recreate Ghost tap Input []
 - Fix Crash []
