@@ -187,7 +187,7 @@ class Paths
 
 	static public function sound(key:String, ?cache:Bool = true):Sound
 	{
-		return returnSound('sounds/$key', cache);
+		returnSound('sounds/$key', cache);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?cache:Bool)
@@ -197,22 +197,22 @@ class Paths
 
 	inline static public function music(key:String, ?cache:Bool = true)
 	{
-		return returnSound('music/$key', cache);
+		returnSound('music/$key', cache);
 	}
 
 	inline static public function voices(song:String, ?cache:Bool = true)
 	{
-		return returnSound('songs/' + #if (haxe <= "4.3.2") song.toLowerCase() #else ${song.toLowerCase()} #end + '/Voices', cache);
+		returnSound('songs/' + #if (haxe <= "4.3.2") song.toLowerCase() #else ${song.toLowerCase()} #end + '/Voices', cache);
 	}
 
 	inline static public function inst(song:String, ?cache:Bool = true)
 	{
-		return returnSound('songs/' + #if (haxe <= "4.3.2") song.toLowerCase() #else ${song.toLowerCase()} #end + '/Inst', cache);
+		returnSound('songs/' + #if (haxe <= "4.3.2") song.toLowerCase() #else ${song.toLowerCase()} #end + '/Inst', cache);
 	}
 
 	inline static public function image(key:String, ?library:String, ?cache:Bool = true):FlxGraphic
 	{
-		return returnGraphic('images/$key', cache);
+		returnGraphic('images/$key', cache);
 	}
 
 	inline static public function font(key:String)
