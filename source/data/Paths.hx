@@ -187,7 +187,7 @@ class Paths
 
 	static public function sound(key:String, ?cache:Bool = true):Sound
 	{
-		returnSound('sounds/$key', cache);
+		return returnSound('sounds/$key', cache);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?cache:Bool)
