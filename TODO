@@ -1,6 +1,7 @@
 Note: {
     if i put `?` mean that just planned, maybe that todo will move this into a new todo update!
     if i put `X` at `[]` mean that todo was done!
+    if i put `-` at `[]` mean that todo can't be finished and can be removed
 }
 
 v0.1.1-BETA TODO List: (Just Planned to Do)
