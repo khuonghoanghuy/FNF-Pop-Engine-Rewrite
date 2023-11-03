@@ -190,9 +190,9 @@ class Paths
 		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?cache:Bool)
+	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
-		return sound(key + FlxG.random.int(min, max), cache);
+		return sound(key + FlxG.random.int(min, max), library);
 	}
 
 	inline static public function music(key:String, ?library:String)
