@@ -22,9 +22,9 @@ With `TimeBar/TimeText`, `Memory Counter`, `Accuracy && Ranking`
 ### Quick Options:
 Come with this, you can now edit some quick options such as `Downscroll`, `Accuracy`,...Each select and press enter, game will auto restart level to make sure that save work
 ### Modding Support: (BROKEN!!, IN FIXING)
-Yes, this engine is comming with a modding core system right now
-### Preview Mode In AnimationDEBUG!
-Just Press `P` key, you can now play test characters anim without restart or playing song to make sure the offset is correct!
+Yes, this engine is comming with a modding core system right now (code by [Joalor64](https://github.com/Joalor64GH))
+### Improve `AnimationDEBUG.hx` Class
+You can now play Test your Characters without restart your songs of something, has BG now, and many more...!
 
 # How to build:
 1. Download [Haxe 4.2.5](https://haxe.org/download/version/4.2.5/)
