@@ -3,7 +3,7 @@
 
 all of this engine is was made by me with some people help me
 
-### THIS ENGINE IS STILL UNSTABLE!!! (USING THIS FOR MODDING FOR YOUR OWN RISK!)
+### THIS ENGINE IS STILL UNSTABLE!!!
 
 # ![Repo Size](https://img.shields.io/github/repo-size/khuonghoanghuy/FNF-Pop-Engine-Rewrite)
 
@@ -23,6 +23,8 @@ With `TimeBar/TimeText`, `Memory Counter`, `Accuracy && Ranking`
 Come with this, you can now edit some quick options such as `Downscroll`, `Accuracy`,...Each select and press enter, game will auto restart level to make sure that save work
 ### Modding Support: (BROKEN!!, IN FIXING)
 Yes, this engine is comming with a modding core system right now
+### Preview Mode In AnimationDEBUG!
+Just Press `P` key, you can now play test characters anim without restart or playing song to make sure the offset is correct!
 
 # How to build:
 1. Download [Haxe 4.2.5](https://haxe.org/download/version/4.2.5/)
