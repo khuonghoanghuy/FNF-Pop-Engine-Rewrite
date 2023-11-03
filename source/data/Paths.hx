@@ -269,7 +269,7 @@ class Paths
 
 		trace('$key its null');
 		return null;
-	}*
+	}
 
 	#if FUTURE_POLYMOD
 	static public function mods(key:String = ''):String
