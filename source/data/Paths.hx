@@ -185,9 +185,9 @@ class Paths
 		return getPath('data/' + song + '/$key.json', TEXT, library);
 	}
 
-	static public function sound(key:String, ?cache:Bool = true):Sound
+	static public function sound(key:String, ?library:String)
 	{
-		return returnSound('sounds/$key', cache);
+		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
 	}
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?cache:Bool)
@@ -195,24 +195,24 @@ class Paths
 		return sound(key + FlxG.random.int(min, max), cache);
 	}
 
-	inline static public function music(key:String, ?cache:Bool = true)
+	inline static public function music(key:String, ?library:String)
 	{
-		return returnSound('music/$key', cache);
+		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
 	}
 
-	inline static public function voices(song:String, ?cache:Bool = true)
+	inline static public function voices(song:String)
 	{
-		return returnSound('songs/' + #if (haxe <= "4.3.2") song.toLowerCase() #else ${song.toLowerCase()} #end + '/Voices', cache);
+		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 	}
 
-	inline static public function inst(song:String, ?cache:Bool = true)
+	inline static public function inst(song:String)
 	{
-		return returnSound('songs/' + #if (haxe <= "4.3.2") song.toLowerCase() #else ${song.toLowerCase()} #end + '/Inst', cache);
+		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
 	}
 
-	inline static public function image(key:String, ?library:String, ?cache:Bool = true):FlxGraphic
+	inline static public function image(key:String, ?library:String)
 	{
-		return returnGraphic('images/$key', cache);
+		return getPath('images/$key.png', IMAGE, library);
 	}
 
 	inline static public function font(key:String)
@@ -220,14 +220,14 @@ class Paths
 		return 'assets/fonts/$key';
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String, ?cache:Bool = true):FlxAtlasFrames
+	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{
-		return FlxAtlasFrames.fromSparrow(returnGraphic('images/$key', cache), xml('images/$key'));
+		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 
-	inline static public function getPackerAtlas(key:String, ?library:String, ?cache:Bool = true):FlxAtlasFrames
+	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
-		return FlxAtlasFrames.fromSpriteSheetPacker(returnGraphic('images/$key', cache), txt('images/$key'));
+		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
 	}
 
 	inline static public function cacheSound(sound:String):Sound
@@ -269,7 +269,7 @@ class Paths
 
 		trace('$key its null');
 		return null;
-	}
+	}*
 
 	#if FUTURE_POLYMOD
 	static public function mods(key:String = ''):String
