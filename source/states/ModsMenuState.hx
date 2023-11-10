@@ -406,7 +406,7 @@ class ModsMenuState extends states.MusicBeatState
 
 		if(controls.UP_P || controls.DOWN_P)
 		{
-			changeSelection(contols.UP_P ? -1 : 1);
+			changeSelection(controls.UP_P ? -1 : 1);
 		}
 		updatePosition(elapsed);
 		super.update(elapsed);

@@ -13,11 +13,9 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flash.media.Sound;
 
 import openfl.system.System;
-import openfl.utils.AssetType as OpenFlAssetType;
+import openfl.utils.AssetType;
 import openfl.utils.Assets as Assets;
 import openfl.display.BitmapData;
-
-import lime.utils.AssetType as LimeAssetType;
 
 import haxe.Json;
 
@@ -127,7 +125,7 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	public static function getPath(file:String, type:OpenFlAssetType, ?library:Null<String> = null)
+	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
 	{
 		if (library != null)
 			return getLibraryPath(file, library);
@@ -165,7 +163,7 @@ class Paths
 		return 'assets/$file';
 	}
 
-	inline static public function file(file:String, type:OpenFlAssetType = TEXT, ?library:String)
+	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)
 	{
 		return getPath(file, type, library);
 	}
@@ -190,26 +188,13 @@ class Paths
 		return getPath('$key.lua', TEXT, library);
 	}
 
-	inline static public function exists(asset:String, ?type:LimeAssetType)
+	inline static public function exists(asset:String, ?type:lime.utils.AssetType)
 	{
 		#if sys 
 		return FileSystem.exists(asset);
 		#else
 		return Assets.exists(asset, type);
 		#end
-	}
-
-	inline static public function getContent(asset:String):Null<String> 
-	{
-		#if sys
-		if (FileSystem.exists(asset))
-			return File.getContent(asset);
-		#else
-		if (Assets.exists(asset))
-			return Assets.getText(asset);
-		#end
-
-		return null;
 	}
 
 	#if html5
@@ -333,7 +318,7 @@ class Paths
 		return 'assets/fonts/$key';
 	}
 
-	inline static public function fileExists(key:String, type:OpenFlAssetType, ?ignoreMods:Bool = false, ?library:String)
+	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
 	{
 		#if MODS_ALLOWED
 		if (FileSystem.exists(mods(currentModDirectory + '/' + key)) || FileSystem.exists(mods(key)))

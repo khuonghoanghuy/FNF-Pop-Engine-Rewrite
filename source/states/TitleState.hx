@@ -48,6 +48,10 @@ class TitleState extends MusicBeatState
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
+		#if html5
+		Paths.initPaths();
+		#end
+
 		// yessiree
 		#if MODS_ALLOWED
 		MainMenuState.havemods = true;
