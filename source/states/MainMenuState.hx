@@ -16,8 +16,6 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
 
-import core.ModCore;
-
 using StringTools;
 
 class MainMenuState extends MusicBeatState

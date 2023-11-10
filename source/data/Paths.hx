@@ -1,4 +1,4 @@
-package;
+package data;
 
 #if sys
 import sys.io.File;
@@ -135,12 +135,12 @@ class Paths
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
 				levelPath = getLibraryPathForce(file, currentLevel);
-				if (OpenFlAssets.exists(levelPath, type))
+				if (Assets.exists(levelPath, type))
 					return levelPath;
 			}
 
 			levelPath = getLibraryPathForce(file, "shared");
-			if (OpenFlAssets.exists(levelPath, type))
+			if (Assets.exists(levelPath, type))
 				return levelPath;
 		}
 
@@ -161,6 +161,11 @@ class Paths
 	inline public static function getPreloadPath(file:String = '')
 	{
 		return 'assets/$file';
+	}
+
+	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)
+	{
+		return getPath(file, type, library);
 	}
 
 	inline static public function txt(key:String, ?library:String)
