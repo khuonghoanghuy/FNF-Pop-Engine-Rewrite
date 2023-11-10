@@ -1,6 +1,6 @@
 package data;
 
-#if sys
+#if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
 #end
@@ -195,6 +195,19 @@ class Paths
 		#else
 		return Assets.exists(asset, type);
 		#end
+	}
+
+	inline static public function getContent(asset:String):Null<String> 
+	{
+		#if sys
+		if (FileSystem.exists(asset))
+			return File.getContent(asset);
+		#else
+		if (Assets.exists(asset))
+			return Assets.getText(asset);
+		#end
+
+		return null;
 	}
 
 	#if html5
