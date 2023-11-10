@@ -205,10 +205,7 @@ class MainMenuState extends MusicBeatState
 		}
 
 		if (FlxG.keys.justPressed.M) {
-			if (ModCore.trackedMods != [])
-				FlxG.switchState(new states.ModsState());
-			else
-				Main.toast.create('No mods installed!', 0xFFFFFF00, 'Please add mods to be able to access this menu!');
+			FlxG.switchState(new states.ModsMenuState());
 		}
 
 		super.update(elapsed);

@@ -52,7 +52,7 @@ class Song
 	{
 		var rawJson = null;
 
-		#if (sys && FUTURE_POLYMOD)
+		#if (sys && MODS_ALLOWED)
 		if (FileSystem.exists(Paths.modsJson(folder.toLowerCase() + '/' + jsonInput.toLowerCase())))
 			rawJson = File.getContent(Paths.modsJson(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
 		else

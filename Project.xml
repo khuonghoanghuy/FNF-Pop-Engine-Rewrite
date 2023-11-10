@@ -46,7 +46,7 @@
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
-	<define name="FUTURE_POLYMOD" if="desktop" unless="android"/>
+	<define name="MODS_ALLOWED" if="desktop" unless="android"/>
 	<define name="discord_allows" if="desktop" unless="html5 | android | neko"/>
 	<define name="crash_allowed" unless="html5 | flash"/>
 	
@@ -89,11 +89,11 @@
 	<assets path="assets/week7"    library="week7"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.mp3" unless="web"/>
 	
-	<assets path='example_mods' rename='mods' embed='false'/>
+	<assets path='example_mods' rename='mods' if="MODS_ALLOWED"/>
+	<assets path="modsList.txt" if="MODS_ALLOWED"/>
+	
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<!-- <template path='mods' /> -->
-	
-	<assets path="CHANGELOG.md" rename='changelog.txt'/>
 
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
 		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
@@ -124,9 +124,6 @@
 
 	<!-- SHADERS STUFF-->
 	<haxelib name="hxShaders"/>
-
-	<!-- MODDING STUFF-->
-	<haxelib name="polymod-joalor64"/>
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->

@@ -1,6 +1,5 @@
 package states;
 
-import core.ModCore;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -50,13 +49,7 @@ class TitleState extends MusicBeatState
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		// yessiree
-		#if FUTURE_POLYMOD
-		ModCore.reload();
-		if (ModCore.trackedMods != []) {
-			for (i in ModCore.trackedMods) {
-				Main.toast.create('Mods installed', 0xFFFFFF00, ' ${i.title}');
-			}
-		}
+		#if MODS_ALLOWED
 		MainMenuState.havemods = true;
 		#else
 		MainMenuState.havemods = false; // test thingie
