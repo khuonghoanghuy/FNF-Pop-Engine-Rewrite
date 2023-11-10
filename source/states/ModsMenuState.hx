@@ -254,9 +254,9 @@ class ModsMenuState extends states.MusicBeatState
 			var newMod:ModMetadata = new ModMetadata(values[0]);
 			mods.push(newMod);
 
-			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true, false, 0.05);
+			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true, false);
 			var scale:Float = Math.min(840 / newMod.alphabet.width, 1);
-			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true, false, 0.05, scale);
+			newMod.alphabet = new Alphabet(0, 0, mods[i].name, true, false);
 			newMod.alphabet.y = i * 150;
 			newMod.alphabet.x = 310;
 			add(newMod.alphabet);
@@ -387,7 +387,7 @@ class ModsMenuState extends states.MusicBeatState
 			noModsTxt.alpha = 1 - Math.sin((Math.PI * noModsSine) / 180);
 		}
 
-		if(canExit && FlxG.keys.justPressed.ESCAPE)
+		if(canExit && controls.BACK)
 		{
 			if(colorTween != null) {
 				colorTween.cancel();
@@ -400,13 +400,13 @@ class ModsMenuState extends states.MusicBeatState
 			}
 			else
 			{
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(new states.MainMenuState());
 			}
 		}
 
-		if(FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
+		if(controls.UP_P || controls.DOWN_P)
 		{
-			changeSelection(FlxG.keys.justPressed.UP ? -1 : 1);
+			changeSelection(contols.UP_P ? -1 : 1);
 		}
 		updatePosition(elapsed);
 		super.update(elapsed);
