@@ -61,11 +61,11 @@ class SaveData
 		}
 
 		if (FlxG.save.data.downAltArrow == null) {
-			FlxG.save.data.downAltArrow = "UP";
+			FlxG.save.data.downAltArrow = "DOWN";
 		}
 
 		if (FlxG.save.data.upAltArrow == null) {
-			FlxG.save.data.upAltArrow = "DOWN";
+			FlxG.save.data.upAltArrow = "UP";
 		}
 
 		if (FlxG.save.data.rightAltArrow == null) {

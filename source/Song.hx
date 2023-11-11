@@ -50,16 +50,7 @@ class Song
 
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
 	{
-		var rawJson = null;
-
-		#if (sys && FUTURE_POLYMOD)
-		if (FileSystem.exists(Paths.modsJson(folder.toLowerCase() + '/' + jsonInput.toLowerCase())))
-			rawJson = File.getContent(Paths.modsJson(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
-		else
-			rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
-		#else
-		rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
-		#end
+		var rawJson = Assets.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
 
 		while (!rawJson.endsWith("}")) rawJson = rawJson.substr(0, rawJson.length - 1);
 
