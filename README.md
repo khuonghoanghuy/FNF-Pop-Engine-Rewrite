@@ -3,8 +3,6 @@
 
 all of this engine is was made by me with some people help me
 
-### THIS ENGINE IS STILL UNSTABLE!!!
-
 # ![Repo Size](https://img.shields.io/github/repo-size/khuonghoanghuy/FNF-Pop-Engine-Rewrite)
 
 # TODO: `Check the TODO file`
