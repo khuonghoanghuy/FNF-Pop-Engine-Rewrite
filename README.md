@@ -19,8 +19,8 @@ Yeah, this engine will have a LUA Support, as a WIP one
 With `TimeBar/TimeText`, `Memory Counter`, `Accuracy && Ranking`
 ### Quick Options:
 Come with this, you can now edit some quick options such as `Downscroll`, `Accuracy`,...Each select and press enter, game will auto restart level to make sure that save work
-### Modding Support: (BROKEN!!, IN FIXING)
-Yes, this engine is comming with a modding core system right now (code by [Joalor64](https://github.com/Joalor64GH))
+### Modding Support: 
+Yes, this engine has a modding system now (code by [Joalor64](https://github.com/Joalor64GH))
 ### Improve `AnimationDEBUG.hx` Class
 You can now play Test your Characters without restart your songs of something, has BG now, and many more...!
 
